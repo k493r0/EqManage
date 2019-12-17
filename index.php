@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['loggedin'])) {
-    header('Location: index.php');
+    header('Location: login.php');
     exit();
 }
 echo $_SESSION['username'];
@@ -19,10 +19,21 @@ echo $_SESSION['username'];
     <!-- Main Style Css -->
     <link rel="stylesheet" href="assets/css/loaderstyle.css"/>
     <script src="assets/js/scripts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+
+    <script>
+        $(window).load(function() {
+            // Animate loader off screen
+            $(".loader").fadeOut("slow");;
+        });</script>
+
 
 
 </head>
-<body class="form-v8">
+<body class="form-v8" id="fade">
+
 <div class="loader"><div></div><div></div><div></div><div></div></div>
+
 </body>
 
