@@ -64,7 +64,7 @@
             <div>
                 <label>
                     <span class="label">Username</span>
-                    <input type="text" name="username" id="full_name" class="input-text" required>
+                    <input type="text" name="username" id="username" class="input-text" required>
                 </label>
             </div>
     
@@ -85,7 +85,7 @@
             <div>
                 <label>
                     <span class="label">Confirm Password</span>
-                    <input type="password" name="password" id="password_2" class="input-text" required>
+                    <input type="password" name="password_2" id="password_2" class="input-text" required>
                 </label>
             </div>
     
