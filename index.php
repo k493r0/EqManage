@@ -23,6 +23,6 @@ echo $_SESSION['username'];
 
 </head>
 <body class="form-v8">
-<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+<div class="loader"><div></div><div></div><div></div><div></div></div>
 </body>
 
