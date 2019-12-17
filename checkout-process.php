@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_query($db, $query);
 
-    header("Location: home.php?sent=1");
+    header("Location: index.php?sent=1");
 
     /*    $to = '***REMOVED***'; // Send email to our user
         $subject = 'Signup | Verification'; // Give the email a subject
@@ -125,6 +125,7 @@ http://localhost:81/EquipManage/verify.php?hash='.$hash.'</p>';
     } else {
         echo 'Message has been sent';
     }
+
 
 
 
