@@ -57,7 +57,7 @@ include ('serverconnect.php');
             ?>
         <div class="select-style" style="width:500px; margin: auto;" align="center">
             <form action="checkout-process.php" style="width: 100%;" align="center" method="POST">
-                <select name="Equipments" class="select-picker" >
+                <select name="equipment" class="select-picker" >
                     <option value="" disabled selected>Select the Equipment</option>
                     <?php
 
@@ -67,7 +67,7 @@ include ('serverconnect.php');
 
                         if (isset($_GET['selected']) && $_GET['selected'] == $equip_id){
                             echo "<option value='$Equipment' selected='selected'>$Equipment</option>";
-                        } else echo "<option value='$equip_id' >$Equipment</option>";
+                        } else echo "<option value='$Equipment' >$Equipment</option>";
                     }
                     ?>
                 </select>

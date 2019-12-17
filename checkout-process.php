@@ -62,9 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $requestdate = date('Y-m-d H:i:s');
 
     echo $equipment;
-    echo $notes;
-    echo $hash;
-
     $query = "INSERT INTO allrequests (User,Equipment,Notes,Hash,Action) VALUES ('$user','$equipment','$notes','$hash', 'Check-Out')";
 
     mysqli_query($db, $query);
@@ -101,9 +98,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->Password = '***REMOVED***'; // SMTP password
     $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
     $mail->Port = ***REMOVED***;                          // TCP port to connect to
+                        // TCP port to connect to
 
-    $mail->setFrom('***REMOVED***', '***REMOVED***');
-    $mail->addReplyTo('***REMOVED***', ':***REMOVED***');
+    $mail->setFrom('***REMOVED***', 'NoReply');
     $mail->addAddress('***REMOVED***');   // Add a recipient
 
     $mail->isHTML(true);  // Set email format to HTML
@@ -128,6 +125,8 @@ http://localhost:81/EquipManage/verify.php?hash='.$hash.'</p>';
     } else {
         echo 'Message has been sent';
     }
+
+
 
 
 }
