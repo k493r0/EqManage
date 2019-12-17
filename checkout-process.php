@@ -132,4 +132,3 @@ http://localhost:81/EquipManage/verify.php?hash='.$hash.'</p>';
 
 }
 
-
