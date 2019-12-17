@@ -22,83 +22,80 @@
         <button class="tablinks" onclick="openTab(event, 'Signup')">Signup</button>
     </div>
 
-    <div class="tabcontent" id="Login">
+    <form action="authentication.php" method="post">
+        <div class="tabcontent" id="Login">
 
 
-        <div>
-            <label>
-                <span class="label">Username</span>
-                <input type="text" name="username" id="username" class="input-text" required>
-            </label>
+            <div>
+                <label>
+                    <span class="label">Username</span>
+                    <input type="text" name="username" id="username" class="input-text" required>
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    <span class="label">Password</span>
+                    <input type="password" name="password" id="password" class="input-text" required>
+                </label>
+            </div>
+
+            <div>
+                <input type="submit" name="login" class="login" value="Login">
+            </div>
+
+
+        </div>
+    </form>
+
+
+    
+    <form action="signup.php" method="post">
+        <div class="tabcontent" id="Signup">
+    
+    
+            <div>
+                <label>
+                    <span class="label">Full Name</span>
+                    <input type="text" name="fullname" id="full_name" class="input-text" required>
+                </label>
+            </div>
+    
+            <div>
+                <label>
+                    <span class="label">Username</span>
+                    <input type="text" name="username" id="full_name" class="input-text" required>
+                </label>
+            </div>
+    
+            <div>
+                <label>
+                    <span class="label">Email</span>
+                    <input type="text" name="email" id="email" class="input-text" required>
+                </label>
+            </div>
+    
+            <div>
+                <label>
+                    <span class="label">Password</span>
+                    <input type="password" name="password_1" id="password_1" class="input-text" required>
+                </label>
+            </div>
+    
+            <div>
+                <label>
+                    <span class="label">Confirm Password</span>
+                    <input type="password" name="password" id="password_2" class="input-text" required>
+                </label>
+            </div>
+    
+            <div>
+                <input type="submit" name="reg_user" class="register" value="Register">
+            </div>
+    
         </div>
 
-        <div>
-            <label>
-                <span class="label">Email</span>
-                <input type="text" name="email" id="full_name" class="input-text" required>
-            </label>
-        </div>
-
-        <div>
-            <label>
-                <span class="label">Password</span>
-                <input type="password" name="password_1" id="full_name" class="input-text" required>
-            </label>
-        </div>
-
-        <div>
-            <input type="submit" name="login" class="login" value="Register">
-        </div>
-
-
-    </div>
-
-
-    <div class="tabcontent" id="Signup">
-
-
-        <div>
-            <label>
-                <span class="label">Full Name</span>
-                <input type="text" name="fullname" id="full_name" class="input-text" required>
-            </label>
-        </div>
-
-        <div>
-            <label>
-                <span class="label">Username</span>
-                <input type="text" name="username" id="full_name" class="input-text" required>
-            </label>
-        </div>
-
-        <div>
-            <label>
-                <span class="label">Email</span>
-                <input type="text" name="email" id="email" class="input-text" required>
-            </label>
-        </div>
-
-        <div>
-            <label>
-                <span class="label">Password</span>
-                <input type="password" name="password_1" id="password_1" class="input-text" required>
-            </label>
-        </div>
-
-        <div>
-            <label>
-                <span class="label">Confirm Password</span>
-                <input type="password" name="password" id="password_2" class="input-text" required>
-            </label>
-        </div>
-
-        <div>
-            <input type="submit" name="reg_user" class="register" value="Register">
-        </div>
-
-
-
-    </div>
+    </form>
 </div>
 
 
