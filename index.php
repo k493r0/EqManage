@@ -39,60 +39,61 @@ include ('serverconnect.php');
 
 </head>
 <body class="form-v8 loggedin" id="fade">
-<?php include('navbar.php'); ?>
+
 <div id="loader">
 <div class="loader"><div></div><div></div><div></div><div></div></div>
 </div>
-    <div class="content">
-        <h2>Equipment Status</h2>
+
+<?php include('navbar.php'); ?>
+
+<div class="content">
+    <h2>Equipment Status</h2>
 
 
 
-        <?php $results = mysqli_query($db, "SELECT * FROM equipments"); ?>
-        <table align="center" cellpadding="10px" cellspacing="6px" width="100%" border="2px"  id="table" style="border-collapse: collapse;margin-top: 10px;border-color: black">
-            <thead>
-            <tr>
-                <th style="padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #2f9395;
-  color: white;">Equipment</th>
-                <th style="padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #2f9395;
-  color: white;">Availability</th>
+    <?php $results = mysqli_query($db, "SELECT * FROM equipments"); ?>
+    <table align="center" cellpadding="10px" cellspacing="6px" width="100%" border="2px"  id="table" style="border-collapse: collapse;margin-top: 10px;border-color: black">
+        <thead>
+        <tr>
+            <th style="padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #2f9395;
+                color: white;"
+            >
+                Equipment
+            </th>
+            <th style="padding-top: 12px;
+padding-bottom: 12px;
+text-align: left;
+background-color: #2f9395;
+color: white;">Availability</th>
+        </tr>
+        </thead>
+
+        <?php while ($row = mysqli_fetch_array($results)) { ?>
+            <tr style="background-color: #f2f2f2 ">
+                <td style=" border: 1px solid black;
+padding: 15px;"><?php echo $row['Equipment']; ?></td>
+                <td style=" border: 1px solid black;
+padding: 15px;">
+                    <?php
+
+                    if ($row['Availability'] == 1) {
+                        echo '<dt style="color:red";">
+                                Available </dt>';
+                    } elseif ($row['Availability'] == 0){
+                        echo "Not Available";
+                    } else echo "Error";
+
+
+                    ?>
+                </td>
             </tr>
-            </thead>
-
-            <?php while ($row = mysqli_fetch_array($results)) { ?>
-                <tr style="background-color: #f2f2f2 ">
-                    <td style=" border: 1px solid black;
-  padding: 15px;"><?php echo $row['Equipment']; ?></td>
-                    <td style=" border: 1px solid black;
-  padding: 15px;">
-                        <?php
-
-                        if ($row['Availability'] == 1) {
-                            echo '<dt style="color:red";">
-      Available </dt>';
-                        } elseif ($row['Availability'] == 0){
-                            echo "Not Available";
-                        } else echo "Error";
+        <?php } ?>
+    </table>
+</div>
 
 
-                        ?>
-                    </td>
-                </tr>
-            <?php } ?>
-        </table>
-
-
-
-
-    </div>
-
-
-    </div>
 </body>
 
