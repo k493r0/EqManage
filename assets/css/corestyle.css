@@ -195,6 +195,8 @@ body.loggedin {
     background-image: none;
 }
 
+
+
 .select-style select:focus {
 }
 
@@ -208,3 +210,54 @@ table td{
     text-align: center;
     padding: 10px 0;
 }
+
+/*Style for checkout*/
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #2f9395;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+
+input[type=submit]:hover {
+    background-color: #287e80;
+}
+
+div[class=content] {
+    border-radius: 5px;
+    padding: 20px;
+}
+div[class=select-style] {
+    border-radius: 5px;
+    padding: 20px;
+}
+
+form {
+    margin: 0 auto;
+    width:250px;
+}
+

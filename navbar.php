@@ -17,7 +17,7 @@
                         </div>
                     </li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php" style="color: salmon;">Logout</a></li>
-                </ul><span class="navbar-text actions"> <a href="check-in.php" class="login">Return</a><a class="btn btn-light action-button" role="button" href="check-out.php">Check Out</a></span></div>
+                </ul><span class="navbar-text actions"> <a href="checkin.php" class="login">Return</a><a class="btn btn-light action-button" role="button" href="checkout.php">Check Out</a></span></div>
         </div>
     </nav>
 </div>
