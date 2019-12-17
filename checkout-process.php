@@ -62,9 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $requestdate = date('Y-m-d H:i:s');
 
     echo $equipment;
-    echo $notes;
-    echo $hash;
-
     $query = "INSERT INTO allrequests (User,Equipment,Notes,Hash,Action) VALUES ('$user','$equipment','$notes','$hash', 'Check-Out')";
 
     mysqli_query($db, $query);
@@ -95,15 +92,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail = new PHPMailer;
 
     $mail->isSMTP();                            // Set mailer to use SMTP
-    $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
+    $mail->Host = 'smtp-relay.sendinblue.com';             // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                     // Enable SMTP authentication
-    $mail->Username = 'l.lawliet.31415@gmail.com';          // SMTP username
-    $mail->Password = 'lovejapanesetaikoanddoraemon'; // SMTP password
+    $mail->Username = 'eizaemon_the_third@yahoo.co.uk';          // SMTP username
+    $mail->Password = 'Ya8rKpZnS7hGzCRB'; // SMTP password
     $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                          // TCP port to connect to
+                        // TCP port to connect to
 
-    $mail->setFrom('l.lawliet.31415@gmail.com', 'L.lawliet');
-    $mail->addReplyTo('l.lawliet.31415@gmail.com', ':L.lawliet');
+    $mail->setFrom('eizaemon_the_third@yahoo.co.uk', 'NoReply');
     $mail->addAddress('l.lawliet.31415@gmail.com');   // Add a recipient
 
     $mail->isHTML(true);  // Set email format to HTML
@@ -128,6 +125,8 @@ http://localhost:81/EquipManage/verify.php?hash='.$hash.'</p>';
     } else {
         echo 'Message has been sent';
     }
+
+
 
 
 }
