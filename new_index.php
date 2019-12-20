@@ -46,13 +46,44 @@ include ('serverconnect.php');
 
 <?php include('navbar.php'); ?>
 
+<div class="content">
+    <?php if (isset($_GET['sent']) && $_GET['sent'] == 1){
+        echo '<h2>Message</h2><p style="color: red" >Your request is sent</p>';
+    } ?>
+    <?php if (isset($_GET['check-out']) && $_GET['check-out'] == 1){
+        echo '<h2>Message</h2><p style="color: red" >Successfully Checked Out</p>';
+    } ?>
+    <?php if (isset($_GET['return']) && $_GET['return'] == 1){
+        echo '<h2>Message</h2><p style="color: red" >Successfully Returned</p>';
+    } ?>
+    <?php if (isset($_GET['return']) && $_GET['return'] == 0){
+        echo '<h2>Message</h2><p style="color: red" >Error occurred, please login with the user you borrowed the equipment with</p>';
+    } ?>
+    <?php if (isset($_GET['adminonly']) && $_GET['adminonly'] == 1){
+        echo '<h2>Message</h2><p style="color: red" >This page is only accessible by site admin</p>';
+    } ?>
+
+</div>
+
+
 <div class="features-boxed" style="height: 787px;">
     <div class="container">
         <div class="intro">
             <h2 class="text-center">Availability Status</h2>
             <p class="text-center">In this page, you can check whether the equipment is available or not</p>
             <input id="input" type="text" placeholder="Search.." style="padding-top: 10px;margin-top: 50px">
+
+
         </div>
+
+
+
+
+
+
+
+
+
         <div class="row justify-content-center features" id="box">
             <!--<div class="col-sm-6 col-md-5 col-lg-4 item">
                 <div class="box">
