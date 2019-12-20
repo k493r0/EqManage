@@ -114,7 +114,7 @@ Notes: ' . $notes . '<br>
 ----------------------------------------------------------
 <br>
 Please click this link to approve this check out:
-http://localhost:81/EquipManage/verify.php?hash='.$hash.'</p>';
+http://localhost/EqManage/verify.php?hash='.$hash.'</p>';
 
     $mail->Subject = 'Equipment Approval';
     $mail->Body = $bodyContent;
