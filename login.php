@@ -91,6 +91,10 @@
                         <?php if ( isset($_GET['username']) && $_GET['username'] == 0){
                             echo "     Wrong Username";
                         } ?>
+                        <?php if ( isset($_GET['logout']) && $_GET['logout'] == 1 )
+                        {
+                            echo "      Successfully logged out";
+                        } ?>
                     </div>
                 </div>
             </form>
