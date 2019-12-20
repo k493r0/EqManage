@@ -200,16 +200,6 @@ body.loggedin {
 .select-style select:focus {
 }
 
-table{
-    width: 100%;
-    border-spacing: 0;
-}
-
-table td{
-    border-bottom: black;
-    text-align: center;
-    padding: 10px 0;
-}
 
 /*Style for checkout*/
 
@@ -334,6 +324,10 @@ form {
 
 body {
 }
+
+
+
+
 
 
 
