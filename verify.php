@@ -33,4 +33,4 @@ if(!isset($_SESSION['loggedin'])){
         mysqli_query($db,$intoequipments_query);
 
 
-//        header('Location: index.php?check-out=1');
+        header('Location: new_index.php?check-out=1');
