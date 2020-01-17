@@ -44,9 +44,6 @@ require 'assets/src/Exception.php';
 require 'assets/src/PHPMailer.php';
 require 'assets/src/SMTP.php';
 
-$db = mysqli_connect('remotemysql.com', 'tgsK9nTZNV', 'UFJLMZcF2L', 'tgsK9nTZNV');
-
-
 $user = "";
 $equipment = "";
 $notes = "";
@@ -62,11 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $requestdate = date('Y-m-d H:i:s');
 
     echo $equipment;
-    $query = "INSERT INTO allrequests (User,Equipment,Notes,Hash,Action) VALUES ('$user','$equipment','$notes','$hash', 'Check-Out')";
+    $query = "INSERT INTO allrequests (User,Equipment,Notes,Hash,Action) VALUES ('$user','$equipment','$notes','$hash', 'Check-Out'); SELECT LAST_INSERT_ID();";
 
     mysqli_query($db, $query);
 
-    header("Location: index.php?sent=1");
+
+
+//    header("Location: index.php?sent=1");
 
     /*    $to = '***REMOVED***'; // Send email to our user
         $subject = 'Signup | Verification'; // Give the email a subject
