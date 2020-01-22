@@ -8,8 +8,7 @@ $email    = "";
 $errors = array();
 
 // connect to the database
-$db = mysqli_connect('bowij1jp1qu5kwy79igt-mysql.services.clever-cloud.com', 'u9tgb8b4hu8gxlsy', 'tViTNqqvk2MwXcFx2Gj5', 'bowij1jp1qu5kwy79igt');
-
+include('serverconnect.php');
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
     // receive all input values from the form

@@ -6,12 +6,7 @@ session_start();
 //$DBNAME = 'tgsK9nTZNV';
 //// Try and connect using the info above.
 //$con = mysqli_connect($HOST, $USER, $PASSWORD, $DBNAME);
-include('serverconnect.php')
-
-if ( mysqli_connect_errno() ) {
-    // If there is an error with the connection, stop the script and display the error.
-    die ('Failed to connect to MySQL: ' . mysqli_connect_error());
-}
+include('serverconnect.php');
 
 if ( !isset($_POST['username'], $_POST['password']) ) {
     // Could not get the data that should have been sent.

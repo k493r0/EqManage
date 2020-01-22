@@ -26,7 +26,8 @@ include('header.php')
         <p>
 
             <!-- Trigger/Open The Modal -->
-            <button id="Btn">Open Modal</button>
+            <div id="wrapper"><button id="Btn" class="btn">Add Equipment</button></div>
+
 
             <!-- The Modal -->
             <div id="Modal" class="modal">
@@ -34,7 +35,39 @@ include('header.php')
                 <!-- Modal content -->
                 <div class="modal-content">
                     <span class="close">&times;</span>
+                    <?php
 
+                    $resultset = mysqli_query($db, "select * from aJNhE8Tihv.categories");
+                    ?>
+                    <div class="select-style" style="width:500px; margin: auto;" align="center">
+                        <form action="addEq.php" style="width: 100%;" align="center" method="POST">
+                            <input type="text" name="name" placeholder="Equipment Name"/>
+                            Quantity: <input type="number" min="1" max="100" name="quantity"/>
+                            <select name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
+
+
+                                <option value="" disabled selected>Select the category</option>
+                                <?php
+
+                                while ($row = mysqli_fetch_array($resultset)){
+                                    $category = $row['categoryName'];
+                                    $category_id = $row['id'];
+
+                                    if (isset($_GET['selected']) && $_GET['selected'] == $equip_id){
+                                        echo "<option value='$category_id' selected='selected'>$category</option>";
+                                    } else echo "<option value='$category_id' >$category</option>";
+                                }
+                                ?>
+                                <option value="Other">Other...</option>
+                                <input type="text" name="other" id="other" style='display:none;' placeholder="New category name"/>
+
+                            </select>
+<!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
+<!--  border-radius: 4px; margin-top: 10px"></textarea>-->
+
+                            <input name="request" type="submit" value="Add Equipment" style="width: 100%;">
+                        </form>
+                    </div>
 
                 </div>
 
@@ -123,4 +156,11 @@ include('header.php')
         }
     }
 
+    function selectOther(val){
+        var element=document.getElementById('other');
+        if(val=='Select the Category'||val=='Other')
+            element.style.display='block';
+        else
+            element.style.display='none';
+    }
 </script>
