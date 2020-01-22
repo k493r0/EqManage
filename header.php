@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="assets/css/corestyle.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <script src="assets/js/scripts.js"></script>
+    <link rel="stylesheet" href="assets/css/tablestyle.css">
+    <link rel="stylesheet" href="assets/css/modalstyle.css">
+    <script src="assets/js/scripts.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
     <script src="assets/js/jquery.min.js"></script>
