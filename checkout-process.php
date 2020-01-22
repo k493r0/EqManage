@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $requestdate = date('Y-m-d H:i:s');
 
     echo $equipment;
-    $query = "INSERT INTO allrequests (User,Equipment,Notes,Hash,Action) VALUES ('$user','$equipment','$notes','$hash', 'Check-Out'); SELECT LAST_INSERT_ID();";
+    $query = "INSERT INTO allrequests (User,Equipment,Notes,Hash,Action) VALUES ('$user','$equipment','$notes','$hash', 'Check-Out')";
 
     mysqli_query($db, $query);
 

@@ -9,8 +9,6 @@ if(!isset($_SESSION['loggedin'])){
         $string2 = str_replace("hash=","",$string1);
         echo $string2;
 
-        $db = mysqli_connect('remotemysql.com', 'tgsK9nTZNV', 'UFJLMZcF2L', 'tgsK9nTZNV');
-
         $query = "UPDATE allrequests SET Active='1' WHERE Hash='$string2'";
         mysqli_query($db,$query);
 
