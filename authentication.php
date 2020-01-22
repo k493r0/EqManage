@@ -1,11 +1,13 @@
 <?php
 session_start();
-$HOST = 'remotemysql.com';
-$USER = 'tgsK9nTZNV';
-$PASSWORD = 'UFJLMZcF2L';
-$DBNAME = 'tgsK9nTZNV';
-// Try and connect using the info above.
-$con = mysqli_connect($HOST, $USER, $PASSWORD, $DBNAME);
+//$HOST = 'remotemysql.com';
+//$USER = 'tgsK9nTZNV';
+//$PASSWORD = 'UFJLMZcF2L';
+//$DBNAME = 'tgsK9nTZNV';
+//// Try and connect using the info above.
+//$con = mysqli_connect($HOST, $USER, $PASSWORD, $DBNAME);
+include('serverconnect.php')
+
 if ( mysqli_connect_errno() ) {
     // If there is an error with the connection, stop the script and display the error.
     die ('Failed to connect to MySQL: ' . mysqli_connect_error());
@@ -15,7 +17,7 @@ if ( !isset($_POST['username'], $_POST['password']) ) {
     // Could not get the data that should have been sent.
     die ('Please fill both the username and password field!');
 }
-if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
+if ($stmt = $db->prepare('SELECT id, password FROM users WHERE username = ?')) {
     // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
     $stmt->bind_param('s', $_POST['username']);
     $stmt->execute();
@@ -38,7 +40,7 @@ if ($stmt->num_rows > 0) {
         $fullusername = $_POST['username'];
         echo $fullusername;
 
-        $lastlog = mysqli_query($con,"select * from accounts where username ='$fullusername'");
+        $lastlog = mysqli_query($db,"select * from users where username ='$fullusername'");
 
         $row = mysqli_fetch_array($lastlog);
 
