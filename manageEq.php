@@ -24,11 +24,10 @@ include('serverconnect.php');
 
 
 <div class="content">
+    <div id="alert" >Equipment Added</div>
 
     <div>
         <h2>Manage Equipment</h2>
-
-
 
         <p>
 
@@ -47,7 +46,6 @@ include('serverconnect.php');
                     $resultset = mysqli_query($db, "select * from EqManage.categories");
                     ?>
                     <div class="select-style" style="width:500px; margin: auto;" align="center">
-                        <form action="#" style="width: 100%;" align="center" method="POST">
                             <input type="text" name="name" placeholder="Equipment Name" id="name" required/>
                             Quantity: <input type="number" min="1" max="100" name="quantity" id="qty"/>
                             <select id="cat" name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
@@ -75,7 +73,6 @@ include('serverconnect.php');
 <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
 
                             <input id="add" name="request" type="submit" value="Add Equipment" style="width: 100%;">
-                        </form>
                     </div>
 
                 </div>
@@ -198,6 +195,8 @@ include('serverconnect.php');
 
 <script>
     // Get the modal
+    var alert = document.getElementById("alert");
+    alert.style.display = "none";
     var modal = document.getElementById("Modal");
 
     // Get the button that opens the modal
@@ -234,10 +233,11 @@ include('serverconnect.php');
 
     $(document).ready(function(){
         $("#add").click(function (){
-            var name = $("name").val;
-            var qty = $("qty").val;
-            var cat = $("cat").val;
-            var ncat = $("other").val;
+            var name = document.getElementById("name").value;
+            var qty = document.getElementById("qty").value;
+            var e = document.getElementById("cat");
+            var cat = e.options[e.selectedIndex].value;
+            var ncat = document.getElementById("other").value;
             $.ajax({
                 url: "addEq.php",
                 type: "POST",
@@ -251,7 +251,15 @@ include('serverconnect.php');
 
                 },
                 success: function(data){
-
+                    modal.style.display = "none";
+                    document.getElementById("name").value = "";
+                    document.getElementById("qty").value = "";
+                    document.getElementById("cat").value = "";
+                    document.getElementById("other").value ="";
+                    var element=document.getElementById('other');
+                    element.style.display='none';
+                    var alert = document.getElementById("alert");
+                    alert.style.display = "block";
                 }
 
             });
