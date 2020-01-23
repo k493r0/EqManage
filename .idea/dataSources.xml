@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="tfuawjtd_exsysdatabase@exsys.tech" uuid="17cc07a7-cf23-472d-9f23-075d6843f056">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://exsys.tech:3306/tfuawjtd_exsysdatabase</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="test_users@localhost" uuid="ebb0944a-4ee2-4385-ba27-260e98f38fc8">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/test_users</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Clever" uuid="4b54ba3b-dc02-456f-983b-2229b17e7ab3">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://bowij1jp1qu5kwy79igt-mysql.services.clever-cloud.com:3306/bowij1jp1qu5kwy79igt</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="aJNhE8Tihv@remotemysql.com" uuid="b4883726-a410-4eed-9728-12aa30510b55">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://remotemysql.com:3306/aJNhE8Tihv</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="EqManage@localhost" uuid="8e652e9f-79f8-469a-9a94-2b936cb73eaf">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/EqManage</jdbc-url>
+    </data-source>
+  </component>
+</project>

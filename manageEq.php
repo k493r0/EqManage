@@ -17,9 +17,14 @@ include('header.php')
     <div class="loader"><div></div><div></div><div></div><div></div></div>
 </div>
 
-<?php include('navbar.php'); ?>
+<?php
+include('navbar.php');
+include('serverconnect.php');
+?>
+
 
 <div class="content">
+
     <div>
         <h2>Manage Equipment</h2>
 
@@ -37,11 +42,11 @@ include('header.php')
                     <span class="close">&times;</span>
                     <?php
 
-                    $resultset = mysqli_query($db, "select * from aJNhE8Tihv.categories");
+                    $resultset = mysqli_query($db, "select * from EqManage.categories");
                     ?>
                     <div class="select-style" style="width:500px; margin: auto;" align="center">
                         <form action="addEq.php" style="width: 100%;" align="center" method="POST">
-                            <input type="text" name="name" placeholder="Equipment Name"/>
+                            <input type="text" name="name" placeholder="Equipment Name" required/>
                             Quantity: <input type="number" min="1" max="100" name="quantity"/>
                             <select name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
 
@@ -50,12 +55,14 @@ include('header.php')
                                 <?php
 
                                 while ($row = mysqli_fetch_array($resultset)){
+
                                     $category = $row['categoryName'];
                                     $category_id = $row['id'];
+                                    echo $row[$category_id];
 
-                                    if (isset($_GET['selected']) && $_GET['selected'] == $equip_id){
-                                        echo "<option value='$category_id' selected='selected'>$category</option>";
-                                    } else echo "<option value='$category_id' >$category</option>";
+                                    if (isset($_GET['selected']) && $_GET['selected'] == $category_id){
+                                        echo "<option name='category_id' value='$category_id' selected='selected'>$category</option>";
+                                    } else echo "<option name='category_id' value='$category_id' >$category</option>";
                                 }
                                 ?>
                                 <option value="Other">Other...</option>
@@ -72,6 +79,73 @@ include('header.php')
                 </div>
 
 </div>
+
+
+
+
+
+        <?php $results = mysqli_query($db, "SELECT * FROM EqManage.equipment"); ?>
+
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Category ID</th>
+                <th scope="col">Total Qty</th>
+                <th scope="col">Left Qty</th>
+                <th scope="col">Availability</th>
+                <th scope="col">Last used user ID</th>
+                <th scope="col">Last log ID</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <?php while ($row = mysqli_fetch_array($results)) {
+
+                $cat = $row['category']
+                ?>
+                <tr>
+                    <td><?php echo $row['equipment']; ?></td>
+                    <td><?php echo "<a href='#' id=\"tooltipdemo\">$cat</a>";?></td>
+                    <td>
+                        <?php
+
+                        if ($row['category'] == 1) {
+                            echo '<dt style="color:red";">
+                                Available </dt>';
+                        } elseif ($row['Availability'] == 0){
+                            echo "Not Available";
+                        } else echo "Error";
+
+                        ?>
+                    </td>
+
+                </tr>
+            <?php } ?>
+
+
+
+            </tbody>
+        </table>
+
+        <style>
+            a#tooltipdemo {
+                position: relative ;
+            }
+            a#tooltipdemo:hover::after {
+                content: "" ;
+                position: absolute ;
+                top: 1.1em ;
+                left: 1em ;
+                min-width: 200px ;
+                border: 1px #808080 solid ;
+                padding: 8px ;
+                color: black ;
+                background-color: #cfc ;
+                z-index: 1 ;
+            }
+        </style>
+
 
 
         <table>

@@ -24,7 +24,7 @@ include('header.php');
 
 
 
-    <?php $results = mysqli_query($db, "SELECT * FROM equipments"); ?>
+    <?php $results = mysqli_query($db, "SELECT * FROM equipment"); ?>
     <table align="center" cellpadding="10px" cellspacing="6px" width="100%" border="2px"  id="table" style="border-collapse: collapse;margin-top: 10px;border-color: black">
         <thead>
         <tr>
@@ -47,7 +47,7 @@ color: white;">Availability</th>
         <?php while ($row = mysqli_fetch_array($results)) { ?>
             <tr style="background-color: #f2f2f2 ">
                 <td style=" border: 1px solid black;
-padding: 15px;"><?php echo $row['Equipment']; ?></td>
+padding: 15px;"><?php echo $row['equipment']; ?></td>
                 <td style=" border: 1px solid black;
 padding: 15px;">
                     <?php
