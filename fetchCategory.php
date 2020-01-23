@@ -2,7 +2,7 @@
 
 include ("serverconnect.php");
 
-$categoryid = $_POST['category_id'];
+$categoryid = $_POST['categoryID'];
 
 $query = "SELECT * FROM EqManage.categories WHERE id=".$categoryid;
 

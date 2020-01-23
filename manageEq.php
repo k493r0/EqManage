@@ -28,6 +28,8 @@ include('serverconnect.php');
     <div>
         <h2>Manage Equipment</h2>
 
+
+
         <p>
 
             <!-- Trigger/Open The Modal -->
@@ -45,10 +47,10 @@ include('serverconnect.php');
                     $resultset = mysqli_query($db, "select * from EqManage.categories");
                     ?>
                     <div class="select-style" style="width:500px; margin: auto;" align="center">
-                        <form action="addEq.php" style="width: 100%;" align="center" method="POST">
-                            <input type="text" name="name" placeholder="Equipment Name" required/>
-                            Quantity: <input type="number" min="1" max="100" name="quantity"/>
-                            <select name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
+                        <form action="#" style="width: 100%;" align="center" method="POST">
+                            <input type="text" name="name" placeholder="Equipment Name" id="name" required/>
+                            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty"/>
+                            <select id="cat" name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
 
 
                                 <option value="" disabled selected>Select the category</option>
@@ -72,7 +74,7 @@ include('serverconnect.php');
 <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
 <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
 
-                            <input name="request" type="submit" value="Add Equipment" style="width: 100%;">
+                            <input id="add" name="request" type="submit" value="Add Equipment" style="width: 100%;">
                         </form>
                     </div>
 
@@ -84,9 +86,9 @@ include('serverconnect.php');
 
 
 
-        <?php $results = mysqli_query($db, "SELECT * FROM EqManage.equipment"); ?>
+        <?php $results = mysqli_query($db, "SELECT * FROM EqManage.equipment inner join EqManage.categories on equipment.category = categories.id"); ?>
 
-        <table>
+        <table width="100%" id="table">
             <thead>
             <tr>
                 <th scope="col">Item</th>
@@ -102,23 +104,29 @@ include('serverconnect.php');
 
             <?php while ($row = mysqli_fetch_array($results)) {
 
-                $cat = $row['category']
+                $catName = $row['categoryName'];
+                $tqty = $row['totalQuantity'];
+
                 ?>
                 <tr>
                     <td><?php echo $row['equipment']; ?></td>
-                    <td><?php echo "<a href='#' id=\"tooltipdemo\">$cat</a>";?></td>
+                    <td><?php echo "<a href='#'>$catName</a>";?></td>
+                    <td><?php echo $row['totalQuantity']; ?></td>
+                    <td><?php echo $row['leftQuantity']; ?></td>
                     <td>
                         <?php
 
-                        if ($row['category'] == 1) {
-                            echo '<dt style="color:red";">
-                                Available </dt>';
-                        } elseif ($row['Availability'] == 0){
+                        if ($row['leftQuantity'] >= 1) {
+                            echo "Available";
+                        } elseif ($row['leftQuantity'] <= 0){
                             echo "Not Available";
                         } else echo "Error";
 
                         ?>
                     </td>
+                    <td><?php echo $row['users_id']; ?></td>
+                    <td><?php echo $row['lastLog_id']; ?></td>
+
 
                 </tr>
             <?php } ?>
@@ -128,60 +136,45 @@ include('serverconnect.php');
             </tbody>
         </table>
 
-        <style>
-            a#tooltipdemo {
-                position: relative ;
-            }
-            a#tooltipdemo:hover::after {
-                content: "" ;
-                position: absolute ;
-                top: 1.1em ;
-                left: 1em ;
-                min-width: 200px ;
-                border: 1px #808080 solid ;
-                padding: 8px ;
-                color: black ;
-                background-color: #cfc ;
-                z-index: 1 ;
-            }
-        </style>
 
+        <?php
+        include ('fetchEquipment.php');
+        ?>
 
-
-        <table>
-            <thead>
-            <tr>
-                <th scope="col" colspan="2">Item</th>
-                <th scope="col">Qty</th>
-                <th scope="col">Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Don&#8217;t Make Me Think by Steve Krug</td>
-                <td>In Stock</td>
-                <td>1</td>
-                <td>$30.02</td>
-            </tr>
-            <tr>
-                <td>A Project Guide to UX Design by Russ Unger &#38; Carolyn Chandler</td>
-                <td>In Stock</td>
-                <td>2</td>
-                <td>$52.94 ($26.47 &#215; 2)</td>
-            </tr>
-            <tr>
-                <td>Introducing HTML5 by Bruce Lawson &#38; Remy Sharp</td>
-                <td>Out of Stock</td>
-                <td>1</td>
-                <td>$22.23</td>
-            </tr>
-            <tr>
-                <td>Bulletproof Web Design by Dan Cederholm</td>
-                <td>In Stock</td>
-                <td>1</td>
-                <td>$30.17</td>
-            </tr>
-            </tbody>
+<!--        <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col" colspan="2">Item</th>-->
+<!--                <th scope="col">Qty</th>-->
+<!--                <th scope="col">Price</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td>Don&#8217;t Make Me Think by Steve Krug</td>-->
+<!--                <td>In Stock</td>-->
+<!--                <td>1</td>-->
+<!--                <td>$30.02</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>A Project Guide to UX Design by Russ Unger &#38; Carolyn Chandler</td>-->
+<!--                <td>In Stock</td>-->
+<!--                <td>2</td>-->
+<!--                <td>$52.94 ($26.47 &#215; 2)</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Introducing HTML5 by Bruce Lawson &#38; Remy Sharp</td>-->
+<!--                <td>Out of Stock</td>-->
+<!--                <td>1</td>-->
+<!--                <td>$22.23</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Bulletproof Web Design by Dan Cederholm</td>-->
+<!--                <td>In Stock</td>-->
+<!--                <td>1</td>-->
+<!--                <td>$30.17</td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
 <!--            <tfoot>-->
 <!--            <tr>-->
 <!--                <td colspan="3">Subtotal</td>-->
@@ -237,4 +230,33 @@ include('serverconnect.php');
         else
             element.style.display='none';
     }
+
+
+    $(document).ready(function(){
+        $("#add").click(function (){
+            var name = $("name").val;
+            var qty = $("qty").val;
+            var cat = $("cat").val;
+            var ncat = $("other").val;
+            $.ajax({
+                url: "addEq.php",
+                type: "POST",
+                async: false,
+                data:{
+                    "name":name,
+                    "quantity":qty,
+                    "category_id":cat,
+                    "other":ncat
+
+
+                },
+                success: function(data){
+
+                }
+
+            });
+        });
+    })
+
+
 </script>
