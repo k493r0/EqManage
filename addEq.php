@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         $query = "insert into EqManage.equipment (equipment,category) values ('$name','')";
-
+        exit;
     }
 //
 //
