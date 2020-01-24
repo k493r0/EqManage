@@ -38,22 +38,27 @@ if(!isset($_SESSION['loggedin'])){
 
 if (mysqli_query($db, $log_query)) {
     $last_id = mysqli_insert_id($db);
-    echo "New record created successfully. Last inserted ID is: " . $last_id;
+    echo "Log updated. Last inserted ID is: " . $last_id;
 } else {
     echo "Error: " . $log_query . "<br>" . mysqli_error($db);
 }
 
 //        mysqli_query($db,$log_query);
+echo "equipment id:",$equipment_id;
 $checkQty = "Select * from EqManage.equipment where id = '$equipment_id'";
-mysqli_query($db,$checkQty);
-$checkQtyArray = mysqli_fetch_assoc($result);
+$result2 = mysqli_query($db,$checkQty);
+$checkQtyArray = mysqli_fetch_assoc($result2);
+
 $leftQty = $checkQtyArray['leftQuantity'];
+echo "left qty: ", $leftQty, "------";
+echo $minusQty;
 $newleftQty = $leftQty - $minusQty;
+echo $newleftQty;
+if ($newleftQty<=0){
+    $updateEq_query = "UPDATE EqManage.equipment SET availability=0,users_id='$users_id',lastLog_id='$last_id',leftQuantity='$newleftQty' WHERE id='$equipment_id'";
 
+} else $updateEq_query = "UPDATE EqManage.equipment SET users_id='$users_id',lastLog_id='$last_id',leftQuantity='$newleftQty' WHERE id='$equipment_id'";
 
-
-
-$updateEq_query = "UPDATE EqManage.equipment SET availability=0,users_id='$users_id',lastLog_id='$last_id',leftQuantity='$newleftQty' WHERE id='$equipment_id'";
 
         mysqli_query($db,$updateEq_query);
 
