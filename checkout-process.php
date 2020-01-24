@@ -63,6 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo $returntime;
     $combinedDT = date('Y-m-d H:i:s', strtotime("$returndate $returntime"));
     echo $combinedDT;
+    $checkoutQty = $_POST['quantity'];
+    echo "Quantity: ", $checkoutQty;
 
 
     $eqname = "";
@@ -97,7 +99,7 @@ echo $eqname;
     echo $user_id;
     echo $equipment_id;
 
-    $query = "INSERT INTO EqManage.requests (users_id,equipment_id,note,hash,action,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$notes','$hash','checkout','waiting','$requestdate','$combinedDT')";
+    $query = "INSERT INTO requests (users_id,equipment_id,note,checkoutQty,hash,action,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$notes','$checkoutQty','$hash','checkout','waiting','$requestdate','$combinedDT')";
 
     mysqli_query($db, $query);
 
