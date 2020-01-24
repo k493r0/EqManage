@@ -48,7 +48,7 @@ include('header.php');
 <!--                </select>-->
 
                 <?php
-                $sql="SELECT C.categoryName, E.id, E.equipment
+                $sql="SELECT C.categoryName, E.id, E.equipment, E.leftQuantity
       FROM EqManage.categories C
       LEFT JOIN EqManage.equipment E ON C.id=E.category
       GROUP BY C.id,E.id
@@ -66,7 +66,7 @@ include('header.php');
                             if($row["id"]==null){
                                 $select.="<option disabled>No Available Equipment From This Category</option>";
                             }else{
-                                $select.="<option value=\"{$row["id"]}\">{$row["equipment"]}</option>";
+                                $select.="<option value=\"{$row["id"]}\">{$row["equipment"]} | {$row['leftQuantity']} Left</option>";
                             }
                         }
                         $select.="</optgroup></select>";
@@ -120,7 +120,7 @@ include('header.php');
 
 
 
-                Date of Return: <input id="datefield" name="date" type='date' min='1899-01-01' max='2000-13-13' width="100%">
+                Date of Return: <input id="datefield" name="date" type='date' min='1899-01-01' max='2000-13-13' width="100%" style="margin-bottom: 10px">
                 <div></div>
                 Time of Return: <input id="timefield" name="time" type="time" value="15:30">
                 <input name="request" type="submit" value="Check Out" style="width: 100%;">

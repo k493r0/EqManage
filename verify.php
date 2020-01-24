@@ -9,26 +9,53 @@ if(!isset($_SESSION['loggedin'])){
         $string2 = str_replace("hash=","",$string1);
         echo $string2;
 
-        $query = "UPDATE allrequests SET Active='1' WHERE Hash='$string2'";
+        $query = "UPDATE EqManage.requests SET Active='1' WHERE Hash='$string2'";
         mysqli_query($db,$query);
 
 
-        $equipment_query = "Select * from allrequests where Hash='$string2'";
-        $result = mysqli_query($db,$equipment_query);
-        $equipment = mysqli_fetch_assoc($result);
-        echo $equipment['Equipment'];
-        $equipment_independent = $equipment['Equipment'];
-        echo $equipment_independent;
-        $user_independent = $equipment['User'];
-        $notes_independent = $equipment['Notes'];
+        $request_query = "Select * from EqManage.requests where Hash='$string2'";
+        $result = mysqli_query($db,$request_query);
+        $request = mysqli_fetch_assoc($result);
+//        echo $request['equipment_id'];
+//        $request_independent = $request['Equipment'];
+//        echo $request_independent;
+//        $user_independent = $request['User'];
+//        $notes_independent = $request['Notes'];
+
+        $equipment_id = $request['equipment_id'];
+        $users_id = $request['users_id'];
+        $note = $request['note'];
+        $checkoutRequest_id = $request['id'];
+        $expectedReturnDate = $request['expectedReturnDate'];
         $date = date('Y-m-d H:i:s');
 
-
-        $intolog_query = "INSERT into `log` (`Name`,`Equipment`,`Notes`,`CheckOut`) values ('$user_independent','$equipment_independent', '$notes_independent','$date')";
-        $intoequipments_query = "UPDATE equipments SET Equipment='$equipment_independent', Name='$user_independent', Notes='$notes_independent', CheckOut='$date', CheckIn=null,Availability=FALSE WHERE Equipment='$equipment_independent'";
-
-        mysqli_query($db,$intolog_query);
-        mysqli_query($db,$intoequipments_query);
+        $minusQty = 1;
 
 
-        header('Location: new_index.php?check-out=1');
+
+        $log_query = "INSERT into EqManage.log (checkoutRequests_id, equipment_id,users_id,notes,checkoutDate,expectedReturnDate) values ('$checkoutRequest_id','$equipment_id','$users_id','$note','$date', '$expectedReturnDate')";
+
+
+if (mysqli_query($db, $log_query)) {
+    $last_id = mysqli_insert_id($db);
+    echo "New record created successfully. Last inserted ID is: " . $last_id;
+} else {
+    echo "Error: " . $log_query . "<br>" . mysqli_error($db);
+}
+
+//        mysqli_query($db,$log_query);
+$checkQty = "Select * from EqManage.equipment where id = '$equipment_id'";
+mysqli_query($db,$checkQty);
+$checkQtyArray = mysqli_fetch_assoc($result);
+$leftQty = $checkQtyArray['leftQuantity'];
+$newleftQty = $leftQty - $minusQty;
+
+
+
+
+$updateEq_query = "UPDATE EqManage.equipment SET availability=0,users_id='$users_id',lastLog_id='$last_id',leftQuantity='$newleftQty' WHERE id='$equipment_id'";
+
+        mysqli_query($db,$updateEq_query);
+
+
+//        header('Location: new_index.php?check-out=1');
