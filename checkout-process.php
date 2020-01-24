@@ -97,13 +97,13 @@ echo $eqname;
     echo $user_id;
     echo $equipment_id;
 
-    $query = "INSERT INTO EqManage.requests (users_id,equipment_id,note,hash,action,state,requestDate) VALUES ('$user_id','$equipment_id','$notes','$hash','checkout','waiting','$requestdate')";
+    $query = "INSERT INTO EqManage.requests (users_id,equipment_id,note,hash,action,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$notes','$hash','checkout','waiting','$requestdate','$combinedDT')";
 
     mysqli_query($db, $query);
 
 
 
-//    header("Location: index.php?sent=1");
+header("Location: new_index.php?sent=1");
 
     /*    $to = 'eizaemon_the_third@yahoo.co.uk'; // Send email to our user
         $subject = 'Signup | Verification'; // Give the email a subject
