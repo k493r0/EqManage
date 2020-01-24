@@ -97,36 +97,38 @@ include('serverconnect.php');
                 <th scope="col">Last log ID</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="table2">
 
-            <?php while ($row = mysqli_fetch_array($results)) {
+<!--            --><?php //while ($row = mysqli_fetch_array($results)) {
+//
+//                $catName = $row['categoryName'];
+//                $tqty = $row['totalQuantity'];
+//
+//                ?>
+<!--                <tr>-->
+<!--                    <td>--><?php //echo $row['equipment']; ?><!--</td>-->
+<!--                    <td>--><?php //echo "<a href='#'>$catName</a>";?><!--</td>-->
+<!--                    <td>--><?php //echo $row['totalQuantity']; ?><!--</td>-->
+<!--                    <td>--><?php //echo $row['leftQuantity']; ?><!--</td>-->
+<!--                    <td>-->
+<!--                        --><?php
+//
+//                        if ($row['leftQuantity'] >= 1) {
+//                            echo "Available";
+//                        } elseif ($row['leftQuantity'] <= 0){
+//                            echo "Not Available";
+//                        } else echo "Error";
+//
+//                        ?>
+<!--                    </td>-->
+<!--                    <td>--><?php //echo $row['users_id']; ?><!--</td>-->
+<!--                    <td>--><?php //echo $row['lastLog_id']; ?><!--</td>-->
+<!---->
+<!---->
+<!--                </tr>-->
+<!--            --><?php //} ?>
 
-                $catName = $row['categoryName'];
-                $tqty = $row['totalQuantity'];
-
-                ?>
-                <tr>
-                    <td><?php echo $row['equipment']; ?></td>
-                    <td><?php echo "<a href='#'>$catName</a>";?></td>
-                    <td><?php echo $row['totalQuantity']; ?></td>
-                    <td><?php echo $row['leftQuantity']; ?></td>
-                    <td>
-                        <?php
-
-                        if ($row['leftQuantity'] >= 1) {
-                            echo "Available";
-                        } elseif ($row['leftQuantity'] <= 0){
-                            echo "Not Available";
-                        } else echo "Error";
-
-                        ?>
-                    </td>
-                    <td><?php echo $row['users_id']; ?></td>
-                    <td><?php echo $row['lastLog_id']; ?></td>
-
-
-                </tr>
-            <?php } ?>
+            <?php include('fetchEquipment.php') ?>
 
 
 
@@ -134,9 +136,7 @@ include('serverconnect.php');
         </table>
 
 
-        <?php
-        include ('fetchEquipment.php');
-        ?>
+
 
 <!--        <table>-->
 <!--            <thead>-->
@@ -208,19 +208,19 @@ include('serverconnect.php');
     // When the user clicks on the button, open the modal
     btn.onclick = function() {
         modal.style.display = "block";
-    }
+    };
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
-    }
+    };
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
-    }
+    };
 
     function selectOther(val){
         var element=document.getElementById('other');
@@ -229,7 +229,6 @@ include('serverconnect.php');
         else
             element.style.display='none';
     }
-
 
     $(document).ready(function(){
         $("#add").click(function (){
@@ -251,6 +250,7 @@ include('serverconnect.php');
 
                 },
                 success: function(data){
+                    displayFromDatabase();
                     modal.style.display = "none";
                     document.getElementById("name").value = "";
                     document.getElementById("qty").value = "";
@@ -264,7 +264,28 @@ include('serverconnect.php');
 
             });
         });
-    })
+    });
+
+
+    function displayFromDatabase(){
+        $.ajax({
+            url: "addEq.php",
+            type: "POST",
+            async: false,
+            data: {
+                "display": 1
+            },
+            success:function (data) {
+                $("#table2").html(data);
+            }
+
+        })
+    }
+
+
+
+
+
 
 
 </script>
