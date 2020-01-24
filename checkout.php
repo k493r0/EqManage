@@ -11,6 +11,7 @@ include ('serverconnect.php');
 <?php
 include('header.php');
 ?>
+
 <body class="form-v8 loggedin" id="fade">
 
 <div id="loader">
@@ -55,7 +56,7 @@ include('header.php');
                 if($result=mysqli_query($db,$sql)){
                     if(mysqli_num_rows($result)){
                         $last_group=null;
-                        $select="<select name=\"equipments\"> <option value=\"\" disabled selected>Select the Equipment</option>";
+                        $select="<select name=\"equipment\"> <option value=\"\" disabled selected>Select the Equipment</option>";
 
                         while($row=mysqli_fetch_assoc($result)){
                             if($row["categoryName"]!=$last_group){
@@ -65,7 +66,7 @@ include('header.php');
                             if($row["id"]==null){
                                 $select.="<option disabled>No Available Equipment From This Category</option>";
                             }else{
-                                $select.="<option value=\"{$row["equipment"]}\">{$row["equipment"]}</option>";
+                                $select.="<option value=\"{$row["id"]}\">{$row["equipment"]}</option>";
                             }
                         }
                         $select.="</optgroup></select>";
@@ -116,6 +117,12 @@ include('header.php');
 
                 <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;
   border-radius: 4px; margin-top: 10px"></textarea>
+
+
+
+                Date of Return: <input id="datefield" name="date" type='date' min='1899-01-01' max='2000-13-13' width="100%">
+                <div></div>
+                Time of Return: <input id="timefield" name="time" type="time" value="15:30">
                 <input name="request" type="submit" value="Check Out" style="width: 100%;">
             </form>
         </div>
@@ -124,6 +131,24 @@ include('header.php');
     </div>
 </div>
 
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd
+    }
+    if(mm<10){
+        mm='0'+mm
+    }
 
+
+
+    today = yyyy+'-'+mm+'-'+dd;
+
+    document.getElementById("datefield").setAttribute("min", today);
+    document.getElementById("datefield").setAttribute("value", today);
+</script>
 </body>
 
