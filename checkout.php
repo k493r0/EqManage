@@ -29,8 +29,8 @@ include('header.php');
 
             $resultset = mysqli_query($db, "select * from equipment where leftQuantity >= 1");
             ?>
-        <div class="select-style" style="width:500px; margin: auto;" align="center">
-            <form action="checkout-process.php" style="width: 100%;" align="center" method="POST">
+        <div class="select-style" style="width:500px; margin: auto;" >
+            <form action="checkout-process.php" style="width: 100%;" align="left" method="POST">
 <!--                //old select-->
 <!--                <select name="equipment" class="select-picker" >-->
 <!--                    <option value="" disabled selected>Select the Equipment</option>-->
@@ -56,7 +56,7 @@ include('header.php');
                 if($result=mysqli_query($db,$sql)){
                     if(mysqli_num_rows($result)){
                         $last_group=null;
-                        $select="<select name=\"equipment\"> <option value=\"\" disabled selected>Select the Equipment</option>";
+                        $select="<select name=\"equipment\" id='eq' onchange=\"getQty(this)\"> <option value=\"\" disabled selected>Select the Equipment</option>";
 
                         while($row=mysqli_fetch_assoc($result)){
                             if($row["categoryName"]!=$last_group){
@@ -66,7 +66,7 @@ include('header.php');
                             if($row["id"]==null){
                                 $select.="<option disabled>No Available Equipment From This Category</option>";
                             }else{
-                                $select.="<option value=\"{$row["id"]}\">{$row["equipment"]} | {$row['leftQuantity']} Left</option>";
+                                $select.="<option id='optionvalue' value=\"{$row["id"]}\" data-leftQty=\"{$row['leftQuantity']}\">{$row["equipment"]} | {$row['leftQuantity']} Left</option>";
                             }
                         }
                         $select.="</optgroup></select>";
@@ -116,11 +116,12 @@ include('header.php');
 
 
                 <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;
-  border-radius: 4px; margin-top: 10px"></textarea>
+  border-radius: 4px; margin-top: 10px;margin-bottom: 10px"></textarea>
 
 
-
-                Date of Return: <input id="datefield" name="date" type='date' min='1899-01-01' max='2000-13-13' width="100%" style="margin-bottom: 10px">
+                Quantity: <input type="number" min="1" max="100" name="quantity" id="qty" style="margin-bottom: 15px;" value=""/>
+                <div></div>
+                Date of Return: <input id="datefield" name="date" type='date' min='1899-01-01' max='2000-13-13' width="100%" style="margin-bottom: 15px">
                 <div></div>
                 Time of Return: <input id="timefield" name="time" type="time" value="15:30">
                 <input name="request" type="submit" value="Check Out" style="width: 100%;">
@@ -149,6 +150,15 @@ include('header.php');
 
     document.getElementById("datefield").setAttribute("min", today);
     document.getElementById("datefield").setAttribute("value", today);
+
+
+    function getQty(eq) {
+        qty = eq.options[eq.selectedIndex].getAttribute('data-leftQty');
+        console.log(qty);
+        document.getElementById("qty").setAttribute("max",qty);
+        document.getElementById("qty").setAttribute("value",qty);
+
+    }
 </script>
 </body>
 
