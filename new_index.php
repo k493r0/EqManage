@@ -66,7 +66,7 @@ include('header.php')
                     <h3 class="name">Equipment Name</h3>
                     <p class="description">Details</p><a href="#" class="learn-more">Borrow This Equipment »</a></div>
             </div>-->
-            <?php $results = mysqli_query($db, "SELECT * FROM equipments"); ?>
+            <?php $results = mysqli_query($db, "SELECT * FROM equipment"); ?>
 
             <?php while ($row = mysqli_fetch_array($results)) { ?>
 
@@ -74,9 +74,9 @@ include('header.php')
 
 
 
-                <?php if ($row['Availability'] == 1) {
+                <?php if ($row['availability'] == 1) {
                     echo "<div class=\"box\" id='box2'>";
-                } elseif ($row['Availability'] == 0){
+                } elseif ($row['availability'] == 0){
                     echo "<div class=\"box\" id='box2'>";
                 } else echo "Error"; ?>
 
@@ -85,17 +85,17 @@ include('header.php')
 
                 <?php /*echo "<h3 class=\"name\">".$row['Equipment']."</h3>"; */?>
 
-                <?php if ($row['Availability'] == 1) {
-                    echo "<h3 class=\"name\">".$row['Equipment']."</h3>";
-                } elseif ($row['Availability'] == 0){
-                    echo "<h3 class=\"name\" style='color: orangered'>".$row['Equipment']."</h3>";
+                <?php if ($row['availability'] == 1) {
+                    echo "<h3 class=\"name\">".$row['equipment']."</h3>";
+                } elseif ($row['availability'] == 0){
+                    echo "<h3 class=\"name\" style='color: orangered'>".$row['equipment']."</h3>";
                 } else echo "Error"; ?>
 
 
 
-                <?php if ($row['Availability'] == 1) {
+                <?php if ($row['availability'] == 1) {
                     echo "<p class=\"description\">Available";
-                } elseif ($row['Availability'] == 0){
+                } elseif ($row['availability'] == 0){
                     echo "<p class=\"description\" style='color: red'>Not Available";
                 } else echo "Error"; ?>
 
@@ -104,9 +104,9 @@ include('header.php')
 
 
 
-                <?php if ($row['Availability'] == 1) {
+                <?php if ($row['availability'] == 1) {
                     echo "<a href=\"direct-checkout.php?selected=".$row['id']."\" class=\"learn-more\">Borrow This Equipment »</a>";
-                } elseif ($row['Availability'] == 0){
+                } elseif ($row['availability'] == 0){
                     echo "";
                 } else echo "Error"; ?>
 
