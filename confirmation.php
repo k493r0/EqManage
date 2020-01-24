@@ -29,15 +29,17 @@ include('header.php')
 
             include('serverconnect.php');
 
-            $user = "";
             $equipmentName = "";
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
-                $user = $_SESSION['name'];
+                $userID = $_SESSION['id'];
+                echo $userID;
                 $equipmentID = $_POST['equipment'];
 //                echo $equipmentID;
+                $checkoutRequestsID = $_POST['checkoutRequestsID'];
+                echo $checkoutRequestsID;
 
 
                 $query = mysqli_query($db,"select * from EqManage.equipment where id = '$equipmentID'");
@@ -57,8 +59,9 @@ include('header.php')
             ?>
 
         <form method="post" action="return-process.php">
-            <input type="hidden" name="name" value="<?php echo $user ?>">
-            <input type="hidden" name="equipment" value="<?php echo $equipment ?>">
+            <input type="hidden" name="userid" value="<?php echo $userID ?>">
+            <input type="hidden" name="equipment" value="<?php echo $equipmentID ?>">
+            <input type="hidden" name="checkoutRequestsID" value="<?php echo $checkoutRequestsID ?>">
 
 
             <input name="confirm" type="submit" value="Confirm" style="width: 100%; margin-top: 20px">
@@ -67,5 +70,7 @@ include('header.php')
     </div>
 
 </div>
+
+
 
 
