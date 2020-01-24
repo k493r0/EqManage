@@ -53,13 +53,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     $user = $_SESSION['name'];
-    $equipment = $_POST['equipment'];
+    $user_id = $_SESSION['id'];
+    $equipment_id = $_POST['equipment'];
     $notes = $_POST['purpose'];
     $hash = md5(rand(0, 1000));
     $requestdate = date('Y-m-d H:i:s');
+    $returndate = date('Y-m-d',strtotime($_POST['date']));
+    $returntime = $_POST['time'];
+    echo $returntime;
+    $combinedDT = date('Y-m-d H:i:s', strtotime("$returndate $returntime"));
+    echo $combinedDT;
 
-    echo $equipment;
-    $query = "INSERT INTO allrequests (User,Equipment,Notes,Hash,Action) VALUES ('$user','$equipment','$notes','$hash', 'Check-Out')";
+
+    $eqname = "";
+    echo "Return date: " ,$returndate;
+    echo "Request date", $requestdate;
+    echo "Return time ", $_POST['time'];
+    echo "\n Combined DT: ",$combinedDT;
+
+    $dateTimestamp1 = strtotime($requestdate);
+    $dateTimestamp2 = strtotime($returndate);
+
+    if ($dateTimestamp1 > $dateTimestamp2)
+        echo "$requestdate is latest than $returndate";
+    else
+        echo "$requestdate is older than $returndate";
+
+
+
+    $getEqName = mysqli_query($db, "select * from EqManage.equipment where id = $equipment_id");
+    while ($row = mysqli_fetch_array($getEqName)){
+
+    $eqname = $row['equipment'];
+    echo $eqname;
+
+}
+
+echo $eqname;
+
+
+
+
+    echo $user_id;
+    echo $equipment_id;
+
+    $query = "INSERT INTO EqManage.requests (users_id,equipment_id,note,hash,action,state,requestDate) VALUES ('$user_id','$equipment_id','$notes','$hash','checkout','waiting','$requestdate')";
 
     mysqli_query($db, $query);
 
@@ -107,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bodyContent = '<p>The following user has requested to borrow an equipment:
 <br> 
 ----------------------------------------------------------<br>
-Equipment: '. $equipment .' <br>
+Equipment: '. $eqname .' <br>
 Name: ' . $user . ' <br>
 Notes: ' . $notes . '<br>
 ----------------------------------------------------------
