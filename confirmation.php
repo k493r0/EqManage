@@ -30,16 +30,24 @@ include('header.php')
             include('serverconnect.php');
 
             $user = "";
-            $equipment = "";
+            $equipmentName = "";
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                 $user = $_SESSION['name'];
-                $equipment = $_POST['Equipments'];
+                $equipmentID = $_POST['equipment'];
+//                echo $equipmentID;
+
+
+                $query = mysqli_query($db,"select * from EqManage.equipment where id = '$equipmentID'");
+            while ($row = mysqli_fetch_array($query)){
+                $equipmentName = $row['equipment'];
+            }
+//            echo $equipmentName;
 
                 echo '<h3 style="text-align: center"><b>Do you really want to return: </b></h3>';
-                echo "<h1 style='text-align: center'><b>$equipment</b></h1>";
+                echo "<h1 style='text-align: center'><b>$equipmentName</b></h1>";
 
 
 
