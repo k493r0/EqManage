@@ -148,12 +148,15 @@ header("Location: new_index.php?sent=1");
 <br> 
 ----------------------------------------------------------<br>
 Equipment: '. $eqname .' <br>
+Quantity: ' . $checkoutQty . '<br>
 Name: ' . $user . ' <br>
 Notes: ' . $notes . '<br>
+Date of Return: ' . $combinedDT . '<br>
+
 ----------------------------------------------------------
 <br>
 Please click this link to approve this check out:
-http://localhost/EqManage/verify.php?hash='.$hash.'</p>';
+http://localhost/EqManage/postverify.php?hash='.$hash.'</p>';
 
     $mail->Subject = 'Equipment Approval';
     $mail->Body = $bodyContent;

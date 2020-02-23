@@ -49,6 +49,15 @@ include('header.php')
             <p class="text-center">In this page, you can check whether the equipment is available or not</p>
             <input id="input" type="text" placeholder="Search.." style="padding-top: 10px;margin-top: 50px">
 
+            <div class="dropdown">
+                <button class="dropbtn">Dropdown</button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+
 
         </div>
 
@@ -66,9 +75,18 @@ include('header.php')
                     <h3 class="name">Equipment Name</h3>
                     <p class="description">Details</p><a href="#" class="learn-more">Borrow This Equipment »</a></div>
             </div>-->
-            <?php $results = mysqli_query($db, "SELECT * FROM equipment"); ?>
 
-            <?php while ($row = mysqli_fetch_array($results)) { ?>
+            <?php $results = mysqli_query($db, "SELECT * FROM equipment");
+            $results2 = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+      FROM EqManage.categories C
+      LEFT JOIN EqManage.equipment E ON C.id=E.category
+      GROUP BY C.id,E.id
+      ORDER BY C.categoryName,E.equipment");
+
+            ?>
+
+            <?php while ($row = mysqli_fetch_array($results2)) { ?>
+
 
                 <?php echo "<div class=\"col-sm-6 col-md-5 col-lg-4 item\">"; ?>
 
@@ -85,8 +103,10 @@ include('header.php')
 
                 <?php /*echo "<h3 class=\"name\">".$row['Equipment']."</h3>"; */?>
 
+
+
                 <?php if ($row['availability'] == 1) {
-                    echo "<h3 class=\"name\">".$row['equipment']."</h3>";
+                    echo "<a style='font-style: italic; text-decoration: underline'>".$row['categoryName']."<a/><h3 class=\"name\">".$row['equipment']."</h3>";
                 } elseif ($row['availability'] == 0){
                     echo "<h3 class=\"name\" style='color: orangered'>".$row['equipment']."</h3>";
                 } else echo "Error"; ?>
@@ -94,7 +114,7 @@ include('header.php')
 
 
                 <?php if ($row['availability'] == 1) {
-                    echo "<p class=\"description\">Available";
+                    echo "<p class=\"description\">".$row['leftQuantity']." Available";
                 } elseif ($row['availability'] == 0){
                     echo "<p class=\"description\" style='color: red'>Not Available";
                 } else echo "Error"; ?>
