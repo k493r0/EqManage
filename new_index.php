@@ -49,25 +49,8 @@ include('header.php')
             <p class="text-center">In this page, you can check whether the equipment is available or not</p>
             <input id="input" type="text" placeholder="Search.." style="padding-top: 10px;margin-top: 50px">
 
-            <div class="dropdown">
-                <button class="dropbtn">Dropdown</button>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-
 
         </div>
-
-
-
-
-
-
-
-
 
         <div class="row justify-content-center features" id="box">
             <!--<div class="col-sm-6 col-md-5 col-lg-4 item">
