@@ -61,12 +61,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($db, $requestsinsert);
         mysqli_query($db, $loginsert);
 
-//        header('Location: new_index.php?return=1');
+        header('Location: new_index.php?return=1');
 
 
-//    } else header('Location: new_index.php?return=0');
+    } else header('Location: new_index.php?return=0');
 
-    }
 }
 
 
