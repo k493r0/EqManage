@@ -42,15 +42,72 @@ include('header.php')
 </div>
 
 
+<?php $getCategory = mysqli_query($db, "SELECT * FROM EqManage.categories");
+
+?>
+
+
 <div class="features-boxed" style="height: 787px;">
     <div class="container">
         <div class="intro">
+
             <h2 class="text-center">Availability Status</h2>
             <p class="text-center">In this page, you can check whether the equipment is available or not</p>
-            <input id="input" type="text" placeholder="Search.." style="padding-top: 10px;margin-top: 50px">
+
+            <input id="input" type="text" placeholder="Search.." style="padding-top: 10px;margin-top: 10px">
+
+
+
+            <form action="#">
+
+                <div class="select-box">
+
+                    <label for="select-box1" class="label select-box1"><span class="label-desc">Filter By Category</span> </label>
+                    <select id="select-box1" class="select">
+                        <option value="" disabled selected>--Select Category--</option>
+
+                        <?php while ($row = mysqli_fetch_array($getCategory)) { ?>
+
+
+                        <?php echo "<option value=\"".$row['id']."\">".$row['categoryName']."</option>"; ?>
+
+
+
+                        <?php } ?>
+                    </select>
+
+                </div>
+
+            </form>
+
+            <form action="#">
+
+                <div class="select-box">
+
+                    <label for="select-box1" class="label select-box1"><span class="label-desc">Sort By:</span> </label>
+                    <select id="select-box1" class="select">
+
+                        <option value="" selected>Category Name Ascending</option>
+                        <option value="" >Category Name Descending</option>
+                        <option value="" >Equipment Name Ascending</option>
+                        <option value="" >Equipment Name Descending</option>
+
+
+
+                    </select>
+
+                </div>
+
+            </form>
+
+
 
 
         </div>
+
+
+
+
 
         <div class="row justify-content-center features" id="box">
             <!--<div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -59,11 +116,14 @@ include('header.php')
                     <p class="description">Details</p><a href="#" class="learn-more">Borrow This Equipment »</a></div>
             </div>-->
 
+
+
+
             <?php $results = mysqli_query($db, "SELECT * FROM equipment");
-            $results2 = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+            $results2 = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, C.id
       FROM EqManage.categories C
       LEFT JOIN EqManage.equipment E ON C.id=E.category
-      GROUP BY C.id,E.id
+      GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName,E.equipment");
 
             ?>
@@ -135,6 +195,10 @@ include('header.php')
             });
         });
     });
+
+
+
+
 </script>
 
 </body>
