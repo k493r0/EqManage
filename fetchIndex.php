@@ -3,7 +3,9 @@
 
 include ('serverconnect.php');
 
+
 $filterCategory = $_POST['filterCat'];
+echo "THis is the filter category: " , $filterCategory;
 $sortby = $_POST['sort'];
 $results = mysqli_query($db, "SELECT * FROM equipment");
 
@@ -91,7 +93,7 @@ while ($row = mysqli_fetch_array($executeResult)) {
     ?>
 
 
-    <?php echo "<div class=\"col-sm-6 col-md-5 col-lg-4 item\">"; ?>
+    <?php echo "<div class=\"col-sm-6 col-md-5 col-lg-4 item\">"; echo $filterCategory; ?>
 
 
 
@@ -136,5 +138,5 @@ while ($row = mysqli_fetch_array($executeResult)) {
     <?php echo "</div>"; ?>
     <?php echo "</div>"; ?>
 
-<?php } ?>
+<?php };?>
 

@@ -63,13 +63,13 @@ include('header.php')
                 <div class="select-box">
 
                     <label for="select-box1" class="label select-box1"><span class="label-desc">Filter By Category</span> </label>
-                    <select id="select-box1" class="select">
-                        <option value="" selected>--All--</option>
+                    <select id="select-box1" class="select" name="filtercat" onchange="getIndex1()">
+                        <option value="0" selected>--All--</option>
 
                         <?php while ($row = mysqli_fetch_array($getCategory)) { ?>
 
 
-                        <?php echo "<option value=\"".$row['id']."\">".$row['categoryName']."</option>"; ?>
+                        <?php echo "<option value=\"".$row['id']."\" name=\"filterCat\">".$row['categoryName']."</option>"; ?>
 
 
 
@@ -84,8 +84,8 @@ include('header.php')
 
                 <div class="select-box">
 
-                    <label for="select-box1" class="label select-box1"><span class="label-desc">Sort By:</span> </label>
-                    <select id="select-box1" class="select">
+                    <label for="select-box2" class="label select-box1"><span class="label-desc">Sort By:</span> </label>
+                    <select id="select-box2" class="select">
 
                         <option value="" selected>Category Name Ascending</option>
                         <option value="" >Category Name Descending</option>
@@ -118,68 +118,68 @@ include('header.php')
 
 
 
-
-            <?php $results = mysqli_query($db, "SELECT * FROM equipment");
-            $results2 = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, C.id
-      FROM EqManage.categories C
-      LEFT JOIN EqManage.equipment E ON C.id=E.category
-      GROUP BY C.id,E.id, C.categoryName, E.equipment
-      ORDER BY C.categoryName,E.equipment");
-
-            ?>
-
-            <?php while ($row = mysqli_fetch_array($results2)) { ?>
-
-
-                <?php echo "<div class=\"col-sm-6 col-md-5 col-lg-4 item\">"; ?>
-
-
-
-                <?php if ($row['availability'] == 1) {
-                    echo "<div class=\"box\" id='box2'>";
-                } elseif ($row['availability'] == 0){
-                    echo "<div class=\"box\" id='box2'>";
-                } else echo "Error"; ?>
-
-
-
-
-                <?php /*echo "<h3 class=\"name\">".$row['Equipment']."</h3>"; */?>
-
-
-
-                <?php if ($row['availability'] == 1) {
-                    echo "<a style='font-style: italic; text-decoration: underline'>".$row['categoryName']."<a/><h3 class=\"name\">".$row['equipment']."</h3>";
-                } elseif ($row['availability'] == 0){
-                    echo "<h3 class=\"name\" style='color: orangered'>".$row['equipment']."</h3>";
-                } else echo "Error"; ?>
-
-
-
-                <?php if ($row['availability'] == 1) {
-                    echo "<p class=\"description\">".$row['leftQuantity']." Available";
-                } elseif ($row['availability'] == 0){
-                    echo "<p class=\"description\" style='color: red'>Not Available";
-                } else echo "Error"; ?>
-
-
-                <?php echo "</p>"; ?>
-
-
-
-                <?php if ($row['availability'] == 1) {
-                    echo "<a href=\"direct-checkout.php?selected=".$row['id']."\" class=\"learn-more\">Borrow This Equipment »</a>";
-                } elseif ($row['availability'] == 0){
-                    echo "";
-                } else echo "Error"; ?>
-
-                <?php echo "</div>"; ?>
-                <?php echo "</div>"; ?>
-
-            <?php } ?>
-
-        </div>
-    </div>
+<!---->
+<!--            --><?php //$results = mysqli_query($db, "SELECT * FROM equipment");
+//            $results2 = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, C.id
+//      FROM EqManage.categories C
+//      LEFT JOIN EqManage.equipment E ON C.id=E.category
+//      GROUP BY C.id,E.id, C.categoryName, E.equipment
+//      ORDER BY C.categoryName,E.equipment");
+//
+//            ?>
+<!---->
+<!--            --><?php //while ($row = mysqli_fetch_array($results2)) { ?>
+<!---->
+<!---->
+<!--                --><?php //echo "<div class=\"col-sm-6 col-md-5 col-lg-4 item\">"; ?>
+<!---->
+<!---->
+<!---->
+<!--                --><?php //if ($row['availability'] == 1) {
+//                    echo "<div class=\"box\" id='box2'>";
+//                } elseif ($row['availability'] == 0){
+//                    echo "<div class=\"box\" id='box2'>";
+//                } else echo "Error"; ?>
+<!---->
+<!---->
+<!---->
+<!---->
+<!--                --><?php ///*echo "<h3 class=\"name\">".$row['Equipment']."</h3>"; */?>
+<!---->
+<!---->
+<!---->
+<!--                --><?php //if ($row['availability'] == 1) {
+//                    echo "<a style='font-style: italic; text-decoration: underline'>".$row['categoryName']."<a/><h3 class=\"name\">".$row['equipment']."</h3>";
+//                } elseif ($row['availability'] == 0){
+//                    echo "<h3 class=\"name\" style='color: orangered'>".$row['equipment']."</h3>";
+//                } else echo "Error"; ?>
+<!---->
+<!---->
+<!---->
+<!--                --><?php //if ($row['availability'] == 1) {
+//                    echo "<p class=\"description\">".$row['leftQuantity']." Available";
+//                } elseif ($row['availability'] == 0){
+//                    echo "<p class=\"description\" style='color: red'>Not Available";
+//                } else echo "Error"; ?>
+<!---->
+<!---->
+<!--                --><?php //echo "</p>"; ?>
+<!---->
+<!---->
+<!---->
+<!--                --><?php //if ($row['availability'] == 1) {
+//                    echo "<a href=\"direct-checkout.php?selected=".$row['id']."\" class=\"learn-more\">Borrow This Equipment »</a>";
+//                } elseif ($row['availability'] == 0){
+//                    echo "";
+//                } else echo "Error"; ?>
+<!---->
+<!--                --><?php //echo "</div>"; ?>
+<!--                --><?php //echo "</div>"; ?>
+<!---->
+<!--            --><?php //} ?>
+<!---->
+<!--        </div>-->
+<!--    </div>-->
 
 </div>
 <script>
@@ -192,6 +192,64 @@ include('header.php')
         });
     });
 
+
+
+
+   /* $(document).ready(function getIndex(){
+        $("#select-box1").onchange(function getIndex1(){
+            var e = document.getElementById("select-box1");
+            var cat = e.options[e.selectedIndex].value;
+            $.ajax({
+                url: "fetchindex.php",
+                type: "POST",
+                async: false,
+                data:{
+                    "filterCat":cat
+                },
+                success: function(data){
+                    displayFromDatabase();
+                }
+
+            });
+        });
+    });*/
+
+    function getIndex1(){
+        var e = document.getElementById("select-box1");
+        var cat = e.options[e.selectedIndex].value;
+        $.ajax({
+            url: "fetchindex.php",
+            type: "POST",
+            async: false,
+            data: {
+                "filtercat": 1
+            },
+            success:function(data){
+
+                displayFromDatabase(cat);
+            }
+
+        })
+    };
+
+
+
+    function displayFromDatabase(filter){
+        $.ajax({
+            url: "fetchindex.php",
+            type: "POST",
+            async: false,
+            data: {
+                "display": 1,
+                "filterCat": filter
+
+            },
+            success:function (data) {
+                $("#box").html(data);
+            }
+
+        })
+    }
 
 
 
