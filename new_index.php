@@ -64,7 +64,7 @@ include('header.php')
 
                     <label for="select-box1" class="label select-box1"><span class="label-desc">Filter By Category</span> </label>
                     <select id="select-box1" class="select">
-                        <option value="" disabled selected>--Select Category--</option>
+                        <option value="" selected>--All--</option>
 
                         <?php while ($row = mysqli_fetch_array($getCategory)) { ?>
 
@@ -177,10 +177,6 @@ include('header.php')
                 <?php echo "</div>"; ?>
 
             <?php } ?>
-
-            <style>
-
-            </style>
 
         </div>
     </div>
