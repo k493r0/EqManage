@@ -85,12 +85,12 @@ include('header.php')
                 <div class="select-box">
 
                     <label for="select-box2" class="label select-box1"><span class="label-desc">Sort By:</span> </label>
-                    <select id="select-box2" class="select">
+                    <select id="select-box2" class="select" onchange="getIndex1()">
 
-                        <option value="" selected>Category Name Ascending</option>
-                        <option value="" >Category Name Descending</option>
-                        <option value="" >Equipment Name Ascending</option>
-                        <option value="" >Equipment Name Descending</option>
+                        <option value="1" selected>Category Name Ascending</option>
+                        <option value="2" >Category Name Descending</option>
+                        <option value="3" >Equipment Name Ascending</option>
+                        <option value="4" >Equipment Name Descending</option>
 
 
 
@@ -192,6 +192,9 @@ include('header.php')
         });
     });
 
+    $(document).ready(function() {
+        displayFromDatabase("0","1");
+    }
 
 
 
@@ -217,6 +220,8 @@ include('header.php')
     function getIndex1(){
         var e = document.getElementById("select-box1");
         var cat = e.options[e.selectedIndex].value;
+        var e2 = document.getElementById("select-box2");
+        var sort = e2.options[e2.selectedIndex].value;
         $.ajax({
             url: "fetchindex.php",
             type: "POST",
@@ -226,7 +231,7 @@ include('header.php')
             },
             success:function(data){
 
-                displayFromDatabase(cat);
+                displayFromDatabase(cat,sort);
             }
 
         })
@@ -234,14 +239,15 @@ include('header.php')
 
 
 
-    function displayFromDatabase(filter){
+    function displayFromDatabase(filter,sort){
         $.ajax({
             url: "fetchindex.php",
             type: "POST",
             async: false,
             data: {
                 "display": 1,
-                "filterCat": filter
+                "filterCat": filter,
+                "sort":sort
 
             },
             success:function (data) {
