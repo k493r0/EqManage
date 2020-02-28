@@ -62,7 +62,7 @@ $filterResultDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment,
 
 <?php
 
-if ($filterCategory == null or $filterCategory == 0 && $sortby != null)
+if ($filterCategory == null or $filterCategory == 0)
     switch ($sortby) {
         case 1: $executeResult = $noFilterResultCAsc; break;
         case 2: $executeResult = $noFilterResultCDesc;break;
