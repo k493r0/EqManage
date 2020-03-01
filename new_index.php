@@ -84,13 +84,29 @@ include('header.php')
 
                 <div class="select-box">
 
-                    <label for="select-box2" class="label select-box1"><span class="label-desc">Sort By:</span> </label>
+                    <label for="select-box2" class="label select-box1"><span class="label-desc">Sort By Category Name: </span> </label>
                     <select id="select-box2" class="select" onchange="getIndex1()">
 
                         <option value="1" selected>Category Name Ascending</option>
                         <option value="2" >Category Name Descending</option>
-                        <option value="3" >Equipment Name Ascending</option>
-                        <option value="4" >Equipment Name Descending</option>
+
+
+
+                    </select>
+
+                </div>
+
+            </form>
+
+            <form action="#">
+
+                <div class="select-box">
+
+                    <label for="select-box2" class="label select-box1"><span class="label-desc">Sort By Equipment Name: </span> </label>
+                    <select id="select-box2" class="select" onchange="getIndex1()">
+
+                        <option value="1" >Equipment Name Ascending</option>
+                        <option value="2" >Equipment Name Descending</option>
 
 
 
@@ -244,7 +260,8 @@ include('header.php')
             data: {
                 "display": 1,
                 "filterCat": filter,
-                "sort":sort
+                "sortC":sort
+
 
             },
             success:function (data) {
