@@ -14,7 +14,7 @@ include('header.php')
 ?>
 
 
-<body class="form-v8 loggedin" id="fade">
+<body class="form-v8 loggedin" id="fade" onload="displayFromDatabase(0,1)">
 
 <div id="loader">
 <div class="loader"><div></div><div></div><div></div><div></div></div>
@@ -192,9 +192,6 @@ include('header.php')
         });
     });
 
-    $(document).ready(function() {
-        displayFromDatabase("0","1");
-    }
 
 
 
