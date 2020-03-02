@@ -25,7 +25,7 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://remotemysql.com:3306/aJNhE8Tihv</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="EqManage@localhost" uuid="8e652e9f-79f8-469a-9a94-2b936cb73eaf">
+    <data-source source="LOCAL" name="MySQL - EqManage@localhost" uuid="8e652e9f-79f8-469a-9a94-2b936cb73eaf">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

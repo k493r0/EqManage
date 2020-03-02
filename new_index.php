@@ -14,7 +14,7 @@ include('header.php')
 ?>
 
 
-<body class="form-v8 loggedin" id="fade" onload="displayFromDatabase(0,1)">
+<body class="form-v8 loggedin" id="fade" onload="displayFromDatabase(0,1,1)">
 
 <div id="loader">
 <div class="loader"><div></div><div></div><div></div><div></div></div>
@@ -102,8 +102,8 @@ include('header.php')
 
                 <div class="select-box">
 
-                    <label for="select-box2" class="label select-box1"><span class="label-desc">Sort By Equipment Name: </span> </label>
-                    <select id="select-box2" class="select" onchange="getIndex1()">
+                    <label for="select-box3" class="label select-box1"><span class="label-desc">Sort By Equipment Name: </span> </label>
+                    <select id="select-box3" class="select" onchange="getIndex1()">
 
                         <option value="1" >Equipment Name Ascending</option>
                         <option value="2" >Equipment Name Descending</option>
@@ -234,9 +234,11 @@ include('header.php')
         var e = document.getElementById("select-box1");
         var cat = e.options[e.selectedIndex].value;
         var e2 = document.getElementById("select-box2");
-        var sort = e2.options[e2.selectedIndex].value;
+        var sortC = e2.options[e2.selectedIndex].value;
+        var e3 = document.getElementById("select-box3");
+        var sortE = e3.options[e3.selectedIndex].value;
         $.ajax({
-            url: "fetchindex.php",
+            url: "fetchIndex.php",
             type: "POST",
             async: false,
             data: {
@@ -244,7 +246,7 @@ include('header.php')
             },
             success:function(data){
 
-                displayFromDatabase(cat,sort);
+                displayFromDatabase(cat,sortC,sortE);
             }
 
         })
@@ -252,15 +254,16 @@ include('header.php')
 
 
 
-    function displayFromDatabase(filter,sort){
+    function displayFromDatabase(filter,sortC,sortE){
         $.ajax({
-            url: "fetchindex.php",
+            url: "fetchIndex.php",
             type: "POST",
             async: false,
             data: {
                 "display": 1,
                 "filterCat": filter,
-                "sortC":sort
+                "sortC":sortC,
+                "sortE":sortE
 
 
             },
