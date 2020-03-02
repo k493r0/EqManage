@@ -242,7 +242,6 @@ include('header.php')
             type: "POST",
             async: false,
             data: {
-                "filtercat": 1
             },
             success:function(data){
 
@@ -264,8 +263,6 @@ include('header.php')
                 "filterCat": filter,
                 "sortC":sortC,
                 "sortE":sortE
-
-
             },
             success:function (data) {
                 $("#box").html(data);
