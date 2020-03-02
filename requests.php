@@ -30,7 +30,7 @@ include('header.php')
                     <table>
                         <thead>
                         <tr class="table100-head">
-                            <th class="column1" style="border-bottom: 1px solid black">ID</th>
+                            <th class="column1" style="border-bottom: 1px solid black">Request ID</th>
                             <th class="column2" style="border-bottom: 1px solid black">User</th>
                             <th class="column3" style="border-bottom: 1px solid black">Equipment</th>
                             <th class="column4" style="border-bottom: 1px solid black">Notes</th>
@@ -41,30 +41,33 @@ include('header.php')
                         </tr>
                         </thead>
                         <tbody>
-                        <?php $results = mysqli_query($db, "SELECT * FROM allrequests"); ?>
+                        <?php $results = mysqli_query($db, "SELECT * FROM requests"); ?>
 
                         <?php while ($row = mysqli_fetch_array($results)) { ?>
                             <tr>
                                 <td style="text-align:left"><?php echo $row['id']; ?></td>
-                                <td style="text-align:left"><?php echo $row['User'] ?></td>
-                                <td style="text-align:left"><?php echo $row['Equipment'] ?></td>
-                                <td style="text-align:left"><?php echo $row['Notes'] ?>
-                                <td style="text-align:left"><?php echo $row['DateRequested'] ?></td>
+                                <td style="text-align:left"><?php echo $row['users_id'] ?></td>
+                                <td style="text-align:left"><?php echo $row['equipment_id'] ?></td>
+                                <td style="text-align:left"><?php echo $row['note'] ?> </td>
+                                <td style="text-align:left"><?php echo $row['requestDate'] ?></td>
+
 
 
                                 <td>
                                     <?php
 
-                                    if ($row['Active'] == 1) {
-                                        echo '<dt style="color:green; text-align: left";">Passed</dt>';
-                                    } elseif ($row['Active'] == 0){
-                                        echo '<dt style="color:red; text-align: left";">Pending/Rejected</dt>';
-                                    } else echo "Error";
+                                    if ($row['state'] == 'approved') {
+                                        echo '<dt style="color:green; text-align: left";">Approved</dt>';
+                                    } elseif ($row['state'] == 'rejected'){
+                                        echo '<dt style="color:red; text-align: left";">Rejected</dt>';
+                                    } elseif ($row['state'] == null){
+                                        echo '<dt style="color:black; text-align: left";">Pending</dt>';
+                                    }else echo "Error";
 
 
                                     ?>
                                 </td>
-                                <td><?php echo $row['Action'] ?></td>
+                                <td><?php echo $row['action'] ?></td>
 
 
                             </tr>
