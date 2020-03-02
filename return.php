@@ -31,10 +31,11 @@ include('header.php')
             $name = $_SESSION['name'];
             $user_id = $_SESSION['id'];
             $resultset = mysqli_query($db, "
-select l.equipment_id, l.returnDate, E.equipment, e.leftQuantity,l.users_id,l.checkoutRequests_id
-from EqManage.log L 
-left JOIN EqManage.equipment E on L.equipment_id = E.id 
-where l.returnDate is null
+SELECT l.returnDate, l.users_id,E.id, E.equipment, E.leftQuantity, E.availability, l.returnDate
+FROM EqManage.log l
+         LEFT JOIN EqManage.equipment E ON l.equipment_id=E.id where l.returnDate IS NULL
+GROUP BY l.users_id, l.id,E.id
+ORDER BY l.users_id
 ");
             echo $user_id;
 //            while ($row = mysqli_fetch_array($resultset)){
@@ -56,7 +57,7 @@ where l.returnDate is null
         <div class="select-style" style="width:500px; margin: auto">
             <form action="confirmation.php" style="width: 100%;" method="POST">
                 <select name="equipment" class="select-picker" onchange="getID(this)">
-                    <option value=""  disabled selected>Select the Equipment</option>
+                    <option value=""  disabled selected>Select the Equipment</option> <!-- TODO Add support for multiple checkout&return, fix the return system, might have to record the borrwed quantity in log-->
                     <?php
                     while ($row = mysqli_fetch_array($resultset)){
                         if($row['users_id'] = $user_id){

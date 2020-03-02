@@ -21,8 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($loginuser == $equser) {
 
-
-
         $checkQty = "Select * from EqManage.equipment where id = '$equipmentID'";
         $checkQtyResult = mysqli_query($db, $checkQty);
         $checkQtyArray = mysqli_fetch_assoc($checkQtyResult);
