@@ -6,7 +6,11 @@ include ('serverconnect.php');
 
 $filterCategory = $_POST['filterCat'];
 echo "THis is the filter category: " , $filterCategory;
-$sortby = $_POST['sort'];
+$sortE = $_POST['sortE'];
+echo $sortE;
+$sortC = $_POST['sortC'];
+echo $sortC;
+
 $results = mysqli_query($db, "SELECT * FROM equipment");
 
 $default = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
@@ -15,74 +19,106 @@ $default = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQu
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName,E.equipment");
 
-$noFilterResultCAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+
+
+
+$noFilterCAscEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
       FROM EqManage.categories C
       LEFT JOIN EqManage.equipment E ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
-      ORDER BY C.categoryName Asc,E.equipment");
+      ORDER BY C.categoryName asc,E.equipment asc");
 
-$noFilterResultCDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$noFilterCDescEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
       FROM EqManage.categories C
       LEFT JOIN EqManage.equipment E ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
-      ORDER BY C.categoryName Desc,E.equipment");
+      ORDER BY C.categoryName desc,E.equipment asc");
 
-$noFilterResultEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$noFilterCDescEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
       FROM EqManage.categories C
       LEFT JOIN EqManage.equipment E ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
-      ORDER BY C.categoryName,E.equipment asc");
+      ORDER BY C.categoryName desc,E.equipment desc");
 
-
-$noFilterResultEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$noFilterCAscEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
       FROM EqManage.categories C
       LEFT JOIN EqManage.equipment E ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
-      ORDER BY C.categoryName,E.equipment desc");
+      ORDER BY C.categoryName asc,E.equipment desc");
 
-$filterResult = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability 
-      FROM EqManage.categories C 
+$filterEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+      FROM EqManage.categories C
       LEFT JOIN EqManage.equipment E ON C.id=E.category WHERE C.id='$filterCategory'
-      GROUP BY C.id,E.id, C.categoryName, E.equipment
-      ORDER BY E.equipment");
-
-$filterResultAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability 
-      FROM EqManage.categories C 
-      LEFT JOIN EqManage.equipment E ON C.id=E.category WHERE C.id='$filterCategory'
-      GROUP BY C.id,E.id, C.categoryName, E.equipment
+      GROUP BY C.id,E.id, C.categoryName, E.equipment 
       ORDER BY E.equipment asc");
 
-$filterResultDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability 
-      FROM EqManage.categories C 
+$filterEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+      FROM EqManage.categories C
       LEFT JOIN EqManage.equipment E ON C.id=E.category WHERE C.id='$filterCategory'
-      GROUP BY C.id,E.id, C.categoryName, E.equipment
+      GROUP BY C.id,E.id, C.categoryName, E.equipment 
       ORDER BY E.equipment desc");
-
 ?>
 
 <?php
 
-if ($filterCategory == null or $filterCategory == 0)
-    switch ($sortby) {
-        case 1: $executeResult = $noFilterResultCAsc; break;
-        case 2: $executeResult = $noFilterResultCDesc;break;
-        case 3: $executeResult = $noFilterResultEAsc; break;
-        case 4: $executeResult = $noFilterResultEDesc;break;
-        default: $executeResult = $default; break;
+
+if ($filterCategory == null or $filterCategory == 0) //if there is no filter
+    switch ($sortC){
+        case 1: switch ($sortE){
+            case 1: $executeResult = $noFilterCAscEAsc; break; //No filter, Category Ascending, Equipment Ascending
+            case 2: $executeResult = $noFilterCAscEDesc; break; //No filter, Category Ascending, Equipment Descending
+            break;
+        } break;
+        case 2: switch ($sortE){
+            case 1: $executeResult = $noFilterCDescEAsc;break; //No filter, Category Descending, Equipment Ascending
+            case 2: $executeResult = $noFilterCDescEDesc;break; //No filter, Category Descending, Equipment Ascending
+            break;
+        }
     }
-elseif ($filterCategory != null)
-    switch ($sortby){
-        case 2: $executeResult = $filterResult; break;
-        case 1: $executeResult = $filterResult; break;
-        case 3: $executeResult = $filterResultAsc; break;
-        case 4: $executeResult = $filterResultDesc; break;
-        case null: $executeResult=$filterResult; break;
-        default: $executeResult=$filterResult; break;
+elseif ($filterCategory != null ) //If filter is selected
+    switch ($sortE){ //Sort by category is ignored as category is filtered
+        case 1: $executeResult = $filterEAsc;break;
+        case 2: $executeResult = $filterEDesc;break;
+        break;
     }
-elseif ($filterCategory != null && $sortby == null)
-    $executeResult = $default;
 else $executeResult = $default;
-    ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//if ($filterCategory == null or $filterCategory == 0)
+//    switch ($sortby) {
+//        case 1: $executeResult = $noFilterResultCAsc; break;
+//        case 2: $executeResult = $noFilterResultCDesc;break;
+//        case 3: $executeResult = $noFilterResultEAsc; break;
+//        case 4: $executeResult = $noFilterResultEDesc;break;
+//        default: $executeResult = $default; break;
+//    }
+//elseif ($filterCategory != null)
+//    switch ($sortby){
+//        case 2: $executeResult = $filterResult; break;
+//        case 1: $executeResult = $filterResult; break;
+//        case 3: $executeResult = $filterResultAsc; break;
+//        case 4: $executeResult = $filterResultDesc; break;
+//        case null: $executeResult=$filterResult; break;
+//        default: $executeResult=$filterResult; break;
+//    }
+//elseif ($filterCategory != null && $sortby == null)
+//    $executeResult = $default;
+//else $executeResult = $default;
+//    ;
 
 
 while ($row = mysqli_fetch_array($executeResult)) {
