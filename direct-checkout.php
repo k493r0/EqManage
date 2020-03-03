@@ -47,11 +47,11 @@ include("navbar.php");
             echo $equipment_id;
 
 
-            $selected_equipment = mysqli_query($db,"select * from equipments where id=$equipment_id ");
+            $selected_equipment = mysqli_query($db,"select * from equipment where id=$equipment_id ");
 
 
             while ($row = mysqli_fetch_array($selected_equipment)){
-                $equipment_name = $row['Equipment'];
+                $equipment_name = $row['equipment'];
                 echo $equipment_name;
             }
 
