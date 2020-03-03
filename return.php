@@ -31,14 +31,17 @@ include('header.php')
             $name = $_SESSION['name'];
             $user_id = $_SESSION['id'];
             $resultset = mysqli_query($db, "
-SELECT l.returnDate, l.users_id,E.id, E.equipment, E.leftQuantity, E.availability, l.returnDate
+SELECT l.returnDate, l.users_id,E.id, E.equipment, E.leftQuantity, E.availability, l.returnDate, R.checkoutQty, l.checkoutRequests_id
 FROM EqManage.log l
-         LEFT JOIN EqManage.equipment E ON l.equipment_id=E.id where l.returnDate IS NULL
+         LEFT JOIN EqManage.equipment E ON l.equipment_id=E.id
+         LEFT JOIN EqManage.requests R on l.checkoutRequests_id = R.id
+where l.returnDate IS NULL
 GROUP BY l.users_id, l.id,E.id
 ORDER BY l.users_id
 ");
             echo $user_id;
-//            while ($row = mysqli_fetch_array($resultset)){
+//            wh
+            //ile ($row = mysqli_fetch_array($resultset)){
 //                if($row['users_id'] = $user_id){
 //                    echo $row['equipment_id'];
 //                    $equipmentName = $row['equipment'];
@@ -49,8 +52,6 @@ ORDER BY l.users_id
 //
 //
 //            }
-
-
 
 
             ?>
@@ -65,8 +66,9 @@ ORDER BY l.users_id
                             $equipmentName = $row['equipment'];
                             $equipmentID = $row['equipment_id'];
                             $checkoutRequestsID = $row['checkoutRequests_id'];
+                            $checkoutQty = $row['checkoutQty'];
                             echo $checkoutRequestsID;
-                            echo "<option value='$equipmentID' data-checkoutRequestsID='$checkoutRequestsID'>$equipmentName</option>";
+                            echo "<option value='$equipmentID' data-checkoutRequestsID='$checkoutRequestsID'>$equipmentName | $checkoutQty Borrowing </option>";
                         }
 
 
