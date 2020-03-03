@@ -60,7 +60,7 @@ include('header.php');
 
                         while($row=mysqli_fetch_assoc($result)){
                             if($row["categoryName"]!=$last_group){
-                                $select.=($last_group!=null?"</optgroup>":"")."<optgroup label=\"{$row["categoryName"]}\">";
+                                $select.=($last_group!=null?"</optgroup>":"")."<optgroup label=\"{$row["categoryName"]}\">"; //Category Spacer
                                 $last_group=$row["categoryName"];
                             }
                             if($row["id"]==null){
