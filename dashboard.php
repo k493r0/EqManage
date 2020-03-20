@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- Material Kit CSS -->
     <link href="assets/css/dashboardstyle.css" rel="stylesheet" />
+    <script src="assets/js/select2.min.js"></script>
+    <link rel="stylesheet" href="assets/css/select2.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -158,7 +161,6 @@
                 </div> <!-- Graph template -->
 
 
-
             </div>
         </div>
     </div>
@@ -169,22 +171,36 @@
     <!-- Modal content -->
     <div class="modal-content">
         <span class="close" data-dismiss="modal">×</span>
+
         <div class="select-style" style="width:500px; margin: auto;" align="center">
-            <input type="text" name="name" placeholder="Equipment Name" id="name" required="">
-            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty">
-            <select id="cat" name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
 
+            <select id="eqselect" style="width: 100%; text-align: left;margin-bottom: 10px">
+                <option value="">Select equipment</option>
+                <option value="4">Afghanistanasdasdasdasdasd</option>
+                <option value="248">Aland Islands</option>
+                <option value="8">Albania</option>
+                <option value="8">4941983014843</option>
 
-                <option value="" disabled="" selected="">Select the category</option>
-                Camera<option name="category_id" value="1">Camera</option><option name="category_id" value="26">Light</option><option name="category_id" value="25">Microphone</option>                                <option value="Other">Other...</option>
-            </select><input type="text" name="other" id="other" style="display:none;" placeholder="New category name">
+            </select>
+            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty" style="margin-top: 5px;" value=""/>
 
 
             <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
             <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
+            <p>  </p>
 
-            <input id="add" name="request" type="submit" value="Add Equipment" style="width: 100%;" data-dismiss="modal">
+            <select id="studentselect" onchange="getQty(this)" style="width: 100%; margin-bottom: 10px">
+                <option value="">Student Name</option>
+                <option value="4">Afghanistanasdasdasdasdasd</option>
+                <option value="248">Aland Islands</option>
+                <option value="8">Albania</option>
+                <option value="8">4941983014843</option>
+
+            </select>
+
+            <input id="add" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" data-dismiss="modal">
         </div>
+
 
     </div>
 
@@ -220,6 +236,24 @@
             modal.style.display = "none";
         }
     };
+
+</script>
+<script src="assets/js/select2.min.js"></script>
+<script>
+    $("#eqselect").select2( {
+        placeholder: "Scan Barcode",
+        allowClear: true
+    } );
+    $("#studentselect").select2( {
+        placeholder: "Student Name",
+        allowClear: true
+    } );
+
+    function getQty(studentselect) {
+        qty = studentselect.options[studentselect.selectedIndex].getAttribute('value');
+        console.log(qty);
+
+    }
 
 </script>
 

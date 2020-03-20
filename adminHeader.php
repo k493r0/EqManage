@@ -17,7 +17,9 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
+    <script src="assets/js/select2.min.js"></script>
+    <link rel="stylesheet" href="assets/css/select2.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(function () {
             setTimeout(function () {
