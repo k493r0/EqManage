@@ -38,7 +38,7 @@ FROM EqManage.log l
 where l.returnDate IS NULL
 GROUP BY l.users_id, l.id,E.id
 ORDER BY l.users_id
-");
+"); //Fetch all checkedout equipments
             echo $user_id;
 //            wh
             //ile ($row = mysqli_fetch_array($resultset)){
