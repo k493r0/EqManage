@@ -203,7 +203,7 @@ where l.returnDate IS NULL");
 
 
 
-                }
+                };
                 ?>
 
 
@@ -219,14 +219,20 @@ where l.returnDate IS NULL");
             <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
             <p>  </p>
 
-            <select id="studentselect" onchange="getQty(this)" style="width: 100%; margin-bottom: 10px">
+            <select id="studentselect" style="width: 100%; margin-bottom: 10px">
                 <option value="">Student Name</option>
+                <option value="1">Test</option>
+                <?php
+                include('fetchName.php');
+
+                ?>
+
             </select>
 
             <input id="add" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" data-dismiss="modal">
         </div>
 
-
+<?php include('fetchName.php')?>
     </div>
 
 </div>
