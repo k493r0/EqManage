@@ -18,12 +18,16 @@
 </head>
 
 <body>
+
 <div class="wrapper ">
+
     <div class="main-panel">
         <!-- Navbar -->
-
+        <?php include('adminHeader.php') ?>
+        <?php include('adminNavbar.php')?>
         <!-- End Navbar -->
         <div class="content">
+            <h2 class="text-center">Dashboard</h2>
             <div class="container-fluid">
                 <!-- your content here -->
 
@@ -34,9 +38,9 @@
                                 <div class="card-icon">
                                     <i class="material-icons">content_copy</i>
                                 </div>
-                                <p class="card-category">Used Space</p>
-                                <h3 class="card-title">49/50
-                                    <small>GB</small>
+                                <p class="card-category">Overdue</p>
+                                <h3 class="card-title">1
+                                    <small>people</small>
                                 </h3>
                             </div>
                             <div class="card-footer">
@@ -53,8 +57,8 @@
                                 <div class="card-icon">
                                     <i class="material-icons">store</i>
                                 </div>
-                                <p class="card-category">Revenue</p>
-                                <h3 class="card-title">$34,245</h3>
+                                <p class="card-category">Checkouts Today</p>
+                                <h3 class="card-title">2</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -69,8 +73,8 @@
                                 <div class="card-icon">
                                     <i class="material-icons">info_outline</i>
                                 </div>
-                                <p class="card-category">Fixed Issues</p>
-                                <h3 class="card-title">75</h3>
+                                <p class="card-category">Pending Requests</p>
+                                <h3 class="card-title">5</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -85,8 +89,8 @@
                                 <div class="card-icon">
                                     <i class="fa fa-twitter"></i>
                                 </div>
-                                <p class="card-category">Followers</p>
-                                <h3 class="card-title">+245</h3>
+                                <p class="card-category">Checked Out This Month</p>
+                                <h3 class="card-title">13</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -105,9 +109,12 @@
                                 <div class="ct-chart" id="websiteViewsChart"></div>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">Daily Sales</h4>
+                                <h4 class="card-title">Currently Checked Out: 4</h4>
                                 <p class="card-category">
                                     <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                                <p class="card-category">List goes here</p>
+                                <p class="card-category" style="padding-bottom: 0px; margin-bottom: 0px">List goes here</p>
+                                <p class="card-category" style="padding-bottom: 0px; margin-bottom: 0px">List goes here</p>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -122,8 +129,8 @@
                                 <div class="ct-chart" id="websiteViewsChart"> </div>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">Email Subscriptions</h4>
-                                <p class="card-category">Last Campaign Performance</p>
+                                <h4 class="card-title">Monthly Checkout</h4>
+                                <p class="card-category">Checkout performance of last 30 days</p>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -138,8 +145,8 @@
                                 <div class="ct-chart" id="websiteViewsChart"> </div>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">Completed Tasks</h4>
-                                <p class="card-category">Last Campaign Performance</p>
+                                <h4 class="card-title">Most Popular</h4>
+                                <p class="card-category">Most frequently checked out equipment</p>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
