@@ -166,6 +166,22 @@
     </div>
 </div>
 
+<?php
+
+include('serverconnect.php');
+
+$result = mysqli_query($db,"select distinct equipment, e.barcodeID, e.id
+from equipment e
+inner join log l
+on e.id = l.equipment_id
+where l.returnDate IS NULL");
+
+?>
+
+
+
+
+
 <div id="Modal" class="modal" style="display: none;">
 
     <!-- Modal content -->
@@ -176,10 +192,24 @@
 
             <select id="eqselect" style="width: 100%; text-align: left;margin-bottom: 10px">
                 <option value="">Select equipment</option>
-                <option value="4">Afghanistanasdasdasdasdasd</option>
-                <option value="248">Aland Islands</option>
-                <option value="8">Albania</option>
-                <option value="8">4941983014843</option>
+                <?php
+                while ($row = mysqli_fetch_array($result)){
+
+                        echo $row['equipment_id'];
+                        $equipmentName = $row['equipment'];
+                        $equipmentID = $row['id'];
+                        $barcodeID = $row['barcodeID'];
+                        echo "<option value='$equipmentID' data-checkoutRequestsID='$equipmentID'>$barcodeID | $equipmentName </option>";
+
+
+
+                }
+                ?>
+
+
+
+
+
 
             </select>
             Quantity: <input type="number" min="1" max="100" name="quantity" id="qty" style="margin-top: 5px;" value=""/>
@@ -191,11 +221,6 @@
 
             <select id="studentselect" onchange="getQty(this)" style="width: 100%; margin-bottom: 10px">
                 <option value="">Student Name</option>
-                <option value="4">Afghanistanasdasdasdasdasd</option>
-                <option value="248">Aland Islands</option>
-                <option value="8">Albania</option>
-                <option value="8">4941983014843</option>
-
             </select>
 
             <input id="add" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" data-dismiss="modal">
