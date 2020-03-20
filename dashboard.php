@@ -157,10 +157,70 @@
                     </div>
                 </div> <!-- Graph template -->
 
+
+
             </div>
         </div>
     </div>
 </div>
+
+<div id="Modal" class="modal" style="display: none;">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" data-dismiss="modal">×</span>
+        <div class="select-style" style="width:500px; margin: auto;" align="center">
+            <input type="text" name="name" placeholder="Equipment Name" id="name" required="">
+            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty">
+            <select id="cat" name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
+
+
+                <option value="" disabled="" selected="">Select the category</option>
+                Camera<option name="category_id" value="1">Camera</option><option name="category_id" value="26">Light</option><option name="category_id" value="25">Microphone</option>                                <option value="Other">Other...</option>
+            </select><input type="text" name="other" id="other" style="display:none;" placeholder="New category name">
+
+
+            <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
+            <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
+
+            <input id="add" name="request" type="submit" value="Add Equipment" style="width: 100%;" data-dismiss="modal">
+        </div>
+
+    </div>
+
+</div>
+
 </body>
+
+<script>
+    // Get the modal
+    var alert = document.getElementById("alert");
+    alert.style.display = "none";
+    var modal = document.getElementById("Modal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("Btn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+
+</script>
 
 </html>
