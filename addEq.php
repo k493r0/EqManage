@@ -40,10 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
 //        $get_id = "select id from EqManage.equipment where categoryName=$new_category";
+        $randomNumber = mt_rand(10000000,99999999);
 
 
 
-        $query2 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity) values ('$name','$last_id','$quantity','$quantity')";
+
+        $query2 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity,barcodeID) values ('$name','$last_id','$quantity','$quantity','$randomNumber')";
         if (mysqli_query($db, $query2)) {
             $last_id = mysqli_insert_id($db);
             echo "Successfully added equipment";
