@@ -20,6 +20,7 @@ include('serverconnect.php');
     <script src="assets/js/select2.min.js"></script>
     <link rel="stylesheet" href="assets/css/select2.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 
 <body>
@@ -40,55 +41,7 @@ include('serverconnect.php');
 
                 <!-- your content here -->
 
-                <?php
-                $query = mysqli_query($db,"Select * from EqManage.log");
-                $query2 = mysqli_query($db,"Select * from EqManage.requests");
-                $today = date("Y-m-d H:i:s");
-                $todayExplode = explode(" ", $today);
-                echo $todayExplode[0];
 
-                $monthago = date('Y-m-d', strtotime('now - 1 month'));
-                echo $monthago;
-
-                $overdue = 0;
-                $checkoutToday = 0;
-                $pendingRQ = 0;
-                $checkoutMonth = 0;
-
-//                echo $today;
-                while ($row = mysqli_fetch_array($query)){
-                    $returnDate = $row['expectedReturnDate'];
-                    $checkoutDate = $row['checkoutDate'];
-                    $checkoutDateExplode = explode(" ", $checkoutDate);
-
-//                    echo "<p>'$returnDate'</p>";
-                    if (strtotime($returnDate) < strtotime($today)){
-                        $overdue++;
-                    }
-                    if(strtotime($checkoutDateExplode[0]) == strtotime($todayExplode[0])){
-                        $checkoutToday++;
-                    }
-                    if (strtotime($checkoutDateExplode[0]) >= strtotime($monthago)){
-                        $checkoutMonth++;
-                    }
-                };
-
-                while ($row = mysqli_fetch_array($query2)){
-                    $state = $row['state'];
-                    if($state == null){
-                        $pendingRQ++;
-                    }
-                }
-                echo "Overdue: ", $overdue;
-                echo " Checked out today: ", $checkoutToday;
-                echo " Pending requests: ", $pendingRQ;
-                echo " Checked out this month", $checkoutMonth;
-
-
-
-
-
-?>
                 <div class="row">
 
                     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -163,6 +116,7 @@ include('serverconnect.php');
 
                 </div> <!-- Small statiistic template -->
                 <div class="row">
+
                     <div class="col-md-4">
                         <div class="card card-chart">
                             <div class="card-header card-header-danger">
@@ -185,23 +139,27 @@ include('serverconnect.php');
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-4">
                         <div class="card card-chart">
                             <div class="card-header card-header-danger">
                                 <div class="ct-chart" id="websiteViewsChart"> </div>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">Monthly Checkout</h4>
-                                <p class="card-category">Checkout performance of last 30 days</p>
+                                <h4 class="card-title">Weekly Checkout</h4>
+                                <p class="card-category">Checkout performance of last 7 days</p>
                             </div>
+                            <div id="chartContainer2" style="height: 150px; width: 100%;"></div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">access_time</i> campaign sent 2 days ago
+<!--                                    <i class="material-icons">access_time</i> campaign sent 2 days ago-->
+                                    <a href="">View log</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+
+                    <div class="col-md-4" style="width: 400px">
                         <div class="card card-chart">
                             <div class="card-header card-header-danger">
                                 <div class="ct-chart" id="websiteViewsChart"> </div>
@@ -210,9 +168,15 @@ include('serverconnect.php');
                                 <h4 class="card-title">Most Popular</h4>
                                 <p class="card-category">Most frequently checked out equipment</p>
                             </div>
+<!--                            <div id="popGraph">--><?php
+//                                include('popularEqGraph.php');
+//                                ?><!--</div>-->
+
+                            <div id="chartContainer" style="height: 200px; width: 100%;"></div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">access_time</i> campaign sent 2 days ago
+<!--                                    <i class="material-icons">access_time</i> campaign sent 2 days ago-->
+                                    <a href="">Manage Equipment</a>
                                 </div>
                             </div>
                         </div>
@@ -299,6 +263,92 @@ where l.returnDate IS NULL");
 </div>
 
 </body>
+<script>
+
+
+        // $.getJSON("popularEqGraph.php", function (result) {
+        //
+        //     var chart = new CanvasJS.Chart("chartContainer", {
+        //         animationEnabled: false,
+        //         exportEnabled: false,
+        //         theme: "light1", // "light1", "light2", "dark1", "dark2"
+        //         title:{
+        //
+        //         },
+        //         data: [{
+        //             type: "bar", //change type to bar, line, area, pie, etc
+        //             dataPoints: result
+        //         }]
+        //     });
+        //
+        //     chart.render();
+        // });
+        window.onload = function () {
+            $.getJSON("popularEqGraph.php", function(result){
+                var dps= [];
+
+//Insert Array Assignment function here
+                for(var i=0; i<result.length;i++) {
+                    dps = result;
+                    console.log(dps);
+                    console.log("hello")
+                }
+
+//Insert Chart-making function here
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    exportEnabled: false,
+                    theme: "light1", // "light1", "light2", "dark1", "dark2"
+                    title:{
+
+                    },
+                    data: [{
+                        type: "bar", //change type to bar, line, area, pie, etc
+                        dataPoints: dps
+                    }]
+                });
+
+
+                chart.render();
+
+            });
+
+
+            $.getJSON("weeklyCoGraph.php", function(result){
+                var dps= [];
+
+//Insert Array Assignment function here
+                for(var i=0; i<result.length;i++) {
+                    dps = result;
+                    console.log(dps);
+                    console.log("hello")
+                }
+
+//Insert Chart-making function here
+                var chart = new CanvasJS.Chart("chartContainer2", {
+                    animationEnabled: true,
+                    exportEnabled: false,
+                    theme: "light1", // "light1", "light2", "dark1", "dark2"
+                    title:{
+
+                    },
+                    data: [{
+                        type: "line", //change type to bar, line, area, pie, etc
+                        dataPoints: dps
+                    }]
+                });
+
+
+                chart.render();
+
+            });
+
+        }
+        
+        
+
+
+</script>
 
 <script>
 
@@ -341,6 +391,76 @@ where l.returnDate IS NULL");
         document.getElementById("currentCO").innerHTML=xmlhttp.responseText;
     }
 
+    // function refreshGraph() {
+    //     xmlhttp = new XMLHttpRequest(); // Checkout today
+    //     xmlhttp.open("GET", "popularEqGraph.php", false);
+    //     xmlhttp.send(null);
+    //     document.getElementById("popGraph").innerHTML=xmlhttp.responseText;
+    // }
+
+    function reloadGraph() {
+        $.getJSON("popularEqGraph.php", function(result){
+            var dps= [];
+
+//Insert Array Assignment function here
+            for(var i=0; i<result.length;i++) {
+                dps = result;
+                console.log(dps);
+                console.log("hello")
+            }
+
+//Insert Chart-making function here
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: false,
+                exportEnabled: false,
+                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                title:{
+
+                },
+                data: [{
+                    type: "bar", //change type to bar, line, area, pie, etc
+                    dataPoints: dps
+                }]
+            });
+
+
+            chart.render();
+
+        });
+    }
+
+
+    function reloadGraph2() {
+        $.getJSON("weeklyCoGraph.php", function(result){
+            var dps= [];
+
+//Insert Array Assignment function here
+            for(var i=0; i<result.length;i++) {
+                dps = result;
+                console.log(dps);
+                console.log("hello")
+            }
+
+//Insert Chart-making function here
+            var chart = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: false,
+                exportEnabled: false,
+                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                title:{
+
+                },
+                data: [{
+                    type: "line", //change type to bar, line, area, pie, etc
+                    dataPoints: dps
+                }]
+            });
+
+
+            chart.render();
+
+        });
+    }
+
 
     refreshOverdue();
     refreshCOT();
@@ -354,7 +474,13 @@ where l.returnDate IS NULL");
         refreshPR();
         refreshCOM();
         refreshCurrentCO();
-    },1000);
+        reloadGraph();
+        reloadGraph2();
+
+
+
+    },1500);
+
 
 
 
@@ -423,8 +549,10 @@ where l.returnDate IS NULL");
         })
     }
 
+
 </script>
 <script src="assets/js/select2.min.js"></script>
+
 <script>
     //Script for searchable dropdown
     $("#eqselect").select2( {
@@ -537,6 +665,8 @@ where l.returnDate IS NULL");
                         setTimeout(() => {
                         document.getElementById("add").setAttribute("value", "Checked out successful");
                     }, 1000);
+
+
 
                     setTimeout(() => {
 
