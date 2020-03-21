@@ -297,15 +297,15 @@ where l.returnDate IS NULL");
 
 <script>
 
-    function test() {
+    function refresh() {
         xmlhttp=new XMLHttpRequest();
         xmlhttp.open("GET","fetchOverdue.php", false);
         xmlhttp.send(null);
         document.getElementById("overdue").innerHTML=xmlhttp.responseText;
     }
-    test();
+    refresh();
     setInterval(function () {
-        test();
+        refresh();
     },1000);
 
     // Get the modal
