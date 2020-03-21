@@ -190,7 +190,7 @@ where l.returnDate IS NULL");
 
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
-            <select id="eqselect" style="width: 100%; text-align: left;margin-bottom: 10px">
+            <select id="eqselect" style="width: 100%; text-align: left;margin-bottom: 10px" onchange="getName()">
                 <option value="">Select equipment</option>
                 <?php
                 while ($row = mysqli_fetch_array($result)){
@@ -212,27 +212,41 @@ where l.returnDate IS NULL");
 
 
             </select>
-            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty" style="margin-top: 5px;" value=""/>
+
 
 
             <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
             <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
             <p>  </p>
 
+            <div id="test"></div>
+
             <select id="studentselect" style="width: 100%; margin-bottom: 10px">
                 <option value="">Student Name</option>
-                <option value="1">Test</option>
                 <?php
                 include('fetchName.php');
 
                 ?>
 
             </select>
+            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty" style="margin-top: 5px;" value=""/>
+
+            <select id="checkOutSelect" style="width: 100%; margin-bottom: 10px">
+                <option value="">Student Name</option>
+                <?php
+                include('fetchAllCheckOut.php');
+
+                ?>
+
+            </select>
+
 
             <input id="add" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" data-dismiss="modal">
         </div>
+        <?php
+        include('fetchName.php');
 
-<?php include('fetchName.php')?>
+        ?>
     </div>
 
 </div>
@@ -268,9 +282,48 @@ where l.returnDate IS NULL");
         }
     };
 
+
+
+
+    function getName(){
+        var e = document.getElementById('eqselect');
+        var id = e.options[e.selectedIndex].value;
+        $.ajax({
+            url: "fetchName.php",
+            type: "POST",
+            async: false,
+            data: {
+                "eqID":id
+            },
+            success:function(data){
+
+                displayFromDatabase(id);
+            }
+
+        })
+    };
+
+    function displayFromDatabase(id){
+        $.ajax({
+            url: "fetchName.php",
+            type: "POST",
+            async: false,
+            data: {
+                "display": 1,
+                    "eqID":id
+            },
+            success:function (data) {
+                $("#studentselect").append(data);
+
+            }
+
+        })
+    }
+
 </script>
 <script src="assets/js/select2.min.js"></script>
 <script>
+    //Script for searchable dropdown
     $("#eqselect").select2( {
         placeholder: "Scan Barcode",
         allowClear: true
@@ -285,6 +338,37 @@ where l.returnDate IS NULL");
         console.log(qty);
 
     }
+
+
+
+
+    $(document).ready(function(){
+
+        $("#eqselect").change(function(){
+            var id = $(this).val();
+
+            $.ajax({
+                url: 'fetchName.php',
+                type: 'post',
+                data: {id:id},
+                dataType: 'json',
+                success:function(response){
+
+                    var len = response.length;
+
+                    $("#studentselect").empty();
+                    for( var i = 0; i<len; i++){
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+
+                        $("#studentselect").append("<option value=''>Student Name</option><option value='"+id+"'>"+name+"</option>");
+
+                    }
+                }
+            });
+        });
+
+    });
 
 </script>
 
