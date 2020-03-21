@@ -115,7 +115,7 @@ include('serverconnect.php');
                                     <i class="material-icons">store</i>
                                 </div>
                                 <p class="card-category">Checked Out Today</p>
-                                <h3 class="card-title">2</h3>
+                                <div id="todayCheckout"><?php include('fetchTodayCheckout.php') ?></div>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -131,7 +131,7 @@ include('serverconnect.php');
                                     <i class="material-icons">info_outline</i>
                                 </div>
                                 <p class="card-category">Pending Requests</p>
-                                <h3 class="card-title">5</h3>
+                                <div id="pendingRequest"><?php include('fetchTodayCheckout.php') ?></div>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -147,7 +147,7 @@ include('serverconnect.php');
                                     <i class="fa fa-twitter"></i>
                                 </div>
                                 <p class="card-category">Checked Out in 30 days</p>
-                                <h3 class="card-title">13</h3>
+                                <div id="monthCheckout"><?php include('fetchMonthCheckout.php') ?></div>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -297,16 +297,50 @@ where l.returnDate IS NULL");
 
 <script>
 
-    function refresh() {
-        xmlhttp=new XMLHttpRequest();
-        xmlhttp.open("GET","fetchOverdue.php", false);
-        xmlhttp.send(null);
-        document.getElementById("overdue").innerHTML=xmlhttp.responseText;
+    function refreshOverdue() {
+        xmlhttpOverdue=new XMLHttpRequest();
+
+        xmlhttpOverdue.open("GET","fetchOverdue.php", false);
+
+        xmlhttpOverdue.send(null);
+
+        document.getElementById("overdue").innerHTML=xmlhttpOverdue.responseText;
+
     }
-    refresh();
+    function refreshPR() {
+        xmlhttpPR = new XMLHttpRequest();
+        xmlhttpPR.open("GET", "fetchPendingRequest.php",false);
+        xmlhttpPR.send(null);
+        document.getElementById("pendingRequest").innerHTML=xmlhttpPR.responseText;
+    }
+
+    function refreshCOM() {
+        xmlhttpCOM = new XMLHttpRequest(); // Checkout Month
+        xmlhttpCOM.open("GET", "fetchMonthCheckout.php",false);
+        xmlhttpCOM.send(null);
+        document.getElementById("monthCheckout").innerHTML=xmlhttpCOM.responseText;
+    }
+
+
+    function refreshCOT() {
+        xmlhttpCOT = new XMLHttpRequest(); // Checkout today
+        xmlhttpCOT.open("GET", "fetchTodayCheckout.php", false);
+        xmlhttpCOT.send(null);
+        document.getElementById("todayCheckout").innerHTML=xmlhttpCOT.responseText;
+    }
+
+    refreshOverdue();
+    refreshCOT();
+    refreshPR();
+    refreshCOM();
     setInterval(function () {
-        refresh();
+        refreshOverdue();
+        refreshCOT();
+        refreshPR();
+        refreshCOM();
     },1000);
+
+
 
     // Get the modal
     var alert = document.getElementById("alert");
