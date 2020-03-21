@@ -216,7 +216,6 @@ where l.returnDate IS NULL");
             <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
             <p>  </p>
 
-            <div id="test"></div>
 
             <select id="studentselect" style="width: 100%; margin-bottom: 10px">
                 <option value="">Student Name</option>
@@ -226,6 +225,8 @@ where l.returnDate IS NULL");
                 ?>
 
             </select>
+
+            <p>  </p>
 
             <select id="checkOutSelect" style="width: 100%; margin-bottom: 10px">
                 <option value=""></option>
