@@ -98,8 +98,7 @@ include('serverconnect.php');
                                     <i class="material-icons">content_copy</i>
                                 </div>
                                 <p class="card-category">Overdue</p>
-                                <h3 class="card-title">1
-                                </h3>
+                                <div id="overdue"><?php include('fetchOverdue.php') ?></div>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -298,23 +297,19 @@ where l.returnDate IS NULL");
 
 <script>
 
-
-    // $(document).ready(function() { /// Wait till page is loaded
-    //     $('#container').load('dashboard.php');
-    //     refresh();
-    // });
-    // function refresh() {
-    //     setTimeout(function(){
-    //         $('#container').load('dashboard.php');
-    //         refresh();
-    //         console.log("refreshing");s
-    //     }, 200);}
-
-
+    function test() {
+        xmlhttp=new XMLHttpRequest();
+        xmlhttp.open("GET","fetchOverdue.php", false);
+        xmlhttp.send(null);
+        document.getElementById("overdue").innerHTML=xmlhttp.responseText;
+    }
+    test();
+    setInterval(function () {
+        test();
+    },1000);
 
     // Get the modal
     var alert = document.getElementById("alert");
-    alert.style.display = "none";
     var modal = document.getElementById("Modal");
 
     // Get the button that opens the modal
