@@ -2,6 +2,7 @@
 include('serverconnect.php');
 $query = mysqli_query($db, "Select * from EqManage.log");
 $query2 = mysqli_query($db, "Select * from EqManage.requests");
+$query3 = mysqli_query($db,"select * from EqManage.equipment");
 $today = date("Y-m-d H:i:s");
 $todayExplode = explode(" ", $today);
 //echo $todayExplode[0];
@@ -40,10 +41,12 @@ while ($row = mysqli_fetch_array($query2)) {
     }
 }
 
+$nEq = mysqli_num_rows($query3);
+
 //echo "Overdue: ", $overdue;
 //echo " Checked out today: ", $checkoutToday;
 //echo " Pending requests: ", $pendingRQ;
 //echo " Checked out this month", $checkoutMonth;
-echo "<h3 class=\"card-title\">",$checkoutMonth,"</h3>";
+echo "<h3 class=\"card-title\">",$nEq,"</h3>";
 
 
