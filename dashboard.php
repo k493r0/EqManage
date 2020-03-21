@@ -394,7 +394,7 @@ where l.returnDate IS NULL");
                         var requestOnlyDate = requestDate.split(" ",1);
                         var returnOnlyDate =  returnDate.split(" ", 1);
 
-                        $("#checkOutSelect").append("<option value=''></option><option value='"+id+"'>Requested "+requestOnlyDate+" | Returning "+returnOnlyDate+"</option>");
+                        $("#checkOutSelect").append("<option value=''></option><option value='"+id+"'>Requested "+requestOnlyDate+" | Returning "+returnOnlyDate+" "+id+"</option>");
 
                     }
                 }
@@ -424,6 +424,7 @@ where l.returnDate IS NULL");
                 },
                 success: function(data){
 
+
                         document.getElementById("add").setAttribute("value", "...");
 
                         setTimeout(() => {
@@ -439,12 +440,31 @@ where l.returnDate IS NULL");
                         document.getElementById("add").setAttribute("value", "Check out");
 
                     }, 2000);
+                    // pipe(eqID,userID,checkoutID);
 
 
                 }
 
             });
         });
+
+        // function pipe(eqID,userID,checkoutID){
+        //     $.ajax({
+        //         url: "adminCheckout.php",
+        //         type: "POST",
+        //         async: false,
+        //         data: {
+        //             "display": 1,
+        //             "eqID":eqID,
+        //             "userID":userID,
+        //             "checkoutID":checkoutID
+        //         },
+        //         success:function (data) {
+        //             console.log(data)
+        //         }
+        //
+        //     })
+        // }
 
 
     });

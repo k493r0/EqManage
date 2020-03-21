@@ -6,7 +6,7 @@ $result = mysqli_query($db,"Select u.fullname, u.id, l.users_id, l.checkoutReque
 from users u
 left join log l on u.id = l.users_id
 left join equipment e on l.equipment_id = e.id
-where e.id = '$equipmentID' and l.returnDate IS NULL and l.users_id = '$userPOSTID'");
+where e.id = '$equipmentID' and l.returnDate IS NULL and l.users_id = '$userPOSTID' and l.checkoutDate IS NULL");
 
 $users_arr = array();
 while ($row = mysqli_fetch_array($result)) {
@@ -18,7 +18,7 @@ while ($row = mysqli_fetch_array($result)) {
     $fullname = $row['fullname'];
     $userID = $row['users_id'];
     $returnDate = $row['expectedReturnDate'];
-    $checkoutID = $row['checkoutRequestsID'];
+    $checkoutID = $row['checkoutRequests_id'];
     $checkoutDate = $row['checkoutRequestDate'];
     $users_arr[] = array("id" => $checkoutID, "requestDate" => $checkoutDate, "returnDate" => $returnDate);
 }

@@ -1,5 +1,5 @@
 <?php
-include('server.php');
+include('serverconnect.php');
 ?>
 <?php
 session_start();
@@ -33,8 +33,6 @@ include("navbar.php");
 
         <p>
             <?php
-
-            include ('serverconnect.php');
 
             $user = "";
             $equipment = "";
