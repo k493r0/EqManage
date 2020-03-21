@@ -1,4 +1,6 @@
-<?php ?>
+<?php
+include('serverconnect.php');
+?>
 
 <!--TODO Complete Dashboard-->
 <!doctype html>
@@ -34,9 +36,59 @@
             <h2 class="text-center">Dashboard</h2>
 
 
-            <div class="container-fluid">
+            <div class="container-fluid" id="container">
 
                 <!-- your content here -->
+
+                <?php
+                $query = mysqli_query($db,"Select * from EqManage.log");
+                $query2 = mysqli_query($db,"Select * from EqManage.requests");
+                $today = date("Y-m-d H:i:s");
+                $todayExplode = explode(" ", $today);
+                echo $todayExplode[0];
+
+                $monthago = date('Y-m-d', strtotime('now - 1 month'));
+                echo $monthago;
+
+                $overdue = 0;
+                $checkoutToday = 0;
+                $pendingRQ = 0;
+                $checkoutMonth = 0;
+
+//                echo $today;
+                while ($row = mysqli_fetch_array($query)){
+                    $returnDate = $row['expectedReturnDate'];
+                    $checkoutDate = $row['checkoutDate'];
+                    $checkoutDateExplode = explode(" ", $checkoutDate);
+
+//                    echo "<p>'$returnDate'</p>";
+                    if (strtotime($returnDate) < strtotime($today)){
+                        $overdue++;
+                    }
+                    if(strtotime($checkoutDateExplode[0]) == strtotime($todayExplode[0])){
+                        $checkoutToday++;
+                    }
+                    if (strtotime($checkoutDateExplode[0]) >= strtotime($monthago)){
+                        $checkoutMonth++;
+                    }
+                };
+
+                while ($row = mysqli_fetch_array($query2)){
+                    $state = $row['state'];
+                    if($state == null){
+                        $pendingRQ++;
+                    }
+                }
+                echo "Overdue: ", $overdue;
+                echo " Checked out today: ", $checkoutToday;
+                echo " Pending requests: ", $pendingRQ;
+                echo " Checked out this month", $checkoutMonth;
+
+
+
+
+
+?>
                 <div class="row">
 
                     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -47,7 +99,6 @@
                                 </div>
                                 <p class="card-category">Overdue</p>
                                 <h3 class="card-title">1
-                                    <small>people</small>
                                 </h3>
                             </div>
                             <div class="card-footer">
@@ -64,7 +115,7 @@
                                 <div class="card-icon">
                                     <i class="material-icons">store</i>
                                 </div>
-                                <p class="card-category">Checkouts Today</p>
+                                <p class="card-category">Checked Out Today</p>
                                 <h3 class="card-title">2</h3>
                             </div>
                             <div class="card-footer">
@@ -96,7 +147,7 @@
                                 <div class="card-icon">
                                     <i class="fa fa-twitter"></i>
                                 </div>
-                                <p class="card-category">Checked Out This Month</p>
+                                <p class="card-category">Checked Out in 30 days</p>
                                 <h3 class="card-title">13</h3>
                             </div>
                             <div class="card-footer">
@@ -182,10 +233,6 @@ where l.returnDate IS NULL");
 
 ?>
 
-
-
-
-
 <div id="Modal" class="modal" style="display: none;">
 
     <!-- Modal content -->
@@ -250,6 +297,21 @@ where l.returnDate IS NULL");
 </body>
 
 <script>
+
+
+    // $(document).ready(function() { /// Wait till page is loaded
+    //     $('#container').load('dashboard.php');
+    //     refresh();
+    // });
+    // function refresh() {
+    //     setTimeout(function(){
+    //         $('#container').load('dashboard.php');
+    //         refresh();
+    //         console.log("refreshing");s
+    //     }, 200);}
+
+
+
     // Get the modal
     var alert = document.getElementById("alert");
     alert.style.display = "none";
