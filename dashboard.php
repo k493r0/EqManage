@@ -208,9 +208,6 @@ where l.returnDate IS NULL");
 
 
 
-
-
-
             </select>
 
 
@@ -229,10 +226,10 @@ where l.returnDate IS NULL");
                 ?>
 
             </select>
-            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty" style="margin-top: 5px;" value=""/>
 
             <select id="checkOutSelect" style="width: 100%; margin-bottom: 10px">
-                <option value="">Student Name</option>
+                <option value=""></option>
+
                 <?php
                 include('fetchAllCheckOut.php');
 
@@ -243,10 +240,6 @@ where l.returnDate IS NULL");
 
             <input id="add" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" data-dismiss="modal">
         </div>
-        <?php
-        include('fetchName.php');
-
-        ?>
     </div>
 
 </div>
@@ -332,6 +325,10 @@ where l.returnDate IS NULL");
         placeholder: "Student Name",
         allowClear: true
     } );
+    $("#checkOutSelect").select2( {
+        placeholder: "Request to confirm checkout",
+        allowClear: true
+    } );
 
     function getQty(studentselect) {
         qty = studentselect.options[studentselect.selectedIndex].getAttribute('value');
@@ -360,8 +357,40 @@ where l.returnDate IS NULL");
                     for( var i = 0; i<len; i++){
                         var id = response[i]['id'];
                         var name = response[i]['name'];
+                        var eqID = response[i]['eqID'];
 
-                        $("#studentselect").append("<option value=''>Student Name</option><option value='"+id+"'>"+name+"</option>");
+                        $("#studentselect").append("<option value=''>Student Name</option><option value='"+id+"' data-eqID='"+eqID+"'>"+name+""+eqID+"</option>");
+
+                    }
+                }
+            });
+        });
+
+        $("#studentselect").change(function(){
+            var id = $(this).val();
+            var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');;
+
+
+            $.ajax({
+                url: 'fetchAllCheckout.php',
+                type: 'post',
+                data: {id:id,eqID:eqID},
+                dataType: 'json',
+                success:function(response){
+
+                    var len = response.length;
+
+                    $("#checkOutSelect").empty();
+                    $("#checkOutSelect").append("<option value=''></option><option value='0'>All</option>");
+
+                    for( var i = 0; i<len; i++){
+                        var id = response[i]['id'];
+                        var requestDate = response[i]['requestDate'];
+                        var returnDate = response[i]['returnDate'];
+                        var requestOnlyDate = requestDate.split(" ",1);
+                        var returnOnlyDate =  returnDate.split(" ", 1);
+
+                        $("#checkOutSelect").append("<option value=''></option><option value='"+id+"'>Requested "+requestOnlyDate+" | Returning "+returnOnlyDate+"</option>");
 
                     }
                 }
