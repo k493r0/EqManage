@@ -102,8 +102,8 @@ include('serverconnect.php');
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons text-danger">warning</i>
-                                    <a href="javascript:;">Get More Space...</a>
+<!--                                    <i class="material-icons text-danger">warning</i>-->
+                                    <a href="">View overdue >></a>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,8 @@ include('serverconnect.php');
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">date_range</i> Last 24 Hours
+<!--                                    <i class="material-icons">date_range</i>-->
+                                    <a href="">View log >></a>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +136,8 @@ include('serverconnect.php');
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">local_offer</i> Tracked from Github
+<!--                                    <i class="material-icons">local_offer</i> Tracked from Github-->
+                                    <a href="">View all requests >></a>
                                 </div>
                             </div>
                         </div>
@@ -146,12 +148,13 @@ include('serverconnect.php');
                                 <div class="card-icon">
                                     <i class="fa fa-twitter"></i>
                                 </div>
-                                <p class="card-category">Checked Out in 30 days</p>
-                                <div id="monthCheckout"><?php include('fetchMonthCheckout.php') ?></div>
+                                <p class="card-category">Registered Equipment</p>
+                                <div id="regEq"><?php include('fetchRegisteredEq.php') ?></div>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">update</i> Just Updated
+<!--                                    <i class="material-icons">update</i> Just Updated-->
+                                    <a href="">Manage Equipment >></a>
                                 </div>
                             </div>
                         </div>
@@ -316,9 +319,9 @@ where l.returnDate IS NULL");
 
     function refreshCOM() {
         xmlhttpCOM = new XMLHttpRequest(); // Checkout Month
-        xmlhttpCOM.open("GET", "fetchMonthCheckout.php",false);
+        xmlhttpCOM.open("GET", "fetchRegisteredEq.php",false);
         xmlhttpCOM.send(null);
-        document.getElementById("monthCheckout").innerHTML=xmlhttpCOM.responseText;
+        document.getElementById("regEq").innerHTML=xmlhttpCOM.responseText;
     }
 
 
