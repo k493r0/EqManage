@@ -37,7 +37,7 @@ if (isset($_POST['accept'])) {
     $checkoutQty = $request['checkoutQty'];
 
 
-    $log_query = "INSERT into EqManage.log (checkoutRequests_id, equipment_id,users_id,notes,checkoutDate,expectedReturnDate) values ('$checkoutRequest_id','$equipment_id','$users_id','$note','$date', '$expectedReturnDate')";
+    $log_query = "INSERT into EqManage.log (checkoutRequests_id, equipment_id,users_id,notes,checkoutRequestDate,expectedReturnDate) values ('$checkoutRequest_id','$equipment_id','$users_id','$note','$date', '$expectedReturnDate')";
 
 
     if (mysqli_query($db, $log_query)) {

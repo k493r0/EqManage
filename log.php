@@ -59,7 +59,7 @@ include('header.php')
                                 </td>
                                 <td style="text-align:left"><?php echo $row['equipment_id'] ?> </td>
                                 <td style="text-align:left"><?php echo $row['users_id'] ?></td>
-                                <td style="text-align:left"><?php echo $row['checkoutDate'] ?></td>
+                                <td style="text-align:left"><?php echo $row['checkoutRequestDate'] ?></td>
                                 <td style="text-align:left"><?php echo $row['expectedReturnDate'] ?></td>
 
 
