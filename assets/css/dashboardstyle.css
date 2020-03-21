@@ -185,13 +185,12 @@ body.loggedin {
 }
 .content h2 {
     margin: 0;
-    padding: 25px 20px;
+    padding: 3px 3px;
     font-size: 22px;
     border-bottom: 1px solid #e0e0e3;
     color: #4a536e;
 }
 .content > p, .content > div {
-    margin: 25px 0;
     padding: 25px;
     background-color: #fff;
 }
