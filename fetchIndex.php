@@ -150,7 +150,7 @@ while ($row = mysqli_fetch_array($executeResult)) {
     <?php if ($row['availability'] == 1) {
         echo "<a style='font-style: italic; text-decoration: underline'>".$row['categoryName']."<a/><h3 class=\"name\">".$row['equipment']."</h3>";
     } elseif ($row['availability'] == 0){
-        echo "<h3 class=\"name\" style='color: orangered'>".$row['equipment']."</h3>";
+        echo "<a style='font-style: italic; text-decoration: underline;color: orangered'>".$row['categoryName']."<a/><h3 class=\"name\" style='color: orangered'>".$row['equipment']."</h3>";
     } else echo "Error"; ?>
 
 
