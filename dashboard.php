@@ -168,17 +168,19 @@ include('serverconnect.php');
                             <div class="card-header card-header-danger">
                                 <div class="ct-chart" id="websiteViewsChart"></div>
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title">Currently Checked Out: 4</h4>
-                                <p class="card-category">
-                                    <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
-                                <p class="card-category">List goes here</p>
-                                <p class="card-category" style="padding-bottom: 0px; margin-bottom: 0px">List goes here</p>
-                                <p class="card-category" style="padding-bottom: 0px; margin-bottom: 0px">List goes here</p>
+                            <div class="card-body" id="currentCO">
+<!--                                <h4 class="card-title">Currently Checked Out: 4</h4>-->
+<!--                                <p class="card-category">-->
+<!--                                    <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>-->
+<!--                                <p class="card-category">List goes here</p>-->
+<!--                                <p class="card-category" style="padding-bottom: 0px; margin-bottom: 0px">List goes here</p>-->
+<!--                                <p class="card-category" style="padding-bottom: 0px; margin-bottom: 0px">List goes here</p>-->
+                                <?php include('fetchCurrentCheckoutEq.php'); ?>
+
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">access_time</i> updated 4 minutes ago
+
                                 </div>
                             </div>
                         </div>
@@ -332,15 +334,26 @@ where l.returnDate IS NULL");
         document.getElementById("todayCheckout").innerHTML=xmlhttpCOT.responseText;
     }
 
+    function refreshCurrentCO() {
+        xmlhttp = new XMLHttpRequest(); // Checkout today
+        xmlhttp.open("GET", "fetchCurrentCheckoutEq.php", false);
+        xmlhttp.send(null);
+        document.getElementById("currentCO").innerHTML=xmlhttp.responseText;
+    }
+
+
     refreshOverdue();
     refreshCOT();
     refreshPR();
     refreshCOM();
+    refreshCurrentCO();
+
     setInterval(function () {
         refreshOverdue();
         refreshCOT();
         refreshPR();
         refreshCOM();
+        refreshCurrentCO();
     },1000);
 
 
