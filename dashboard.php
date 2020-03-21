@@ -29,12 +29,16 @@
         <?php include('adminHeader.php') ?>
         <?php include('adminNavbar.php')?>
         <!-- End Navbar -->
+
         <div class="content">
             <h2 class="text-center">Dashboard</h2>
-            <div class="container-fluid">
-                <!-- your content here -->
 
+
+            <div class="container-fluid">
+
+                <!-- your content here -->
                 <div class="row">
+
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-header card-header-warning card-header-icon">
@@ -206,8 +210,6 @@ where l.returnDate IS NULL");
                 };
                 ?>
 
-
-
             </select>
 
 
@@ -239,7 +241,7 @@ where l.returnDate IS NULL");
             </select>
 
 
-            <input id="add" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" data-dismiss="modal">
+            <input id="add" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" >
         </div>
     </div>
 
@@ -320,7 +322,8 @@ where l.returnDate IS NULL");
     //Script for searchable dropdown
     $("#eqselect").select2( {
         placeholder: "Scan Barcode",
-        allowClear: true
+        allowClear: true,
+
     } );
     $("#studentselect").select2( {
         placeholder: "Student Name",
@@ -397,6 +400,52 @@ where l.returnDate IS NULL");
                 }
             });
         });
+
+        $("#add").click(function (){
+            var eq = document.getElementById("eqselect");
+            var eqID = eq.options[eq.selectedIndex].value;
+
+            var user = document.getElementById("studentselect");
+            var userID = user.options[user.selectedIndex].value;
+
+            var checkout = document.getElementById("checkOutSelect");
+            var checkoutID = checkout.options[checkout.selectedIndex].value;
+
+            document.getElementById("add").setAttribute("value", "...");
+
+            $.ajax({
+                url: "adminCheckout.php",
+                type: "POST",
+                async: false,
+                data:{
+                    "eqID":eqID,
+                    "userID":userID,
+                    "checkoutID":checkoutID,
+                },
+                success: function(data){
+
+                        document.getElementById("add").setAttribute("value", "...");
+
+                        setTimeout(() => {
+                        document.getElementById("add").setAttribute("value", "Checked out successful");
+                    }, 1000);
+
+                    setTimeout(() => {
+
+                        $('#Modal').modal('hide');
+                        $('#eqselect').val(null).trigger('change');
+                        $('#studentselect').val(null).trigger('change');
+                        $('#checkOutSelect').val(null).trigger('change');
+                        document.getElementById("add").setAttribute("value", "Check out");
+
+                    }, 2000);
+
+
+                }
+
+            });
+        });
+
 
     });
 
