@@ -26,8 +26,8 @@ include('header.php')
     <?php if (isset($_GET['sent']) && $_GET['sent'] == 1){
         echo '<h2>Message</h2><p style="color: red" >Your request is sent</p>';
     } ?>
-    <?php if (isset($_GET['check-out']) && $_GET['check-out'] == 1){
-        echo '<h2>Message</h2><p style="color: red" >Successfully Checked Out</p>';
+    <?php if (isset($_GET['verify']) && $_GET['verify'] == 1){
+        echo '<h2>Message</h2><p style="color: red" >Successfully Verified</p>';
     } ?>
     <?php if (isset($_GET['return']) && $_GET['return'] == 1){
         echo '<h2>Message</h2><p style="color: red" >Successfully Returned</p>';
