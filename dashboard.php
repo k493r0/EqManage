@@ -205,7 +205,7 @@ where l.returnDate IS NULL");
 
     <!-- Modal content -->
     <div class="modal-content">
-        <span class="close" data-dismiss="modal">×</span>
+        <span class="close" data-dismiss="modal" onclick="resetCoOption();">×</span>
 
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
@@ -253,7 +253,7 @@ where l.returnDate IS NULL");
 
     <!-- Modal content -->
     <div class="modal-content">
-        <span class="close" data-dismiss="modal">×</span>
+        <span class="close" data-dismiss="modal" onclick="resetReturnOption();">×</span>
 
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
@@ -303,6 +303,8 @@ where l.returnDate IS NULL");
 
 </body>
 <script>
+
+
 
 
         // $.getJSON("popularEqGraph.php", function (result) {
@@ -677,6 +679,18 @@ where l.returnDate IS NULL");
         console.log(qty);
 
     }
+
+    function resetReturnOption(){
+        $('#returnEqSelect').val(null).trigger('change');
+        $('#returnStudentSelect').val(null).trigger('change');
+        $('#returnSelect').val(null).trigger('change');
+    }
+    function resetCoOption(){
+        $('#eqselect').val(null).trigger('change');
+        $('#studentselect').val(null).trigger('change');
+        $('#checkOutSelect').val(null).trigger('change');
+    }
+
 
 
     //-------------------------------checkoutModal Form Submission---------------------------------
