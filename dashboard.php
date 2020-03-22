@@ -8,6 +8,7 @@ include('serverconnect.php');
 
 <head>
     <title>Dashboard</title>
+    <?php include('adminHeader.php') ?>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -19,8 +20,7 @@ include('serverconnect.php');
     <link href="assets/css/dashboardstyle.css" rel="stylesheet" />
     <script src="assets/js/select2.min.js"></script>
     <link rel="stylesheet" href="assets/css/select2.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 </head>
 
 <body>
@@ -29,7 +29,7 @@ include('serverconnect.php');
 
     <div class="main-panel">
         <!-- Navbar -->
-        <?php include('adminHeader.php') ?>
+
         <?php include('adminNavbar.php')?>
         <!-- End Navbar -->
 
@@ -56,7 +56,7 @@ include('serverconnect.php');
                             <div class="card-footer">
                                 <div class="stats">
 <!--                                    <i class="material-icons text-danger">warning</i>-->
-                                    <a href="">View overdue >></a>
+                                    <a href="overdue.php">View overdue >></a>
                                 </div>
                             </div>
                         </div>

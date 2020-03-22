@@ -128,7 +128,7 @@ include('serverconnect.php');
 <!--                </tr>-->
 <!--            --><?php //} ?>
 
-            <?php include('fetchEquipment.php') ?>
+            <?php include('fetchEquipmentTable.php') ?>
 
 
 
