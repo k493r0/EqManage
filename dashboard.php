@@ -210,8 +210,10 @@ where l.returnDate IS NULL");
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
             <select id="eqselect" style="width: 100%; text-align: left;margin-bottom: 10px" >
+                <div id="eqselectDiv">
 
                 <?php include('fetchCheckoutEq.php') ?>
+                </div>
 
             </select>
 
@@ -258,11 +260,12 @@ where l.returnDate IS NULL");
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
             <select id="returnEqSelect" style="width: 100%; text-align: left;margin-bottom: 10px">
-
+                <div id="returnEqSelectDiv">
                 <?php
 
                 include('fetchReturnEq.php');
                 ?>
+                </div>
 
             </select>
 
@@ -517,6 +520,10 @@ where l.returnDate IS NULL");
         refreshCurrentCO();
         reloadGraph();
         reloadGraph2();
+
+        $("#eqselectDiv").load("fetchCheckoutEq.php");
+        $("#returnEqSelectDiv").load("fetchReturnEq.php");
+
     },1500);
 
 

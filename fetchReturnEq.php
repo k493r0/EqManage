@@ -8,6 +8,7 @@ where l.returnDate IS NULL AND l.checkoutDate IS NOT NULL");
 while ($row = mysqli_fetch_array($returnResult)){
 
 echo "<option value=\"\">Select equipment</option>";
+
 echo $row['equipment_id'];
 $equipmentName = $row['equipment'];
 $equipmentID = $row['id'];
