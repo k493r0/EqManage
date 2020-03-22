@@ -87,7 +87,7 @@ if ($results != null){
 
         echo "</td>";
         if ($row['state'] == 'waiting'){
-            echo "<td><a href=''>Verify</a></td>";
+            echo "<td><a href='postverify.php?hash=", $row['hash'], "&redirecturl=",$_SERVER["REQUEST_URI"] ,"'>Verify</a></td>";
         } else echo "<td></td>"
 ;
 
