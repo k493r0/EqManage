@@ -193,7 +193,7 @@ include('serverconnect.php');
 
 include('serverconnect.php');
 
-$result = mysqli_query($db,"select distinct equipment, e.barcodeID, e.id
+$result = mysqli_query($db,"select distinct e.equipment, e.barcodeID, e.id
 from equipment e
 inner join log l
 on e.id = l.equipment_id
@@ -201,7 +201,7 @@ where l.returnDate IS NULL");
 
 ?>
 
-<div id="Modal" class="modal" style="display: none;">
+<div id="checkoutModal" class="modal" style="display: none;">
 
     <!-- Modal content -->
     <div class="modal-content">
@@ -209,7 +209,7 @@ where l.returnDate IS NULL");
 
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
-            <select id="eqselect" style="width: 100%; text-align: left;margin-bottom: 10px" onchange="getName()">
+            <select id="eqselect" style="width: 100%; text-align: left;margin-bottom: 10px" >
                 <option value="">Select equipment</option>
                 <?php
                 while ($row = mysqli_fetch_array($result)){
@@ -257,6 +257,72 @@ where l.returnDate IS NULL");
 
 
             <input id="add" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" >
+        </div>
+    </div>
+
+</div>
+<div id="returnModal" class="modal" style="display: none;">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" data-dismiss="modal">×</span>
+
+        <div class="select-style" style="width:500px; margin: auto;" align="center">
+
+            <select id="returnEqSelect" style="width: 100%; text-align: left;margin-bottom: 10px">
+                <option value="">Select equipment</option>
+                <?php
+
+                $returnResult = mysqli_query($db,"select distinct e.equipment, e.barcodeID, e.id
+from equipment e
+inner join log l
+on e.id = l.equipment_id
+where l.returnDate IS NULL AND l.checkoutDate IS NOT NULL");
+
+                while ($row = mysqli_fetch_array($returnResult)){
+
+
+                    echo $row['equipment_id'];
+                    $equipmentName = $row['equipment'];
+                    $equipmentID = $row['id'];
+                    $barcodeID = $row['barcodeID'];
+                    echo "<option value='$equipmentID' data-checkoutRequestsID='$equipmentID'>$barcodeID | $equipmentName </option>";
+
+                };
+                ?>
+
+            </select>
+
+
+
+            <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
+            <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
+            <p>  </p>
+
+
+            <select id="returnStudentSelect" style="width: 100%; margin-bottom: 10px">
+                <option value="">Student Name</option>
+                <?php
+                include('fetchReturnName.php');
+
+                ?>
+
+            </select>
+
+            <p>  </p>
+
+            <select id="returnSelect" style="width: 100%; margin-bottom: 10px">
+                <option value=""></option>
+
+                <?php
+                include('fetchReturnAllCheckout.php');
+
+                ?>
+
+            </select>
+
+
+            <input id="return" name="request" type="submit" value="Return" style="width: 100%;" >
         </div>
     </div>
 
@@ -476,9 +542,6 @@ where l.returnDate IS NULL");
         refreshCurrentCO();
         reloadGraph();
         reloadGraph2();
-
-
-
     },1500);
 
 
@@ -486,7 +549,7 @@ where l.returnDate IS NULL");
 
     // Get the modal
     var alert = document.getElementById("alert");
-    var modal = document.getElementById("Modal");
+    var modal = document.getElementById("checkoutModal");
 
     // Get the button that opens the modal
     var btn = document.getElementById("Btn");
@@ -513,41 +576,93 @@ where l.returnDate IS NULL");
 
 
 
+    var returnmodal = document.getElementById("returnModal");
 
-    function getName(){
-        var e = document.getElementById('eqselect');
-        var id = e.options[e.selectedIndex].value;
-        $.ajax({
-            url: "fetchName.php",
-            type: "POST",
-            async: false,
-            data: {
-                "eqID":id
-            },
-            success:function(data){
+    // Get the button that opens the modal
+    var returnbtn = document.getElementById("Btn");
 
-                displayFromDatabase(id);
-            }
+    // Get the <span> element that closes the modal
+    var returnspan = document.getElementsByClassName("close")[0];
 
-        })
+    // When the user clicks on the button, open the modal
+    returnbtn.onclick = function() {
+        returnmodal.style.display = "block";
     };
 
-    function displayFromDatabase(id){
-        $.ajax({
-            url: "fetchName.php",
-            type: "POST",
-            async: false,
-            data: {
-                "display": 1,
-                    "eqID":id
-            },
-            success:function (data) {
-                $("#studentselect").append(data);
+    // When the user clicks on <span> (x), close the modal
+    returnspan.onclick = function() {
+        returnmodal.style.display = "none";
+    };
 
-            }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === returnmodal) {
+            returnmodal.style.display = "none";
+        }
+    };
 
-        })
-    }
+
+
+
+
+    //
+    // function getName(){
+    //     var e = document.getElementById('eqselect');
+    //     var id = e.options[e.selectedIndex].value;
+    //     $.ajax({
+    //         url: "fetchName.php",
+    //         type: "POST",
+    //         async: false,
+    //         data: {
+    //             "eqID":id
+    //         },
+    //         success:function(data){
+    //
+    //             // displayFromDatabase(id);
+    //             $("#studentselect").append(data);
+    //         }
+    //
+    //     })
+    // };
+
+    // function getReturnName(){
+    //     var e = document.getElementById('returnEqSelect');
+    //     var id = e.options[e.selectedIndex].value;
+    //     $.ajax({
+    //         url: "fetchReturnName.php",
+    //         type: "POST",
+    //         async: false,
+    //         data: {
+    //             "eqID":id
+    //         },
+    //         success:function(data){
+    //
+    //             // displayFromDatabase(id);
+    //             $("#returnStudentSelect").append(data);
+    //         }
+    //
+    //     })
+    // };
+
+
+
+
+    // function displayFromDatabase(id){
+    //     $.ajax({
+    //         url: "fetchName.php",
+    //         type: "POST",
+    //         async: false,
+    //         data: {
+    //             "display": 1,
+    //                 "eqID":id
+    //         },
+    //         success:function (data) {
+    //             $("#studentselect").append(data);
+    //
+    //         }
+    //
+    //     })
+    // }
 
 
 </script>
@@ -569,6 +684,21 @@ where l.returnDate IS NULL");
         allowClear: true
     } );
 
+    $("#returnEqSelect").select2( {
+        placeholder: "Scan Barcode",
+        allowClear: true
+    } );
+
+    $("#returnStudentSelect").select2( {
+        placeholder: "Student Name",
+        allowClear: true
+    } );
+
+    $("#returnSelect").select2( {
+        placeholder: "Checkout ID",
+        allowClear: true
+    } );
+
     function getQty(studentselect) {
         qty = studentselect.options[studentselect.selectedIndex].getAttribute('value');
         console.log(qty);
@@ -576,67 +706,69 @@ where l.returnDate IS NULL");
     }
 
 
+    //-------------------------------checkoutModal Form Submission---------------------------------
 
+    $(document).ready(function() {
 
-    $(document).ready(function(){
-
-        $("#eqselect").change(function(){
+        $("#eqselect").change(function () {
             var id = $(this).val();
+            console.log("Working");
 
             $.ajax({
                 url: 'fetchName.php',
                 type: 'post',
-                data: {id:id},
+                data: {id: id},
                 dataType: 'json',
-                success:function(response){
+                success: function (response) {
 
                     var len = response.length;
 
                     $("#studentselect").empty();
-                    for( var i = 0; i<len; i++){
+                    for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
                         var eqID = response[i]['eqID'];
 
-                        $("#studentselect").append("<option value=''>Student Name</option><option value='"+id+"' data-eqID='"+eqID+"'>"+name+""+eqID+"</option>");
+                        $("#studentselect").append("<option value=''>Student Name</option><option value='" + id + "' data-eqID='" + eqID + "'>" + name + "" + eqID + "</option>");
 
                     }
                 }
             });
         });
 
-        $("#studentselect").change(function(){
+        $("#studentselect").change(function () {
             var id = $(this).val();
-            var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');;
+            var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');
+            ;
 
 
             $.ajax({
                 url: 'fetchAllCheckout.php',
                 type: 'post',
-                data: {id:id,eqID:eqID},
+                data: {id: id, eqID: eqID},
                 dataType: 'json',
-                success:function(response){
+                success: function (response) {
 
                     var len = response.length;
 
                     $("#checkOutSelect").empty();
                     $("#checkOutSelect").append("<option value=''></option><option value='0'>All</option>");
 
-                    for( var i = 0; i<len; i++){
+                    for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var requestDate = response[i]['requestDate'];
                         var returnDate = response[i]['returnDate'];
-                        var requestOnlyDate = requestDate.split(" ",1);
-                        var returnOnlyDate =  returnDate.split(" ", 1);
+                        var requestOnlyDate = requestDate.split(" ", 1);
+                        var returnOnlyDate = returnDate.split(" ", 1);
 
-                        $("#checkOutSelect").append("<option value=''></option><option value='"+id+"'>Requested "+requestOnlyDate+" | Returning "+returnOnlyDate+" "+id+"</option>");
+                        $("#checkOutSelect").append("<option value=''></option><option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + " " + id + "</option>");
 
                     }
                 }
             });
         });
 
-        $("#add").click(function (){
+        $("#add").click(function () {
             var eq = document.getElementById("eqselect");
             var eqID = eq.options[eq.selectedIndex].value;
 
@@ -652,25 +784,24 @@ where l.returnDate IS NULL");
                 url: "adminCheckout.php",
                 type: "POST",
                 async: false,
-                data:{
-                    "eqID":eqID,
-                    "userID":userID,
-                    "checkoutID":checkoutID,
+                data: {
+                    "eqID": eqID,
+                    "userID": userID,
+                    "checkoutID": checkoutID,
                 },
-                success: function(data){
+                success: function (data) {
 
 
-                        document.getElementById("add").setAttribute("value", "...");
+                    document.getElementById("add").setAttribute("value", "...");
 
-                        setTimeout(() => {
+                    setTimeout(() => {
                         document.getElementById("add").setAttribute("value", "Checked out successful");
                     }, 1000);
 
 
-
                     setTimeout(() => {
 
-                        $('#Modal').modal('hide');
+                        $('#checkoutModal').modal('hide');
                         $('#eqselect').val(null).trigger('change');
                         $('#studentselect').val(null).trigger('change');
                         $('#checkOutSelect').val(null).trigger('change');
@@ -683,28 +814,140 @@ where l.returnDate IS NULL");
                 }
 
             });
-        });
 
-        // function pipe(eqID,userID,checkoutID){
-        //     $.ajax({
-        //         url: "adminCheckout.php",
-        //         type: "POST",
-        //         async: false,
-        //         data: {
-        //             "display": 1,
-        //             "eqID":eqID,
-        //             "userID":userID,
-        //             "checkoutID":checkoutID
-        //         },
-        //         success:function (data) {
-        //             console.log(data)
-        //         }
-        //
-        //     })
-        // }
+        });});
+            //-------------------------------------------------------------------------------------------------------
+
+            //--------------------------------------returnModal Form Submission-------------------------------------
+            $(document).ready(function() {
+            $("#returnEqSelect").change(function () {
+                var id = $(this).val();
+                console.log("Is is working");
+
+                $.ajax({
+                    url: 'fetchReturnName.php',
+                    type: 'post',
+                    data: {id: id},
+                    dataType: 'json',
+                    success: function (response) {
 
 
-    });
+                        var len = response.length;
+
+                        $("#returnStudentSelect").empty();
+                        for (var i = 0; i < len; i++) {
+                            var id = response[i]['id'];
+                            var name = response[i]['name'];
+                            var eqID = response[i]['eqID'];
+
+                            $("#returnStudentSelect").append("<option value=''>Student Name</option><option value='" + id + "' data-eqID='" + eqID + "'>" + name + "" + eqID + "</option>");
+
+                        }
+                    }
+                });
+            });
+
+            $("#returnStudentSelect").change(function () {
+                var id = $(this).val();
+                var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');
+                ;
+
+
+                $.ajax({
+                    url: 'fetchReturnAllCheckout.php',
+                    type: 'post',
+                    data: {id: id, eqID: eqID},
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var len = response.length;
+
+                        $("#returnSelect").empty();
+                        $("#returnSelect").append("<option value=''></option><option value='0'>All</option>");
+
+                        for (var i = 0; i < len; i++) {
+                            var id = response[i]['id'];
+                            var requestDate = response[i]['requestDate'];
+                            var returnDate = response[i]['returnDate'];
+                            var requestOnlyDate = requestDate.split(" ", 1);
+                            var returnOnlyDate = returnDate.split(" ", 1);
+
+                            $("#returnSelect").append("<option value=''></option><option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + " " + id + "</option>");
+
+                        }
+                    }
+                });
+            });
+
+            $("#return").click(function () {
+                var eq = document.getElementById("returnEqSelect");
+                var eqID = eq.options[eq.selectedIndex].value;
+
+                var user = document.getElementById("returnStudentSelect");
+                var userID = user.options[user.selectedIndex].value;
+
+                var checkout = document.getElementById("returnSelect");
+                var checkoutID = checkout.options[checkout.selectedIndex].value;
+
+                document.getElementById("add").setAttribute("value", "...");
+
+                $.ajax({
+                    url: "adminCheckout.php",
+                    type: "POST",
+                    async: false,
+                    data: {
+                        "eqID": eqID,
+                        "userID": userID,
+                        "checkoutID": checkoutID,
+                    },
+                    success: function (data) {
+
+
+                        document.getElementById("add").setAttribute("value", "...");
+
+                        setTimeout(() => {
+                            document.getElementById("add").setAttribute("value", "Checked out successful");
+                        }, 1000);
+
+
+                        setTimeout(() => {
+
+                            $('#checkoutModal').modal('hide');
+                            $('#eqselect').val(null).trigger('change');
+                            $('#studentselect').val(null).trigger('change');
+                            $('#checkOutSelect').val(null).trigger('change');
+                            document.getElementById("add").setAttribute("value", "Check out");
+
+                        }, 2000);
+                        // pipe(eqID,userID,checkoutID);
+
+
+                    }
+
+                });
+
+
+            });});
+
+            //-------------------------------------------------------------------------------------------------------
+
+            // function pipe(eqID,userID,checkoutID){
+            //     $.ajax({
+            //         url: "adminCheckout.php",
+            //         type: "POST",
+            //         async: false,
+            //         data: {
+            //             "display": 1,
+            //             "eqID":eqID,
+            //             "userID":userID,
+            //             "checkoutID":checkoutID
+            //         },
+            //         success:function (data) {
+            //             console.log(data)
+            //         }
+            //
+            //     })
+            // }
 
 </script>
 
