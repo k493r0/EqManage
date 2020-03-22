@@ -36,7 +36,6 @@ include('header.php')
                             <th class="column4" style="border-bottom: 1px solid black">Notes</th>
                             <th class="column5" style="border-bottom: 1px solid black">Date Requested</th>
                             <th class="column6" style="border-bottom: 1px solid black">State</th>
-                            <th class="column6" style="border-bottom: 1px solid black">Action</th>
 
                         </tr>
                         </thead>
@@ -67,7 +66,6 @@ include('header.php')
 
                                     ?>
                                 </td>
-                                <td><?php echo $row['action'] ?></td>
 
 
                             </tr>

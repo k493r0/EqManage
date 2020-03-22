@@ -99,7 +99,7 @@ echo $eqname;
     echo $user_id;
     echo $equipment_id;
 
-    $query = "INSERT INTO requests (users_id,equipment_id,note,checkoutQty,hash,action,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$notes','$checkoutQty','$hash','checkout','waiting','$requestdate','$combinedDT')";
+    $query = "INSERT INTO requests (users_id,equipment_id,note,checkoutQty,hash,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$notes','$checkoutQty','$hash','waiting','$requestdate','$combinedDT')";
 
     mysqli_query($db, $query);
 
