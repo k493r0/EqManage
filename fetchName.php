@@ -24,7 +24,7 @@ $result = mysqli_query($db,"Select distinct u.fullname, u.id, l.users_id
 from users u
 left join log l on u.id = l.users_id
 left join equipment e on l.equipment_id = e.id
-where e.id = '$equipmentID' and l.returnDate IS NULL");
+where e.id = '$equipmentID' and l.returnDate IS NULL and l.checkoutDate IS NULL");
 
 $users_arr = array();
     while ($row = mysqli_fetch_array($result)) {
