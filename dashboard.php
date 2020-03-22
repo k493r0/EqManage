@@ -7,7 +7,7 @@ include('serverconnect.php');
 <html lang="en">
 
 <head>
-    <title>Hello, world!</title>
+    <title>Dashboard</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -210,20 +210,8 @@ where l.returnDate IS NULL");
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
             <select id="eqselect" style="width: 100%; text-align: left;margin-bottom: 10px" >
-                <option value="">Select equipment</option>
-                <?php
-                while ($row = mysqli_fetch_array($result)){
 
-                        echo $row['equipment_id'];
-                        $equipmentName = $row['equipment'];
-                        $equipmentID = $row['id'];
-                        $barcodeID = $row['barcodeID'];
-                        echo "<option value='$equipmentID' data-checkoutRequestsID='$equipmentID'>$barcodeID | $equipmentName </option>";
-
-
-
-                };
-                ?>
+                <?php include('fetchCheckoutEq.php') ?>
 
             </select>
 
@@ -270,25 +258,10 @@ where l.returnDate IS NULL");
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
             <select id="returnEqSelect" style="width: 100%; text-align: left;margin-bottom: 10px">
-                <option value="">Select equipment</option>
+
                 <?php
 
-                $returnResult = mysqli_query($db,"select distinct e.equipment, e.barcodeID, e.id
-from equipment e
-inner join log l
-on e.id = l.equipment_id
-where l.returnDate IS NULL AND l.checkoutDate IS NOT NULL");
-
-                while ($row = mysqli_fetch_array($returnResult)){
-
-
-                    echo $row['equipment_id'];
-                    $equipmentName = $row['equipment'];
-                    $equipmentID = $row['id'];
-                    $barcodeID = $row['barcodeID'];
-                    echo "<option value='$equipmentID' data-checkoutRequestsID='$equipmentID'>$barcodeID | $equipmentName </option>";
-
-                };
+                include('fetchReturnEq.php');
                 ?>
 
             </select>
@@ -889,10 +862,10 @@ where l.returnDate IS NULL AND l.checkoutDate IS NOT NULL");
                 var checkout = document.getElementById("returnSelect");
                 var checkoutID = checkout.options[checkout.selectedIndex].value;
 
-                document.getElementById("add").setAttribute("value", "...");
+                document.getElementById("return").setAttribute("value", "...");
 
                 $.ajax({
-                    url: "adminCheckout.php",
+                    url: "adminReturn.php",
                     type: "POST",
                     async: false,
                     data: {
@@ -903,20 +876,20 @@ where l.returnDate IS NULL AND l.checkoutDate IS NOT NULL");
                     success: function (data) {
 
 
-                        document.getElementById("add").setAttribute("value", "...");
+                        document.getElementById("return").setAttribute("value", "...");
 
                         setTimeout(() => {
-                            document.getElementById("add").setAttribute("value", "Checked out successful");
+                            document.getElementById("return").setAttribute("value", "Return successful");
                         }, 1000);
 
 
                         setTimeout(() => {
 
-                            $('#checkoutModal').modal('hide');
-                            $('#eqselect').val(null).trigger('change');
-                            $('#studentselect').val(null).trigger('change');
-                            $('#checkOutSelect').val(null).trigger('change');
-                            document.getElementById("add").setAttribute("value", "Check out");
+                            $('#returnModal').modal('hide');
+                            $('#returnEqSelect').val(null).trigger('change');
+                            $('#returnStudentSelect').val(null).trigger('change');
+                            $('#returnSelect').val(null).trigger('change');
+                            document.getElementById("return").setAttribute("value", "Return");
 
                         }, 2000);
                         // pipe(eqID,userID,checkoutID);
