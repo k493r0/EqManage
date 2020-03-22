@@ -92,9 +92,10 @@ include('header.php')
         $("#table").load(url);
         console.log("Done")
     }
-    $(document).onload(function () {
+    window.onload = function () {
+
         changeOption();
-    })
+    }
 
 </script>
 
