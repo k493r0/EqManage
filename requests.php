@@ -21,6 +21,9 @@ include('header.php')
 
 <div class="content">
     <h2>All Requests</h2>
+    <?php if (isset($_GET['verify']) && $_GET['verify'] == 1){
+        echo '<p style="color: red" >Successfully Verified</p>';
+    } ?>
 
 
     <div class="limiter">
@@ -51,7 +54,7 @@ include('header.php')
                         </tr>
                         </thead>
                         <tbody id="table">
-                        <?php include('fetchRequestsTable.php') ?>
+                        <?php include('fetchRequestsTable.php'); ?>
                         </tbody>
                     </table>
                 </div>
