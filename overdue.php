@@ -18,7 +18,7 @@ include('header.php')
 </div>
 
 <?php
-include('navbar.php');
+include('adminNavbar.php');
 include('serverconnect.php');
 ?>
 
