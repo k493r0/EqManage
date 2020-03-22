@@ -43,34 +43,25 @@ include('header.php')
 
             $user = "";
             $equipment = "";
-
-            $string1 = $_SERVER['QUERY_STRING'];
-                    $string2 = str_replace("hash=","",$string1);
-                    echo $string2;
-
-
+            $referer = $_SERVER["HTTP_REFERER"]; //shows where postverify.php was visited from, can't carry this over two pages so it is stored in a variable
+//            echo $referer;
+            $hash = $_GET['hash'];
+            echo $hash;
             ?>
 
         <h3 style="text-align: center"><b>Do you accept or reject the request?</b></h3>
         <form method="post" action="verify.php">
-            <input type="hidden" name="hash" value="<?php echo $string2 ?>">
+            <input type="hidden" name="hash" value="<?php echo $hash ?>">
+            <input type="hidden" name="referer" value="<?php echo $referer ?>">
 
 
-            <input name="accept" type="submit" value="Accept" style="width: 100%; margin-top: 20px">
+            <input name="accept" type="submit" value="Accept" style="width: 100%; margin-top: 20px" onclick="">
             <input name="reject" type="submit" value="Reject" style="width: 100%; margin-top: 20px">
         </form>
 
     </div>
 
 </div>
-
-
-
-
-
-
-
-
 
 <?php
 
