@@ -31,13 +31,12 @@ include('header.php')
             $name = $_SESSION['name'];
             $user_id = $_SESSION['id'];
             $resultset = mysqli_query($db, "
-SELECT l.returnDate, l.users_id,E.id, E.equipment, E.leftQuantity, E.availability, l.returnDate, R.checkoutQty, l.checkoutRequests_id
+SELECT l.expectedReturnDate, l.users_id,E.id, E.equipment, E.leftQuantity, E.availability, l.returnDate, R.checkoutQty, l.checkoutRequests_id, l.checkoutDate
 FROM EqManage.log l
          LEFT JOIN EqManage.equipment E ON l.equipment_id=E.id
          LEFT JOIN EqManage.requests R on l.checkoutRequests_id = R.id
-where l.returnDate IS NULL
-GROUP BY l.users_id, l.id,E.id
-ORDER BY l.users_id
+where l.returnDate IS NULL and l.checkoutDate IS NOT NULL
+GROUP BY l.id,E.id
 "); //Fetch all checkedout equipments
             echo $user_id;
 //            wh
@@ -67,8 +66,23 @@ ORDER BY l.users_id
                             $equipmentID = $row['equipment_id'];
                             $checkoutRequestsID = $row['checkoutRequests_id'];
                             $checkoutQty = $row['checkoutQty'];
+                            $checkoutDate = $row['checkoutDate'];
+                            $checkoutDateExplode = explode(" ", $checkoutDate);
+                            $expectedReturnDate = $row['expectedReturnDate'];
+                            $expectedReturnDateEx = explode(" ", $expectedReturnDate);
+                            $today = date("Y-m-d H:i:s");
+                            $todayExplode = explode(" ", $today);
                             echo $checkoutRequestsID;
-                            echo "<option value='$equipmentID' data-checkoutRequestsID='$checkoutRequestsID'>$equipmentName | $checkoutQty Borrowing </option>";
+                            echo "<option value='$equipmentID' data-checkoutRequestsID='$checkoutRequestsID'>";
+                            if (strtotime($expectedReturnDateEx[0]) < strtotime($todayExplode[0])){
+                                echo "[Overdue] ";
+                            }
+                            echo "$equipmentName | $checkoutQty Borrowing";
+                            if (strtotime($expectedReturnDateEx[0]) >= strtotime($todayExplode[0])){
+                                echo " | Due: ", $expectedReturnDateEx[0];
+                            }
+
+                            echo "</option>";
                         }
 
 
