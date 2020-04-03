@@ -26,15 +26,15 @@ include('header.php')
     <div class="limiter">
         <div class="select-box">
             <label for="select-box1" class="label select-box1"><span class="label-desc">Filter By: </span> </label>
-            <input type="radio" id="checkoutDateRadio" name="filter" value="0" checked="checked"  onclick="changeOption();"><label for="checkoutDateRadio"> Checkout Date</label>
-            <input type="radio" id="returnDateRadio" name="filter" value="1" onclick="changeOption();"><label for="returnDateRadio"> Return Date</label>
+            <input type="radio" id="checkoutDateRadio" name="filter" value="0" <?php $filter = $_GET['filter']; if ($filter == 0 or $filter == null){echo 'checked = "checked"';}else echo null;?>  onclick="changeOption();"><label for="checkoutDateRadio"> Checkout Date</label>
+            <input type="radio" id="returnDateRadio" name="filter" value="1" <?php $filter = $_GET['filter']; if ($filter == 1){echo 'checked = "checked"';}else echo null;?> onclick="changeOption();"><label for="returnDateRadio"> Return Date</label>
            <br>
             <label for="select-box1" class="label select-box1" id="selectLabel">Show checkout from: </label>
             <select id="select-box1" class="select" name="filtercat" onchange="changeOption()" style="width: 15%">
-                <option value="0" selected>--All Time--</option>
-                <option value="1">Today</option>
-                <option value="2">Yesturday</option>
-                <option value="3">Past 7 days</option>
+                <option value="0" <?php $range = $_GET['range']; if ($range == 0 or $range ==null){echo 'selected';}else echo null;?>>--All Time--</option>
+                <option value="1" <?php $range = $_GET['range']; if ($range == 1){echo 'selected';}else echo null;?>>Today</option>
+                <option value="2" <?php $range = $_GET['range']; if ($range == 2){echo 'selected';}else echo null;?>>Yesturday</option>
+                <option value="3" <?php $range = $_GET['range']; if ($range == 3){echo 'selected';}else echo null;?>>Past 7 days</option>
 
             </select>
 
@@ -92,10 +92,11 @@ include('header.php')
         $("#table").load(url);
         console.log("Done")
     }
-    window.onload = function () {
 
+    window.onload = function () {
         changeOption();
     }
+
 
 </script>
 
