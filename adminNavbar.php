@@ -1,4 +1,3 @@
-<?php ?>
 
 <div>
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="height: 63px;">
