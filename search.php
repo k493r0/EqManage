@@ -24,6 +24,7 @@ include('serverconnect.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="bootstrap-iso.css">
+    <script src="assets/js/select2.min.js"></script>
 
 </head>
 
@@ -38,7 +39,7 @@ include('serverconnect.php');
         <!-- End Navbar -->
 
         <div class="content ">
-            <h2 class="text-center">Dashboard</h2>
+            <h2 class="text-center">Search</h2>
 
 
             <div class="container-fluid bootstrap-iso" id="container">
@@ -55,6 +56,7 @@ include('serverconnect.php');
 
             <div class="tab-content">
                 <?php include('searchUser.php'); ?>
+<!--                --><?php //include('searchEq.php'); ?>
             </div>
         </div>
     </div>
@@ -63,3 +65,16 @@ include('serverconnect.php');
 </body>
 
 </html>
+
+<script>
+    $("#eqSelect").select2( {
+        placeholder: "Scan Barcode or enter Equipment ID",
+        allowClear: true,
+
+    } );
+    $("#userSelect").select2( {
+        placeholder: "Enter user ID",
+        allowClear: true,
+
+    } );
+</script>
