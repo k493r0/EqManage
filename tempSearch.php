@@ -71,6 +71,7 @@ include('serverconnect.php');
                 if ($selected == 1 or $selected == null){include('searchUser.php');};
                 if ($selected == 2){include('searchEq.php');};
                 if ($selected == 3){include('searchLog.php');};
+                if ($selected == 4){include('searchRequests.php');};
 
 
                 ?>
@@ -135,7 +136,8 @@ include('serverconnect.php');
     switch ($type){
         case 1 : $target = "userSelect"; break;
         case 2 : $target = "eqSelect"; break;
-        case 3 : $target = "logSelect";
+        case 3 : $target = "logSelect"; break;
+        case 4 : $target = "requestSelect";
     }
 
     if ($id != null){
