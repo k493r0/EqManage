@@ -4,7 +4,7 @@ $logID = $_GET['id'];
 
 $query = "
 Select * from EqManage.log l
-where l.id = $logID
+where l.id = '$logID'
 ";
 
 $rqID = "";

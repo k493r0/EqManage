@@ -134,7 +134,8 @@ include('serverconnect.php');
 
     switch ($type){
         case 1 : $target = "userSelect"; break;
-        case 2 : $target = "eqSelect";
+        case 2 : $target = "eqSelect"; break;
+        case 3 : $target = "logSelect";
     }
 
     if ($id != null){
