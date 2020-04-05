@@ -70,6 +70,7 @@ include('serverconnect.php');
                 $selected = $_GET['type'];
                 if ($selected == 1 or $selected == null){include('searchUser.php');};
                 if ($selected == 2){include('searchEq.php');};
+                if ($selected == 3){include('searchLog.php');};
 
 
                 ?>
