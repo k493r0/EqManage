@@ -123,51 +123,6 @@ echo "
         </div>
 
     </div>
-
-    <div class=\"row\">
-
-        <div class=\"col-md-4\">
-            <div class=\"card card-chart\">
-                <div class=\"card-header card-header-danger\">
-                    <div class=\"ct-chart\" id=\"websiteViewsChart\"></div>
-                </div>
-                <div class=\"card-body\" id=\"currentCO\">";
-
-$query = mysqli_query($db,"select * from EqManage.log l
-left join equipment e on l.equipment_id = e.id
-where l.users_id = $userID and returnDate is null ");
-
-
-$NumberCheckedOut = mysqli_num_rows($query);
-
-
-echo "<h3 class=\"card-title\">Currently Checked Out:</h3>";
-echo  "<ul style='margin-bottom: 0px'>";
-
-while ($row = mysqli_fetch_array($query)) {
-    echo "<li class=\"card-category\" style=\"padding-bottom: 0px; margin-bottom: 0px\"><a href='idsearch.php?logid=", $row['id'] ,"'>", $row['equipment'], " | ";
-}
-echo "</a></ul>";
-if (mysqli_num_rows($query) == null){
-    $NumberCheckedOut = 0;
-    echo "-";
-}
-
-
-
-
-
-                echo "</div>
-                <div class=\"card-footer\">
-                    <div class=\"stats\">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-      
-
 ";
 
 
