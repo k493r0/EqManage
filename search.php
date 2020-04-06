@@ -40,7 +40,7 @@ include('serverconnect.php');
         <!-- End Navbar -->
 
         <div class="content" id="content">
-            <?php include('tempSearch.php')   ?>
+            <?php include('searchContent.php') ?>
 
 
         </div>
@@ -82,7 +82,7 @@ include('serverconnect.php');
             if(ele[i].checked)
                 id = ele[i].value;
             console.log(id);
-            var url = 'tempSearch.php?' + 'type=' + id;
+            var url = 'searchContent.php?' + 'type=' + id;
             console.log(url);
 
         }
