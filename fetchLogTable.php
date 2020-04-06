@@ -48,7 +48,7 @@ if ($filter == 1){
 }
 //echo "Select", $range;
 //echo "Radio", $filter;
-echo $query;
+//echo $query;
 $results = mysqli_query($db, $query);
 
 if(mysqli_fetch_array($results) != null) {
@@ -58,10 +58,10 @@ if(mysqli_fetch_array($results) != null) {
     while($row = mysqli_fetch_array($results)) {
         echo "test";
         echo "<tr>";
-        echo "<td style='text-align:left'>", $row['id'], "</td>";
-        echo "<td style='text-align:left'>", $row['checkoutRequests_id'], "</td>";
-        echo "<td style='text-align:left'>", $row['equipment_id'], "</td>";
-        echo "<td style='text-align:left'>", $row['users_id'], "</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=3&id=",$row['id'],"'>", $row['id'],"</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=4&id=", $row['checkoutRequests_id'],"'>", $row['checkoutRequests_id'], "</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=2&id=", $row['equipment_id'],"'>",$row['equipment_id'], "</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=1&id=", $row['users_id'], "'>", $row['users_id'], "</td>";
         echo "<td style='text-align:left'>", $row['checkoutDate'], "</td>";
         echo "<td style='text-align:left'>", $row['expectedReturnDate'], "</td>";
         echo "<td style='text-align:left'>";
