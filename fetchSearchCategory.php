@@ -68,9 +68,14 @@ echo "
 $result = mysqli_query($db, $query);
 if ($catID == null){echo "-";};
 while ($row = mysqli_fetch_array($result)) {
+    $eqName = $row['equipment'];
 
+    $getEqID = "select * from EqManage.equipment where equipment = '$eqName'";
+    while ($row = mysqli_fetch_array($result)) {
+        $eqID = $row['id'];
+    };
     echo "<ul><li>";
-    echo $row['equipment'];
+    echo "<a href=\"tempSearch.php?type=2&id=$eqID\">$eqName</a>";
     echo "</li></ul>";
 
 };

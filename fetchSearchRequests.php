@@ -1,13 +1,12 @@
 <?php
 include('serverconnect.php');
 $rqID = $_GET['id'];
-
+//echo $rqID;
 $query = "
 Select * from EqManage.requests r
 where r.id = '$rqID'
 ";
 
-$rqID = "";
 $eqID = "";
 $userID = "";
 $checkoutRequestDate = "";
@@ -60,7 +59,6 @@ if ($state == "approved"){
     $state = "Waiting";
 }
 
-
 echo "
 <h1>Searching ID: $rqID</h1>
     <div class=\"row\">
@@ -73,7 +71,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"tempSearch.php?type=1&id=$userID\">Search this ID in User >></a>
                     </div>
                 </div>
             </div>
@@ -88,7 +86,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"tempSearch.php?type=2&id=$eqID\">Search this ID in Equipment >></a>
                     </div>
                 </div>
             </div>
@@ -103,7 +101,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"requests.php\">View all Requests >></a>
                     </div>
                 </div>
             </div>
@@ -118,7 +116,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"requests.php\">View all Requests >></a>
                     </div>
                 </div>
             </div>
@@ -140,7 +138,7 @@ echo "
                     <div id=\"chartContainer2\"></div>
                     <div class=\"card-footer\">
                         <div class=\"stats\">
-                            <a href=\"\">View log</a>
+                            <a href=\"requests.php\">View all Requests >></a>
                         </div>
                     </div>
                 </div>
@@ -157,7 +155,7 @@ echo "
                     <div id=\"chartContainer2\"></div>
                     <div class=\"card-footer\">
                         <div class=\"stats\">
-                            <a href=\"\">View log</a>
+                            <a href=\"requests.php\">View all Requests >></a>
                         </div>
                     </div>
                 </div>
@@ -174,7 +172,7 @@ echo "
                     <div id=\"chartContainer2\"></div>
                     <div class=\"card-footer\">
                         <div class=\"stats\">
-                            <a href=\"\">View log</a>
+                            <a href=\"requests.php\">View all Requests >></a>
                         </div>
                     </div>
                 </div>
