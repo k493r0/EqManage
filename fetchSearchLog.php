@@ -57,7 +57,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"tempSearch.php?type=4&id=$rqID\">Search this ID in Request >></a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"tempSearch.php?type=2&id=$eqID\">Search this ID in Log >></a>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"tempSearch.php?type=1&id=$userID\">Search this ID in User >></a>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@ echo "
                     <div id=\"chartContainer2\"></div>
                     <div class=\"card-footer\">
                         <div class=\"stats\">
-                            <a href=\"\">View log</a>
+                            <a href=\"log.php\">View all Log >></a>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@ echo "
                     <div id=\"chartContainer2\"></div>
                     <div class=\"card-footer\">
                         <div class=\"stats\">
-                            <a href=\"\">View log</a>
+                            <a href=\"log.php\">View all Log >></a>
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@ echo "
                     <div id=\"chartContainer2\"></div>
                     <div class=\"card-footer\">
                         <div class=\"stats\">
-                            <a href=\"\">View log</a>
+                        <a href=\"log.php\">View all Log >></a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@ echo "
                     <div id=\"chartContainer2\"></div>
                     <div class=\"card-footer\">
                         <div class=\"stats\">
-                            <a href=\"\">View log</a>
+                            <a href=\"log.php\">View all Log >></a>
                         </div>
                     </div>
                 </div>

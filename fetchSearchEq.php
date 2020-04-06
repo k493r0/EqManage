@@ -3,9 +3,9 @@ include('serverconnect.php');
 $eqID = $_GET['id'];
 
 $query = "
-Select * from EqManage.equipment
-left join categories c on equipment.category = c.id
-where equipment.id = '$eqID'
+Select e.equipment,c.categoryName,e.totalQuantity,e.leftQuantity,c.id from EqManage.equipment e
+left join categories c on e.category = c.id
+where e.id = '$eqID'
 ";
 $borrowing = 0;
 $borrowed =0;
@@ -16,6 +16,7 @@ while ($row = mysqli_fetch_array($result)) {
     $catName = $row['categoryName'];
     $totalQty = $row['totalQuantity'];
     $leftQuantity = $row['leftQuantity'];
+    $catID = $row['id'];
 };
 
 if ($eqID == null){
@@ -39,7 +40,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"manageEq.php\">Manage Equipment >></a>
                     </div>
                 </div>
             </div>
@@ -54,7 +55,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"tempSearch.php?type=5&id=$catID\">View this Category >></a>
                     </div>
                 </div>
             </div>
@@ -69,7 +70,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"manageEq.php\">Manage Equipments >></a>
                     </div>
                 </div>
             </div>
@@ -84,7 +85,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"manageEq.php\">Manage Equipments >></a>
                     </div>
                 </div>
             </div>
@@ -92,49 +93,6 @@ echo "
 
     </div>
 
-    <div class=\"row\">
-
-        <div class=\"col-md-4\">
-            <div class=\"card card-chart\">
-                <div class=\"card-header card-header-danger\">
-                    <div class=\"ct-chart\" id=\"websiteViewsChart\"></div>
-                </div>
-                <div class=\"card-body\" id=\"currentCO\">";
-
-$query = mysqli_query($db,"select * from EqManage.log l
-left join equipment e on l.equipment_id = e.id
-where l.users_id = $eqID and returnDate is null ");
-
-
-$NumberCheckedOut = mysqli_num_rows($query);
-
-
-echo "<h3 class=\"card-title\">Currently Checked Out:</h3>";
-echo  "<ul style='margin-bottom: 0px'>";
-
-while ($row = mysqli_fetch_array($query)) {
-    echo "<li class=\"card-category\" style=\"padding-bottom: 0px; margin-bottom: 0px\"><a href='idsearch.php?logid=", $row['id'] ,"'>", $row['equipment'], " | ";
-}
-echo "</a></ul>";
-if (mysqli_num_rows($query) == null){
-    $NumberCheckedOut = 0;
-    echo "-";
-}
-
-
-
-
-
-echo "</div>
-                <div class=\"card-footer\">
-                    <div class=\"stats\">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-      
 
 ";
 //$finalcontent = $content1.$content2.$content3;

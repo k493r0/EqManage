@@ -51,14 +51,6 @@ if ($userID == null){
 //        </select>
 //        ";
 
-
-
-
-
-
-
-
-
 echo "
 <h1>Searching ID: $userID</h1>
     <div class=\"row\">
@@ -71,7 +63,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                       <!--  <a href=\"overdue.php\">View overdue >></a> -->
                     </div>
                 </div>
             </div>
@@ -86,7 +78,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"overdue.php\">View all overdues >></a>
                     </div>
                 </div>
             </div>
@@ -101,7 +93,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"log.php\">View all log >></a>
                     </div>
                 </div>
             </div>
@@ -116,7 +108,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"overdue.php\">View overdue >></a>
+                        <a href=\"log.php\">View all log >></a>
                     </div>
                 </div>
             </div>
