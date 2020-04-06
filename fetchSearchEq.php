@@ -55,7 +55,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"tempSearch.php?type=5&id=$catID\">View this Category >></a>
+                        <a href=\"search.php?type=5&id=$catID\">View this Category >></a>
                     </div>
                 </div>
             </div>

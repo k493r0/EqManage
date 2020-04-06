@@ -17,6 +17,6 @@ echo "<h4 class=\"card-title\">Currently Checked Out: ", $NumberCheckedOut,"</h4
 echo "<ul style='margin-bottom: 0px'>";
 
 while ($row = mysqli_fetch_array($query)) {
-    echo "<li class=\"card-category\" style=\"padding-bottom: 0px; margin-bottom: 0px\"><a href='idsearch.php?logid=", $row['id'] ,"'>", $row['equipment'], " | ", $row['fullname'];
+    echo "<li class=\"card-category\" style=\"padding-bottom: 0px; margin-bottom: 0px\"><a href='tempSearch.php?type=3&id=", $row['id'] ,"'>", $row['equipment'], " | ", $row['fullname'];
 }
 echo "</a></ul>";
