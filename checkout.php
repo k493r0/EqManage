@@ -65,9 +65,12 @@ include('header.php');
                             }
                             if($row["id"]==null){
                                 $select.="<option disabled>No Available Equipment From This Category</option>";
+                            }elseif ($row['leftQuantity'] == 0){
+                                $select.="<option id='optionvalue' disabled value=\"{$row["id"]}\" data-leftQty=\"{$row['leftQuantity']}\">{$row["equipment"]} | {$row['leftQuantity']} Left</option>";
                             }else{
                                 $select.="<option id='optionvalue' value=\"{$row["id"]}\" data-leftQty=\"{$row['leftQuantity']}\">{$row["equipment"]} | {$row['leftQuantity']} Left</option>";
                             }
+
                         }
                         $select.="</optgroup></select>";
 
