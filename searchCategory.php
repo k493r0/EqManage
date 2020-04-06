@@ -1,7 +1,7 @@
 <div id="category_button" class=" bootstrap-iso eq" style="margin-top: 10px">
     <div style="position: center" align="center" id="searchEq">
         <label for="categorySelect" style="margin-top: 20px">Search:</label>
-        <select id="categorySelect" style="width: 50%; text-align: left;margin-bottom: 10px" onchange="change()" >
+        <select id="categorySelect" style="width: 35%; text-align: left;margin-bottom: 10px" onchange="change()" >
                 <?php
 
                 $returnResult = mysqli_query($db,"select * from EqManage.categories");

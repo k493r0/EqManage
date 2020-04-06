@@ -75,7 +75,7 @@ while ($row = mysqli_fetch_array($result)) {
         $eqID = $row['id'];
     };
     echo "<ul><li>";
-    echo "<a href=\"tempSearch.php?type=2&id=$eqID\">$eqName</a>";
+    echo "<a href=\"search.php?type=2&id=$eqID\">$eqName</a>";
     echo "</li></ul>";
 
 };

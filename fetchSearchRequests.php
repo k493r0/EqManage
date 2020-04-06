@@ -71,7 +71,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"tempSearch.php?type=1&id=$userID\">Search this ID in User >></a>
+                        <a href=\"search.php?type=1&id=$userID\">Search this ID in User >></a>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@ echo "
                 <div class=\"card-footer\">
                     <div class=\"stats\">
                         <!--                                    <i class=\"material-icons text-danger\">warning</i>-->
-                        <a href=\"tempSearch.php?type=2&id=$eqID\">Search this ID in Equipment >></a>
+                        <a href=\"search.php?type=2&id=$eqID\">Search this ID in Equipment >></a>
                     </div>
                 </div>
             </div>
