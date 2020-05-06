@@ -44,10 +44,6 @@ if ($stmt->num_rows > 0) {
         $fullname = $row['fullname'];
         echo $fullname;
 
-
-
-
-
 //        $_SESSION['name'] = $_POST['username'];
         $_SESSION['name'] = $fullname;
         $_SESSION['username'] = $fullusername;
