@@ -9,50 +9,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //    $hash = md5(rand(0, 1000));
 //    $requestdate = date('Y-m-d H:i:s');
 
-
     $name = $_POST['name'];
     $quantity = $_POST['quantity'];
     $category = $_POST['category_id'];
     $new_category = $_POST['other'];
 
 
-    echo $name;
-    echo $quantity;
+    $randomNumber = mt_rand(10000000,99999999);
 
-    echo $new_category;
+//    echo $name;
+//    echo $quantity;
+//    echo $new_category;
 
-    if ($new_category == NULL && $category != NULL){
-        $query1 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity) values ('$name','$category','$quantity','$quantity')";
+    if ($new_category == NULL && $category != NULL){ //If cateogory is selected and no new category is made
+        $query1 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity,barcodeID) values ('$name','$category','$quantity','$quantity','$randomNumber')";
         if (mysqli_query($db, $query1)) {
-            $last_id = mysqli_insert_id($db);
             echo "Successfully added equipment";
         } else {
             echo "Error: " . $query1 . "<br>" . mysqli_error($db);
         }
-    } elseif ($new_category != NULL){
+    } elseif ($new_category != NULL){ //If new category is made
         $cat_query = "Insert into EqManage.categories (categoryName) values ('$new_category')";
-
         if (mysqli_query($db, $cat_query)) {
-            $last_id = mysqli_insert_id($db);
+            $last_id = mysqli_insert_id($db); //The inserted item's ID
             echo "New record created successfully. Last inserted ID is: " . $last_id;
         } else {
             echo "Error: " . $cat_query . "<br>" . mysqli_error($db);
         }
 
-//        $get_id = "select id from EqManage.equipment where categoryName=$new_category";
-        $randomNumber = mt_rand(10000000,99999999);
-
-
 
 
         $query2 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity,barcodeID) values ('$name','$last_id','$quantity','$quantity','$randomNumber')";
         if (mysqli_query($db, $query2)) {
-            $last_id = mysqli_insert_id($db);
-            echo "Successfully added equipment";
+            echo "Successfully added equipment into database";
         } else {
             echo "Error: " . $query2 . "<br>" . mysqli_error($db);
         }
-
         exit;
     }
 
