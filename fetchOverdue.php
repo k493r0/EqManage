@@ -16,12 +16,13 @@ $checkoutMonth = 0;
 
 //                echo $today;
 while ($row = mysqli_fetch_array($query)) {
-    $returnDate = $row['expectedReturnDate'];
+    $expectedReturnDate = $row['expectedReturnDate'];
     $checkoutDate = $row['checkoutDate'];
+    $returnDate = $row['returnDate'];
     $checkoutDateExplode = explode(" ", $checkoutDate);
 
 //                    echo "<p>'$returnDate'</p>";
-    if (strtotime($returnDate) < strtotime($today)) {
+    if (strtotime($expectedReturnDate) < strtotime($today) && $returnDate == null) {
         $overdue++;
     }
     if (strtotime($checkoutDateExplode[0]) == strtotime($todayExplode[0])) {
