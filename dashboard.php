@@ -396,6 +396,7 @@ where l.returnDate IS NULL");
 
 <script>
 
+
     function refreshOverdue() {
         xmlhttpOverdue=new XMLHttpRequest();
 
@@ -733,9 +734,6 @@ where l.returnDate IS NULL");
         $("#studentselect").change(function () {
             var id = $(this).val();
             var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');
-            ;
-
-
             $.ajax({
                 url: 'fetchAllCheckout.php',
                 type: 'post',
@@ -844,9 +842,6 @@ where l.returnDate IS NULL");
             $("#returnStudentSelect").change(function () {
                 var id = $(this).val();
                 var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');
-                ;
-
-
                 $.ajax({
                     url: 'fetchReturnAllCheckout.php',
                     type: 'post',
