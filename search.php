@@ -89,15 +89,12 @@ include('serverconnect.php');
         console.log(url);
         $("#content").load(url);
         console.log('done');
-    };
-
-
+    }
 
     <?php
     $id = $_GET['id'];
     $type = $_GET['type'];
     $target = "";
-
     switch ($type){
         case 1 : $target = "userSelect"; break;
         case 2 : $target = "eqSelect"; break;
@@ -110,10 +107,5 @@ include('serverconnect.php');
         echo "$('#$target').val('$id');
     $('#$target').trigger('change');";
     }
-
-
     ?>
-
-
-
 </script>
