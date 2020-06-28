@@ -139,7 +139,7 @@ header("Location: new_index.php?sent=1");
     $mail->Port = ***REMOVED***;                          // TCP port to connect to
                         // TCP port to connect to
 
-    $mail->setFrom('***REMOVED***', 'NoReply');
+    $mail->setFrom('***REMOVED***', 'Notification System');
     $mail->addAddress('***REMOVED***');   // Add a recipient
 
     $mail->isHTML(true);  // Set email format to HTML
