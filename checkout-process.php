@@ -133,14 +133,14 @@ header("Location: new_index.php?sent=1");
     $mail->isSMTP();                            // Set mailer to use SMTP
     $mail->Host = 'smtp-relay.sendinblue.com';             // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                     // Enable SMTP authentication
-    $mail->Username = 'eizaemon_the_third@yahoo.co.uk';          // SMTP username
-    $mail->Password = 'Ya8rKpZnS7hGzCRB'; // SMTP password
+    $mail->Username = 'noreply@remocademy.com';          // SMTP username
+    $mail->Password = 't4XRdhqg1EC5j0Dm'; // SMTP password
     $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
     $mail->Port = 587;                          // TCP port to connect to
                         // TCP port to connect to
 
-    $mail->setFrom('eizaemon_the_third@yahoo.co.uk', 'NoReply');
-    $mail->addAddress('tfuawjtd@exsys.tech');   // Add a recipient
+    $mail->setFrom('noreply@remocademy.com', 'Notification System');
+    $mail->addAddress('administrator@remocademy.com');   // Add a recipient
 
     $mail->isHTML(true);  // Set email format to HTML
 
