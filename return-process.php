@@ -1,10 +1,6 @@
 <?php
-
-include('serverconnect.php');
 session_start();
-
-
-
+include('serverconnect.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
@@ -21,25 +17,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($loginuser == $equser) {
 
-        $checkQty = "Select * from EqManage.equipment where id = '$equipmentID'";
-        $checkQtyResult = mysqli_query($db, $checkQty);
+        $checkQtyQuery = "Select * from EqManage.equipment where id = '$equipmentID'";
+        $checkQtyResult = mysqli_query($db, $checkQtyQuery);
         $checkQtyArray = mysqli_fetch_assoc($checkQtyResult);
 
         $leftQty = $checkQtyArray['leftQuantity'];
         echo $leftQty;
+
+        $checkoutQtyQuery = "select * from EqManage.requests where id='$checkoutRequestsID'";
+        $checkoutQtyResult = mysqli_query($db, $checkoutQtyQuery);
+        $checkoutQtyArray = mysqli_fetch_assoc($checkoutQtyResult);
+
+        $checkoutQty = $checkoutQtyArray['checkoutQty'];
+
         $newQty = $leftQty + 1;
 
 
-        $statusupdate = "UPDATE EqManage.equipment SET leftQuantity='$newQty' where id='$equipmentID'";
-        $requestsinsert = "INSERT INTO EqManage.requests (users_id,equipment_id,requestDate,active,action) VALUES ('$equser','$equipmentID','$date','1','return')";
+        $statusupdate = "UPDATE EqManage.equipment SET leftQuantity='$checkoutQty' where id='$equipmentID'";
 
-        if (mysqli_query($db, $requestsinsert)) {
-            $last_id = mysqli_insert_id($db);
-            echo "Request inserted. Last inserted ID is: " . $last_id;
-        } else {
-            echo "Error: " . $requestsinsert . "<br>" . mysqli_error($db);
-        }
-        $loginsert = "update EqManage.log set returnRequests_id = '$last_id', returnDate = '$date' where checkoutRequests_id='$checkoutRequestsID'";
+
+//        $requestsinsert = "INSERT INTO EqManage.requests (users_id,equipment_id,requestDate,active) VALUES ('$equser','$equipmentID','$date','1')";
+//
+//        if (mysqli_query($db, $requestsinsert)) {
+//            $last_id = mysqli_insert_id($db);
+//            echo "Request inserted. Last inserted ID is: " . $last_id;
+//        } else {
+//            echo "Error: " . $requestsinsert . "<br>" . mysqli_error($db);
+//        }
+
+
+
+//        $loginsert = "update EqManage.log set returnRequests_id = '$last_id', returnDate = '$date' where checkoutRequests_id='$checkoutRequestsID'";
+
+
+
+        $loginsert = "update EqManage.log set returnDate = '$date' where checkoutRequests_id='$checkoutRequestsID'";
 
 //        $loginsert = "INSERT INTO log (Name, Equipment, CheckIn) values ('$equser', '$equipment', '$date')";
 //          Old way of getting the last log
@@ -56,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         mysqli_query($db, $statusupdate);
-        mysqli_query($db, $requestsinsert);
+//        mysqli_query($db, $requestsinsert);
         mysqli_query($db, $loginsert);
 
         header('Location: new_index.php?return=1');
