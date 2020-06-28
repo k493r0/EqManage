@@ -91,11 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-echo $eqname;
-
-
-
-
+//Updating Requests
+    echo $eqname;
     echo $user_id;
     echo $equipment_id;
 
@@ -103,7 +100,22 @@ echo $eqname;
 
     mysqli_query($db, $query);
 
+//Updating Equipmenet
+    $checkQty = "Select * from EqManage.equipment where id = '$equipment_id'";
+    $result = mysqli_query($db, $checkQty);
+    $checkQtyArray = mysqli_fetch_assoc($result);
 
+    $leftQty = $checkQtyArray['leftQuantity'];
+    $neweLeftQty = $leftQty - $checkoutQty;
+    if ($neweLeftQty <= 0) {
+        $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$neweLeftQty' WHERE id='$equipment_id'";
+    } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$neweLeftQty' WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
+
+    if (mysqli_query($db, $updateEq_query)) {
+        echo "Successfully updated table";
+    } else {
+        echo "Error: " . $query . "<br>" . mysqli_error($db);
+    }
 
 header("Location: new_index.php?sent=1");
 

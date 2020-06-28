@@ -11,32 +11,25 @@ if(!isset($_SESSION['loggedin'])){
 $string2 = $_POST['hash'];
 $referer = $_POST['referer'];
 
+$query = "UPDATE EqManage.requests SET active='1',state='approved' WHERE hash='$string2'";
+mysqli_query($db, $query);
+
+
+$request_query = "Select * from EqManage.requests where hash='$string2'";
+$result = mysqli_query($db, $request_query);
+$request = mysqli_fetch_assoc($result);
+$equipment_id = $request['equipment_id'];
+$users_id = $request['users_id'];
+$note = $request['note'];
+$checkoutRequest_id = $request['id'];
+$expectedReturnDate = $request['expectedReturnDate'];
+$date = date('Y-m-d H:i:s');
+$checkoutQty = $request['checkoutQty'];
+
+
 if (isset($_POST['accept'])) {
 
     echo $string2;
-
-    $query = "UPDATE EqManage.requests SET active='1',state='approved' WHERE hash='$string2'";
-    mysqli_query($db, $query);
-
-
-    $request_query = "Select * from EqManage.requests where hash='$string2'";
-    $result = mysqli_query($db, $request_query);
-    $request = mysqli_fetch_assoc($result);
-//        echo $request['equipment_id'];
-//        $request_independent = $request['Equipment'];
-//        echo $request_independent;
-//        $user_independent = $request['User'];
-//        $notes_independent = $request['Notes'];
-
-    $equipment_id = $request['equipment_id'];
-    $users_id = $request['users_id'];
-    $note = $request['note'];
-    $checkoutRequest_id = $request['id'];
-    $expectedReturnDate = $request['expectedReturnDate'];
-    $date = date('Y-m-d H:i:s');
-
-    $checkoutQty = $request['checkoutQty'];
-
 
     $log_query = "INSERT into EqManage.log (checkoutRequests_id, equipment_id,users_id,notes,checkoutRequestDate,expectedReturnDate) values ('$checkoutRequest_id','$equipment_id','$users_id','$note','$date', '$expectedReturnDate')";
 
@@ -66,10 +59,14 @@ if (isset($_POST['accept'])) {
     mysqli_query($db, $updateEq_query);
 
 } elseif (isset($_POST['reject'])){
-
-    $updateEq_query = "UPDATE EqManage.requests SET state='rejected' WHERE hash='$string2'";
-    mysqli_query($db, $updateEq_query);
+    $updateRequest = "UPDATE EqManage.requests SET state='rejected' WHERE hash='$string2'";
+    $updateEquipment = "UPDATE EqManage.equipment SET leftQuantity = leftQuantity + '$checkoutQty' where id = '$equipment_id'";
+    $updateAvailability = "Update EqManage.equipment set availability = 1 where id = '$equipment_id'"; //It will always be available
+    mysqli_query($db, $updateRequest);
+    mysqli_query($db, $updateEquipment);
+    mysqli_query($db,$updateAvailability);
     echo $string2;
+
     echo "rejected";
 
 }
