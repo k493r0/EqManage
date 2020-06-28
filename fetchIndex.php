@@ -135,7 +135,7 @@ while ($row = mysqli_fetch_array($executeResult)) {
 
 
     <?php if ($row['availability'] == 1) {
-        echo "<div class=\"box\" id='box2'>";
+        echo "<div class=\"box\" id='box2'><img src=\"https://b1.pngbarn.com/png/869/1000/camera-icon-camera-color-lens-512x512-black-canon-eos-camera-png-clip-art.png\" style='width: 100px;height:100px'><br>";
     } elseif ($row['availability'] == 0){
         echo "<div class=\"box\" id='box2'>";
     } else echo "Error"; ?>
