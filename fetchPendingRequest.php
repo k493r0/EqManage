@@ -35,7 +35,7 @@ while ($row = mysqli_fetch_array($query)) {
 
 while ($row = mysqli_fetch_array($query2)) {
     $state = $row['state'];
-    if ($state == null) {
+    if ($state == 'waiting') {
         $pendingRQ++;
     }
 }
