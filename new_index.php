@@ -22,6 +22,9 @@ include('header.php')
 
 <?php include('navbar.php'); ?>
 
+
+
+
 <div class="content">
     <?php if (isset($_GET['sent']) && $_GET['sent'] == 1){
         echo '<h2>Message</h2><p style="color: red" >Your request is sent</p>';
@@ -249,10 +252,7 @@ include('header.php')
             }
 
         })
-    };
-
-
-
+    }
     function displayFromDatabase(filter,sortC,sortE){
         $.ajax({
             url: "fetchIndex.php",
