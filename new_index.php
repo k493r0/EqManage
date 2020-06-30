@@ -119,9 +119,6 @@ include('header.php')
 
             </form>
 
-
-
-
         </div>
 
 
@@ -202,6 +199,7 @@ include('header.php')
 
 </div>
 <script>
+
     $(document).ready(function(){
         $("#input").on("keyup", function() {
             var value = $(this).val().toLowerCase();
@@ -209,29 +207,45 @@ include('header.php')
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+
+        // document.getElementById("add-cart").onclick(function() {
+        //     $(".dropdown-toggle").dropdown("toggle");
+        //     console.log("opened");
+        // });
+        // $('.trigger_button').click(function(e){
+        //     // Kill click event:
+        //     e.stopPropagation();
+        //
+        //     console.log("pressed");
+        //     $('.dropdown-toggle').dropdown('toggle');
+        // });
+
     });
 
 
 
 
-   /* $(document).ready(function getIndex(){
-        $("#select-box1").onchange(function getIndex1(){
-            var e = document.getElementById("select-box1");
-            var cat = e.options[e.selectedIndex].value;
-            $.ajax({
-                url: "fetchindex.php",
-                type: "POST",
-                async: false,
-                data:{
-                    "filterCat":cat
-                },
-                success: function(data){
-                    displayFromDatabase();
-                }
 
-            });
-        });
-    });*/
+
+
+    /* $(document).ready(function getIndex(){
+         $("#select-box1").onchange(function getIndex1(){
+             var e = document.getElementById("select-box1");
+             var cat = e.options[e.selectedIndex].value;
+             $.ajax({
+                 url: "fetchindex.php",
+                 type: "POST",
+                 async: false,
+                 data:{
+                     "filterCat":cat
+                 },
+                 success: function(data){
+                     displayFromDatabase();
+                 }
+
+             });
+         });
+     });*/
 
     function getIndex1(){
         var e = document.getElementById("select-box1");
@@ -271,6 +285,76 @@ include('header.php')
         })
     }
 
+    function addCart(eqID) {
+        console.log(eqID);
+        var idname = eqID + "_qty";
+        var qty = document.getElementById(idname).value;
+        console.log(qty);
+
+        $.ajax({
+            url:"navbarCart.php",
+            type:"POST",
+            data:{
+                "eqID":eqID,
+                "qty":qty
+            },
+            success:function (data) {
+                console.log("added to cart");
+                $("#cartDiv").html(data);
+                console.log(data);
+            }
+        })
+    }
+
+    function clearCart() {
+        $.ajax({
+            url:"navbarCart.php",
+            type:"POST",
+            data:{
+                "destroy_cart":"1",
+            },
+            success:function (data) {
+                console.log("cleared cart");
+                $("#cartDiv").html(data);
+            }
+        })
+    }
+
+    function deleteItem(eqID) {
+        console.log(eqID);
+        $.ajax({
+            url:"navbarCart.php",
+            type:"POST",
+            data:{
+                "delete":"1",
+                "eqID":eqID
+            },
+            success:function (data) {
+                console.log("deleted item");
+                $("#cartDiv").html(data);
+                console.log(data);
+            }
+        })
+    }
+
+    function updateQty(eqID, qty) {
+        console.log(qty);
+        console.log(eqID);
+        $.ajax({
+            url:"navbarCart.php",
+            type:"POST",
+            data:{
+                "update":"1",
+                "qty":qty,
+                "eqID":eqID
+            },
+            success:function (data) {
+                $("#cartDiv").html(data);
+                console.log(data);
+            }
+        })
+
+    }
 
 
 </script>
