@@ -45,100 +45,234 @@ require 'assets/src/PHPMailer.php';
 require 'assets/src/SMTP.php';
 
 $user = "";
+$user = $_SESSION['name'];
 $equipment = "";
-$notes = "";
+$purpose = "";
 $errors = array();
-
+$mailEquipmentContent = "";
+$hash;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_SESSION['cart'])) {
+
+        $user = $_SESSION['name'];
+        $user_id = $_SESSION['id'];
+        $equipment_id = $_POST['equipment'];
+        $purpose = $_POST['purpose'];
+        $hash = md5(rand(0, 1000));
+        $requestdate = date('Y-m-d H:i:s');
+        $returndate = date('Y-m-d', strtotime($_POST['date']));
+        $returntime = $_POST['time'];
+        echo $returntime;
+        $combinedDT = date('Y-m-d H:i:s', strtotime("$returndate $returntime"));
+        echo $combinedDT;
+        $checkoutQty = $_POST['quantity'];
+        echo "Quantity: ", $checkoutQty;
+        $location = $_POST['location'];
 
 
-    $user = $_SESSION['name'];
-    $user_id = $_SESSION['id'];
-    $equipment_id = $_POST['equipment'];
-    $notes = $_POST['purpose'];
-    $hash = md5(rand(0, 1000));
-    $requestdate = date('Y-m-d H:i:s');
-    $returndate = date('Y-m-d',strtotime($_POST['date']));
-    $returntime = $_POST['time'];
-    echo $returntime;
-    $combinedDT = date('Y-m-d H:i:s', strtotime("$returndate $returntime"));
-    echo $combinedDT;
-    $checkoutQty = $_POST['quantity'];
-    echo "Quantity: ", $checkoutQty;
+        $eqname = "";
+        echo "Return date: ", $returndate;
+        echo "Request date", $requestdate;
+        echo "Return time ", $_POST['time'];
+        echo "\n Combined DT: ", $combinedDT;
+
+        $dateTimestamp1 = strtotime($requestdate);
+        $dateTimestamp2 = strtotime($returndate);
+
+        if ($dateTimestamp1 > $dateTimestamp2)
+            echo "$requestdate is latest than $returndate";
+        else
+            echo "$requestdate is older than $returndate";
 
 
-    $eqname = "";
-    echo "Return date: " ,$returndate;
-    echo "Request date", $requestdate;
-    echo "Return time ", $_POST['time'];
-    echo "\n Combined DT: ",$combinedDT;
+        $getEqName = mysqli_query($db, "select * from EqManage.equipment where id = '$equipment_id'");
+        while ($row = mysqli_fetch_array($getEqName)) {
+            $eqname = $row['equipment'];
+            echo $eqname;
+        }
 
-    $dateTimestamp1 = strtotime($requestdate);
-    $dateTimestamp2 = strtotime($returndate);
+    //Updating Requests
+        echo $eqname;
+        echo $user_id;
+        echo $equipment_id;
 
-    if ($dateTimestamp1 > $dateTimestamp2)
-        echo "$requestdate is latest than $returndate";
-    else
-        echo "$requestdate is older than $returndate";
+        $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$location','$purpose','$checkoutQty','$hash','waiting','$requestdate','$combinedDT')";
+
+        mysqli_query($db, $query);
+
+    //Updating Equipmenet
+        $checkQty = "Select * from EqManage.equipment where id = '$equipment_id'";
+        $result = mysqli_query($db, $checkQty);
+        $checkQtyArray = mysqli_fetch_assoc($result);
+
+        $leftQty = $checkQtyArray['leftQuantity'];
+        $newLeftQty = $leftQty - $checkoutQty;
+        if ($newLeftQty <= 0) {
+            $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'";
+        } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
+
+        if (mysqli_query($db, $updateEq_query)) {
+            echo "Successfully updated table";
+        } else {
+            echo "Error: " . $query . "<br>" . mysqli_error($db);
+        }
+
+
+        $mailEquipmentContent .= '----------------------------------------------------------<br>
+                                    Equipment: ' . $eqname . ' <br>
+                                    Quantity: ' . $checkoutQty . '<br>
+                                    Purpose: ' . $purpose . '<br>
+                                    Date of Return: ' . $combinedDT . '<br>
+                                    ----------------------------------------------------------<br>';
 
 
 
-    $getEqName = mysqli_query($db, "select * from EqManage.equipment where id = $equipment_id");
-    while ($row = mysqli_fetch_array($getEqName)){
+        /*    $to = '***REMOVED***'; // Send email to our user
+            $subject = 'Signup | Verification'; // Give the email a subject
+            $message = '
 
-    $eqname = $row['equipment'];
-    echo $eqname;
+        Thanks for signing up!
+        Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
 
-}
+        ------------------------
+        Username: ' . $user . '
+        Password: ' . $notes . '
+        ------------------------
 
-//Updating Requests
-    echo $eqname;
-    echo $user_id;
-    echo $equipment_id;
+        Please click this link to activate your account:
+        http://www.yourwebsite.com/verify.php?hash=' . $hash . '
 
-    $query = "INSERT INTO requests (users_id,equipment_id,note,checkoutQty,hash,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$notes','$checkoutQty','$hash','waiting','$requestdate','$combinedDT')";
+        '; // Our message above including the link
 
-    mysqli_query($db, $query);
+            $headers = 'From:***REMOVED***' . "\r\n"; // Set from headers
+            mail($to, $subject, $message, $headers); // Send our email*/
 
-//Updating Equipmenet
-    $checkQty = "Select * from EqManage.equipment where id = '$equipment_id'";
-    $result = mysqli_query($db, $checkQty);
-    $checkQtyArray = mysqli_fetch_assoc($result);
 
-    $leftQty = $checkQtyArray['leftQuantity'];
-    $neweLeftQty = $leftQty - $checkoutQty;
-    if ($neweLeftQty <= 0) {
-        $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$neweLeftQty' WHERE id='$equipment_id'";
-    } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$neweLeftQty' WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
 
-    if (mysqli_query($db, $updateEq_query)) {
-        echo "Successfully updated table";
-    } else {
-        echo "Error: " . $query . "<br>" . mysqli_error($db);
+
+    }elseif (isset($_SESSION['cart'])){
+        if (isset($_POST['applyAllCheck']) && $_POST['applyAllCheck'] == "1") {
+            $user = $_SESSION['name'];
+            $user_id = $_SESSION['id'];
+            $purpose = $_POST['purpose'];
+            $hash = md5(rand(0, 1000));
+            $requestdate = date('Y-m-d H:i:s');
+            $returndate = date('Y-m-d', strtotime($_POST['date']));
+            $returntime = $_POST['time'];
+            $combinedDT = date('Y-m-d H:i:s', strtotime("$returndate $returntime"));
+            $location = $_POST['location'];
+
+            $mailEquipmentContent1 = '----------------------------------------------------------<br>';
+
+
+            foreach ($_SESSION['cart'] as $i){
+                $equipment_id = $i['id'];
+                $quantity = $i['qty'];
+                $getEqName = mysqli_query($db, "select * from EqManage.equipment where id = '$equipment_id'");
+                while ($row = mysqli_fetch_array($getEqName)) {
+                    $eqname = $row['equipment'];
+                    echo $eqname;
+                }
+                //Insert Request for Each equipment
+                $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$location','$purpose','$quantity','$hash','waiting','$requestdate','$combinedDT')";
+                if (mysqli_query($db, $query)) {
+                    echo "Successfully updated table";
+                } else {
+                    echo mysqli_error($db);
+                }
+
+
+                $checkQty = "Select * from EqManage.equipment where id = '$equipment_id'";
+                $result = mysqli_query($db, $checkQty);
+                $checkQtyArray = mysqli_fetch_assoc($result);
+                $leftQty = $checkQtyArray['leftQuantity'];
+                $newLeftQty = $leftQty - $quantity;
+                if ($newLeftQty <= 0) {
+                    $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'";
+                } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
+
+                if (mysqli_query($db, $updateEq_query)) {
+                    echo "Successfully updated table";
+                } else {
+                    echo mysqli_error($db);
+                }
+
+                $mailEquipmentContent2 .= '
+                                        Equipment: ' . $eqname . ' <br>
+                                        Quantity: ' . $quantity . '<br><br>';
+
+
+            }
+            $mailEquipmentContent3 = '
+                                        Purpose: ' . $purpose . '<br>
+                                        Date of Return: ' . $combinedDT . '<br>
+                                        ----------------------------------------------------------<br>';
+            $mailEquipmentContent = $mailEquipmentContent1.$mailEquipmentContent2.$mailEquipmentContent3;
+
+            unset($_SESSION['cart']);
+        }elseif (empty($_POST['applyAllCheck'])){
+            $hash = md5(rand(0, 1000)); //Hash placed here because it can't be different for each equipment
+
+            foreach ($_SESSION['cart'] as $i){
+                $user = $_SESSION['name'];
+                $user_id = $_SESSION['id'];
+                $purpose = $_POST["purpose_".$i['id']];
+                $location = $_POST['location_'.$i['id']];
+                $returntime = $_POST['time_'.$i['id']];
+                $equipment_id = $i['id'];
+                $quantity = $i['qty'];
+
+                echo $purpose;
+                echo $location;
+                echo $returntime;
+                $eqname = "";
+                $requestdate = date('Y-m-d H:i:s');
+                $returndate = date('Y-m-d', strtotime($_POST['date_'.$i['id']]));
+                $combinedDT = date('Y-m-d H:i:s', strtotime("$returndate $returntime"));
+
+                $getEqName = mysqli_query($db, "select * from EqManage.equipment where id = '$equipment_id'");
+                while ($row = mysqli_fetch_array($getEqName)) {
+                    $eqname = $row['equipment'];
+                    echo $eqname;
+                }
+
+                $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$location','$purpose','$quantity','$hash','waiting','$requestdate','$combinedDT')";
+                if (mysqli_query($db, $query)) {
+                    echo "Successfully updated table";
+                } else {
+                    echo mysqli_error($db);
+                }
+
+                //Updating Equipmenet
+
+                $checkQty = "Select * from EqManage.equipment where id = '$equipment_id'";
+                $result = mysqli_query($db, $checkQty);
+                $checkQtyArray = mysqli_fetch_assoc($result);
+
+                $leftQty = $checkQtyArray['leftQuantity'];
+                $newLeftQty = $leftQty - $quantity;
+                if ($newLeftQty <= 0) {
+                    $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'";
+                } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
+
+                if (mysqli_query($db, $updateEq_query)) {
+                    echo "Successfully updated table";
+                } else {
+                    echo mysqli_error($db);
+                }
+
+                $mailEquipmentContent .= '----------------------------------------------------------<br>
+                                        Equipment: ' . $eqname . ' <br>
+                                        Quantity: ' . $quantity . '<br>
+                                        Purpose: ' . $purpose . '<br>
+                                        Date of Return: ' . $combinedDT . '<br>
+                                        ----------------------------------------------------------<br>';
+
+            }
+            unset($_SESSION['cart']);
+
+        }
     }
-
-header("Location: new_index.php?sent=1");
-
-    /*    $to = '***REMOVED***'; // Send email to our user
-        $subject = 'Signup | Verification'; // Give the email a subject
-        $message = '
-
-    Thanks for signing up!
-    Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
-
-    ------------------------
-    Username: ' . $user . '
-    Password: ' . $notes . '
-    ------------------------
-
-    Please click this link to activate your account:
-    http://www.yourwebsite.com/verify.php?hash=' . $hash . '
-
-    '; // Our message above including the link
-
-        $headers = 'From:***REMOVED***' . "\r\n"; // Set from headers
-        mail($to, $subject, $message, $headers); // Send our email*/
-
 
     $mail = new PHPMailer;
 
@@ -149,26 +283,15 @@ header("Location: new_index.php?sent=1");
     $mail->Password = '***REMOVED***'; // SMTP password
     $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
     $mail->Port = ***REMOVED***;                          // TCP port to connect to
-                        // TCP port to connect to
+    // TCP port to connect to
 
     $mail->setFrom('***REMOVED***', 'Notification System');
     $mail->addAddress('***REMOVED***');   // Add a recipient
 
     $mail->isHTML(true);  // Set email format to HTML
 
-    $bodyContent = '<p>The following user has requested to borrow an equipment:
-<br> 
-----------------------------------------------------------<br>
-Equipment: '. $eqname .' <br>
-Quantity: ' . $checkoutQty . '<br>
-Name: ' . $user . ' <br>
-Notes: ' . $notes . '<br>
-Date of Return: ' . $combinedDT . '<br>
-
-----------------------------------------------------------
-<br>
-Please click this link to approve this check out:
-http://localhost/EqManage/postverify.php?hash='.$hash.'</p>';
+    $bodyContent = '<p>'.$user.' has requested to borrow an equipment:<br>'.$mailEquipmentContent.'<br>Please click this link to approve this check out:
+        http://localhost/EqManage/postverify.php?hash='.$hash.'</p>';
 
     $mail->Subject = 'Equipment Approval';
     $mail->Body = $bodyContent;
@@ -180,9 +303,7 @@ http://localhost/EqManage/postverify.php?hash='.$hash.'</p>';
         echo 'Message has been sent';
     }
 
-
-
-
+    header("Location: new_index.php?sent=1");
 
 }
 

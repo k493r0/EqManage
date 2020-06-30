@@ -32,7 +32,7 @@ include('header.php')
                             <th class="column1" style="border-bottom: 1px solid black">ID</th>
                             <th class="column2" style="border-bottom: 1px solid black">User</th>
                             <th class="column3" style="border-bottom: 1px solid black">Equipment</th>
-                            <th class="column4" style="border-bottom: 1px solid black">Notes</th>
+                            <th class="column4" style="border-bottom: 1px solid black">purpose</th>
                             <th class="column5" style="border-bottom: 1px solid black">Date Requested</th>
                             <th class="column6" style="border-bottom: 1px solid black">State</th>
                             <th class="column6" style="border-bottom: 1px solid black">Action</th>
@@ -47,7 +47,7 @@ include('header.php')
                                 <td style="text-align:left"><?php echo $row['Equipment']; ?></td>
                                 <td style="text-align:left"><?php echo $row['User'] ?></td>
                                 <td style="text-align:left"><?php echo $row['Equipment'] ?></td>
-                                <td style="text-align:left"><?php echo $row['Notes'] ?>
+                                <td style="text-align:left"><?php echo $row['purpose'] ?>
                                 <td style="text-align:left"><?php echo $row['DateRequested'] ?></td>
 
 

@@ -46,7 +46,7 @@ include('header.php')
                             <th class="column1" style="border-bottom: 1px solid black">Request ID</th>
                             <th class="column2" style="border-bottom: 1px solid black">User ID</th>
                             <th class="column3" style="border-bottom: 1px solid black">Equipment ID</th>
-                            <th class="column4" style="border-bottom: 1px solid black">Notes</th>
+                            <th class="column4" style="border-bottom: 1px solid black">purpose</th>
                             <th class="column5" style="border-bottom: 1px solid black">Date Requested</th>
                             <th class="column6" style="border-bottom: 1px solid black">State</th>
                             <th class="column7" style="border-bottom: 1px solid black">Action</th>

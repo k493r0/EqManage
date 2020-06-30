@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_array($query)) {
         echo "<td>",$row['fullname'] ,"</td>";
         echo "<td>",$row['equipment'] ,"</td>";
         echo "<td>",$row['checkoutQty'] ,"</td>";
-        echo "<td>",$row['notes'] ,"</td>";
+        echo "<td>",$row['purpose'] ,"</td>";
         echo "<td>",$row['checkoutDate'] ,"</td>";
         echo "<td>",$row['expectedReturnDate'] ,"</td>";
         echo "<td>",$row['checkoutRequests_id'] ,"</td>";
