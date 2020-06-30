@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/tablestyle.css">
     <link rel="stylesheet" href="assets/css/modalstyle.css">
+    <link rel="stylesheet" href="assets/css/adminstyle.css">
 
 
     <script src="assets/js/scripts.js" type="text/javascript"></script>

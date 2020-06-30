@@ -158,22 +158,35 @@ body.loggedin {
     margin: 0 auto;
 }
 .content h2 {
-    margin: 0;
+
+    margin-top:5%;
     padding: 25px 20px;
     font-size: 22px;
     border-bottom: 1px solid #e0e0e3;
     color: #4a536e;
 }
 .content > p, .content > div {
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);*/
     margin: 25px 0;
     padding: 25px;
     background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+    0 2px 2px rgba(0,0,0,0.12),
+    0 4px 4px rgba(0,0,0,0.12),
+    0 8px 8px rgba(0,0,0,0.12),
+    0 16px 16px rgba(0,0,0,0.12);;
+    border-radius: 10px;
 }
 
 .content > div p {
     padding: 5px;
     margin: 0 0 10px 0;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+    0 2px 2px rgba(0,0,0,0.12),
+    0 4px 4px rgba(0,0,0,0.12),
+    0 8px 8px rgba(0,0,0,0.12),
+    0 16px 16px rgba(0,0,0,0.12);
+    border-radius: 10px;
 }
 
 .select-style {
@@ -188,8 +201,6 @@ body.loggedin {
 .select-style select {
     padding: 5px 8px;
     width: 100%;
-
-    border: black;
     box-shadow: none;
     background: transparent;
     background-image: none;
@@ -298,8 +309,14 @@ form {
     background-color: #fff;
     margin-bottom: 30px;
     border-radius: 10px;
-
+    box-shadow: 0 1px 1px rgba(0,0,0,0.11),
+    0 2px 2px rgba(0,0,0,0.11),
+    0 4px 4px rgba(0,0,0,0.11),
+    0 6px 8px rgba(0,0,0,0.11),
+    0 8px 16px rgba(0,0,0,0.11);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
+
 
 .features-boxed .item .icon {
     font-size: 60px;
@@ -338,12 +355,25 @@ body {
     margin: auto;
 }
 #wrapper {
-    display: flex;
+    display: flex;box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+0 2px 2px rgba(0,0,0,0.12),
+0 4px 4px rgba(0,0,0,0.12),
+0 8px 8px rgba(0,0,0,0.12),
+0 16px 16px rgba(0,0,0,0.12);
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .btn:hover {opacity: 0.6}
 
-
-
+.navbar{
+    /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0px 3px 8px #888888;
+}
+.modal-content{
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}

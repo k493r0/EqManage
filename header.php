@@ -16,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script src="assets/js/jquery.min.js"></script>
+<!--    <script src="assets/js/jquery.min.js"></script>-->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
     <script>

@@ -135,7 +135,7 @@ while ($row = mysqli_fetch_array($executeResult)) {
 
 
     <?php if ($row['availability'] == 1) {
-        echo "<div class=\"box\" id='box2'><img src=\"https://b1.pngbarn.com/png/869/1000/camera-icon-camera-color-lens-512x512-black-canon-eos-camera-png-clip-art.png\" style='width: 100px;height:100px'><br>";
+        echo "<div class=\"box\" id='box2'><img src=\"assets/images/icon1.jpeg\" style='width: 100px;height:100px'><br>";
     } elseif ($row['availability'] == 0){
         echo "<div class=\"box\" id='box2'>";
     } else echo "Error"; ?>
@@ -167,13 +167,43 @@ while ($row = mysqli_fetch_array($executeResult)) {
 
 
     <?php if ($row['availability'] == 1) {
-        echo "<a href=\"direct-checkout.php?selected=".$row['id']."\" class=\"learn-more\">Borrow This Equipment »</a>";
+        echo "<a href=\"direct-checkout.php?selected=".$row['id']."\" class=\"learn-more\">Borrow This Equipment »</a><br>";
     } elseif ($row['availability'] == 0){
         echo "";
     } else echo "Error"; ?>
+
+    <?php if ($row['availability'] == 1) {
+        echo "Quantity: <input type=\"number\" min=\"1\" max=".$row['leftQuantity']." name=\"quantity\" id=".$row['id']."_qty"." style=\"margin-bottom: 15px;\" value=\"1\" /><button id=\"add-cart\" class='btn trigger_button' style='font-size: 12px; margin: 5px' value=".$row['id']." onclick='addCart(".$row['id'].")'>Add To Cart</button>";
+    } elseif ($row['availability'] == 0){
+        echo "";
+    } else echo "Error"; ?>
+
 
     <?php echo "</div>"; ?>
     <?php echo "</div>"; ?>
 
 <?php };?>
+
+<?php echo "
+<script>
+    $(document).ready(function(){
+    $('.trigger_button').click(function(e){
+        
+        // Kill click event:
+        
+        e.stopPropagation();
+        console.log(\"pressed\");
+        $('.dropdown-toggle').dropdown('toggle');
+    });
+    $('#cart-dropdown').on('hide.bs.dropdown', function (e) {
+    if (e.clickEvent) {
+      e.preventDefault();
+    }
+    });    
+    });
+</script> 
+
+";//Included in php file because they stop working outside after include, stop propagation
+
+
 
