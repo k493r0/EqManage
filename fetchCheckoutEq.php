@@ -18,5 +18,4 @@ while ($row = mysqli_fetch_array($result)){
     echo "<option value='$equipmentID' data-checkoutRequestsID='$equipmentID'>$barcodeID | $equipmentName </option>";
 
 
-
 };

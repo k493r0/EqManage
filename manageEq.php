@@ -26,28 +26,26 @@ include('serverconnect.php');
 <div class="content">
     <div id="alert" >Equipment Added</div>
 
-    <div>
+    <div style="padding-top: 0; margin-top: 7%">
         <h2>Manage Equipment</h2>
 
-        <p>
-
             <!-- Trigger/Open The Modal -->
-            <div id="wrapper"><button id="Btn" class="btn">Add Equipment</button></div>
+            <div id="wrapper" style="box-shadow: none; padd"><button id="Btn" class="btn">Add Equipment</button></div>
 
 
             <!-- The Modal -->
             <div id="Modal" class="modal">
 
                 <!-- Modal content -->
-                <div class="modal-content">
-                    <span class="close">&times;</span>
+                <div class="modal-content" style="width: fit-content">
+                    <span class="close" style="margin-bottom: 10px">&times;</span>
                     <?php
 
                     $resultset = mysqli_query($db, "select * from EqManage.categories");
                     ?>
                     <div class="select-style" style="width:500px; margin: auto;" align="center">
                             <input type="text" name="name" placeholder="Equipment Name" id="name" required/>
-                            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty"/>
+                            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty" style="margin-top: 5px;margin-bottom: 5px"/>
                             <select id="cat" name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
 
 
@@ -187,7 +185,6 @@ include('serverconnect.php');
 <!--            </tr>-->
 <!--            </tfoot>-->
         </table>
-        </p>
 
     </div>
 
