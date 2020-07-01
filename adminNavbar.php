@@ -15,10 +15,11 @@
                             <a class="dropdown-item" role="presentation" href="dashboard.php">Dashboard</a>
                             <a class="dropdown-item" role="presentation" href="log.php">Log</a>
                             <a class="dropdown-item" role="presentation" href="barcode.php">Barcode</a>
+                            <a class="dropdown-item" role="presentation" href="overdue.php">Overdue</a>
                         </div>
                     </li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php" style="color: salmon;">Logout</a></li>
-                </ul><span class="navbar-text actions"> <a href="#returnModal" data-toggle="modal" class="login" data-backdrop="false">Return</a><a class="btn btn-light action-button" data-toggle="modal" role="button" href="#checkoutModal" data-backdrop="false">Scan & Checkout</a></span></div>
+                </ul><span class="navbar-text actions"> <a href="#returnModal" data-toggle="modal" class="login" data-backdrop="false" id="returnModalBtn">Return</a><a class="btn btn-light action-button" data-toggle="modal" role="button" href="#checkoutModal" data-backdrop="false" id="checkoutModalBtn">Scan & Checkout</a></span></div>
         </div>
     </nav>
 </div>
