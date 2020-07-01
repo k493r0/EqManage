@@ -1,58 +1,4 @@
 // Get the modal
-var alert = document.getElementById("alert");
-var modal = document.getElementById("checkoutModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("Btn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-modal.onclick = function() {
-    modal.style.display = "block";
-};
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-};
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
-
-
-
-var returnmodal = document.getElementById("returnModal");
-
-// Get the button that opens the modal
-var returnbtn = document.getElementById("Btn");
-
-// Get the <span> element that closes the modal
-var returnspan = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-returnbtn.onclick = function() {
-    returnmodal.style.display = "block";
-};
-
-// When the user clicks on <span> (x), close the modal
-returnspan.onclick = function() {
-    returnmodal.style.display = "none";
-};
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target === returnmodal) {
-        returnmodal.style.display = "none";
-    }
-};
-
-
 $("#eqselect").select2( {
     placeholder: "Scan Barcode",
     allowClear: true,
@@ -83,8 +29,86 @@ $("#returnSelect").select2( {
     allowClear: true
 } );
 
+var alert = document.getElementById("alert");
+var modal = document.getElementById("checkoutModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("checkoutModalBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+    $('#returnEqSelectDiv').load('fetchReturnEq.php');
+    $("#returnEqSelect").select2( {
+        placeholder: "Scan Barcode",
+        allowClear: true
+    } );
+
+    $('#eqselectDiv').load('fetchCheckoutEq.php');
+    $("#eqselect").select2( {
+        placeholder: "Scan Barcode",
+        allowClear: true
+    } );
+    modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
+
+
+var returnmodal = document.getElementById("returnModal");
+
+// Get the button that opens the modal
+var returnbtn = document.getElementById("returnModalBtn");
+
+// Get the <span> element that closes the modal
+var returnspan = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+returnbtn.onclick = function() {
+    $('#returnEqSelectDiv').load('fetchReturnEq.php');
+    $("#returnEqSelect").select2( {
+        placeholder: "Scan Barcode",
+        allowClear: true
+    } );
+
+    $('#eqselectDiv').load('fetchCheckoutEq.php');
+    $("#eqselect").select2( {
+        placeholder: "Scan Barcode",
+        allowClear: true
+    } );
+    returnmodal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+returnspan.onclick = function() {
+    returnmodal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target === returnmodal) {
+        returnmodal.style.display = "none";
+    }
+};
+
+
+
+
 function getQty(studentselect) {
-    qty = studentselect.options[studentselect.selectedIndex].getAttribute('value');
+    var qty = studentselect.options[studentselect.selectedIndex].getAttribute('value');
     console.log(qty);
 
 }
@@ -200,18 +224,6 @@ $(document).ready(function() {
                     $('#checkOutSelect').val(null).trigger('change');
                     document.getElementById("checkout").setAttribute("value", "Check out");
 
-                    $('#returnEqSelectDiv').load('fetchReturnEq.php');
-                    $("#returnEqSelect").select2( {
-                        placeholder: "Scan Barcode",
-                        allowClear: true
-                    } );
-
-                    $('#eqselectDiv').load('fetchCheckoutEq.php');
-                    $("#eqselect").select2( {
-                        placeholder: "Scan Barcode",
-                        allowClear: true
-                    } );
-
                     $('#table').load('fetchLogTable.php');
 
                     console.log("Checkout reloaded");
@@ -323,18 +335,6 @@ $(document).ready(function() {
                     $('#returnStudentSelect').val(null).trigger('change');
                     $('#returnSelect').val(null).trigger('change');
                     document.getElementById("return").setAttribute("value", "Return");
-
-                    $('#returnEqSelectDiv').load('fetchReturnEq.php');
-                    $("#returnEqSelect").select2( {
-                        placeholder: "Scan Barcode",
-                        allowClear: true
-                    } );
-
-                    $('#eqselectDiv').load('fetchCheckoutEq.php');
-                    $("#eqselect").select2( {
-                        placeholder: "Scan Barcode",
-                        allowClear: true
-                    } );
 
                     $('#table').load('fetchLogTable.php');
 
