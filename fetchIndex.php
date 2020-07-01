@@ -171,7 +171,7 @@ while ($row = mysqli_fetch_array($executeResult)) {
 
 
     <?php if ($row['availability'] == 1) {
-        echo "<a href=\"direct-checkout.php?selected=".$row['id']."\" class=\"learn-more\">Borrow This Equipment »</a><br>";
+        echo "<a href=\"checkout.php?select=".$row['id']."\" class=\"learn-more\">Borrow This Equipment »</a><br>";
     } elseif ($row['availability'] == 0){
         echo "";
     } else echo "Error"; ?>
