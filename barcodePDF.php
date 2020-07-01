@@ -1,5 +1,12 @@
 <?php
-
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
+}
 // Include the main TCPDF library (search for installation path).
 require __DIR__ . '/vendor/autoload.php';
 // create new PDF document
