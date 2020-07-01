@@ -3,7 +3,9 @@
     "require": {
         "picqer/php-barcode-generator": "^0.3.0",
       "ext-mysqli": "*",
-        "mpdf/mpdf": "^8.0"
+        "mpdf/mpdf": "^8.0",
+        "knplabs/knp-snappy": "2.0.x-dev",
+        "tecnickcom/tcpdf": "6.3.5"
     }
 
 
