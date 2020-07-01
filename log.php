@@ -17,17 +17,20 @@ include('header.php')
     <div class="loader"><div></div><div></div><div></div><div></div></div>
 </div>
 
-<?php include('navbar.php'); ?>
+<?php include('adminNavbar.php'); ?>
 
 <div class="content">
-    <h2>Log</h2>
 
 
-    <div class="limiter">
+
+    <div class="limiter" style="padding-top: 0; margin-top: 7%">
+        <h2 style="padding-bottom: 10px; margin-bottom: 20px">Log</h2>
         <div class="select-box">
             <label for="select-box1" class="label select-box1"><span class="label-desc">Filter By: </span> </label>
-            <input type="radio" id="checkoutDateRadio" name="filter" value="0" <?php $filter = $_GET['filter']; if ($filter == 0 or $filter == null){echo 'checked = "checked"';}else echo null;?>  onclick="changeOption();"><label for="checkoutDateRadio"> Checkout Date</label>
-            <input type="radio" id="returnDateRadio" name="filter" value="1" <?php $filter = $_GET['filter']; if ($filter == 1){echo 'checked = "checked"';}else echo null;?> onclick="changeOption();"><label for="returnDateRadio"> Return Date</label>
+            <label for="checkoutDateRadio">
+            <input type="radio" id="checkoutDateRadio" name="filter" value="0" <?php $filter = $_GET['filter']; if ($filter == 0 or $filter == null){echo 'checked = "checked"';}else echo null;?>  onclick="changeOption();"> Checkout Date</label>
+            <label for="returnDateRadio">
+            <input type="radio" id="returnDateRadio" name="filter" value="1" <?php $filter = $_GET['filter']; if ($filter == 1){echo 'checked = "checked"';}else echo null;?> onclick="changeOption();"> Return Date</label>
            <br>
             <label for="select-box1" class="label select-box1" id="selectLabel">Show checkout from: </label>
             <select id="select-box1" class="select" name="filtercat" onchange="changeOption()" style="width: 15%">
@@ -59,9 +62,8 @@ include('header.php')
 
                         </tr>
                         </thead>
-                        <tbody id="table" >
+                        <tbody id="table">
                        <?php include('fetchLogTable.php'); ?>
-
                         </tbody>
                     </table>
                 </div>
@@ -69,6 +71,108 @@ include('header.php')
         </div>
     </div>
 
+
+</div>
+
+
+<div id="checkoutModal" class="modal" style="display: none;">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" data-dismiss="modal" onclick="resetCoOption();">×</span>
+
+        <div class="select-style" style="width:500px; margin: auto;" align="center">
+
+
+                <div id="eqselectDiv">
+                    <?php include('fetchCheckoutEq.php') ?>
+                </div>
+
+
+
+
+
+            <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
+            <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
+            <p>  </p>
+
+
+            <select id="studentselect" style="width: 100%; margin-bottom: 10px">
+                <option value="">Student Name</option>
+                <?php
+                include('fetchName.php');
+
+                ?>
+
+            </select>
+
+            <p>  </p>
+
+            <select id="checkOutSelect" style="width: 100%; margin-bottom: 10px">
+                <option value=""></option>
+
+                <?php
+                include('fetchAllCheckOut.php');
+
+                ?>
+
+            </select>
+
+
+            <input id="checkout" name="request" type="submit" value="Confirm Checkout" style="width: 100%;" >
+        </div>
+    </div>
+
+</div>
+<div id="returnModal" class="modal" style="display: none;">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" data-dismiss="modal" onclick="resetReturnOption();">×</span>
+
+        <div class="select-style" style="width:500px; margin: auto;" align="center">
+
+
+                <div id="returnEqSelectDiv">
+                    <?php
+                    include('fetchReturnEq.php');
+                    ?>
+                </div>
+
+
+
+
+
+            <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
+            <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
+            <p>  </p>
+
+
+            <select id="returnStudentSelect" style="width: 100%; margin-bottom: 10px">
+                <option value="">Student Name</option>
+                <?php
+                include('fetchReturnName.php');
+
+                ?>
+
+            </select>
+
+            <p>  </p>
+
+            <select id="returnSelect" style="width: 100%; margin-bottom: 10px">
+                <option value=""></option>
+
+                <?php
+                include('fetchReturnAllCheckout.php');
+
+                ?>
+
+            </select>
+
+
+            <input id="return" name="request" type="submit" value="Return" style="width: 100%;" >
+        </div>
+    </div>
 
 </div>
 
@@ -161,8 +265,64 @@ include('header.php')
     };
 
 
-</script>
+    // Get the modal
+    var alert = document.getElementById("alert");
+    var modal = document.getElementById("checkoutModal");
 
+    // Get the button that opens the modal
+    var btn = document.getElementById("Btn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    modal.onclick = function() {
+        modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+
+
+
+    var returnmodal = document.getElementById("returnModal");
+
+    // Get the button that opens the modal
+    var returnbtn = document.getElementById("Btn");
+
+    // Get the <span> element that closes the modal
+    var returnspan = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    returnbtn.onclick = function() {
+        returnmodal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    returnspan.onclick = function() {
+        returnmodal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === returnmodal) {
+            returnmodal.style.display = "none";
+        }
+    };
+
+
+</script>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/adminScript.js"></script>
 
 </body>
 
