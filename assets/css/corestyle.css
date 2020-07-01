@@ -156,7 +156,6 @@ body.loggedin {
 .content {
     width: 1200px;
     margin: 0 auto;
-    height: 63px;
 }
 .content h2 {
 
@@ -252,6 +251,7 @@ input[type=submit]:hover {
 div[class=content] {
     border-radius: 5px;
     padding: 20px;
+    padding-top: 0;
 }
 div[class=select-style] {
     border-radius: 5px;
