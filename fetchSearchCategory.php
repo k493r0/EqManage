@@ -65,20 +65,17 @@ echo "
                             </div>
                             <div class=\"card-body\" style='padding-top: 5px'>
                                 <h3 class=\"card-title\">Equipment in this category</h3> ";
-$result = mysqli_query($db, $query);
 if ($catID == null){echo "-";};
-while ($row = mysqli_fetch_array($result)) {
+$getEqName = mysqli_query($db, "Select e.equipment, e.id from EqManage.categories c
+left join equipment e on c.id = e.category
+where c.id = '$catID'");
+while ($row = mysqli_fetch_array($getEqName)) {
     $eqName = $row['equipment'];
-
-    $getEqID = "select * from EqManage.equipment where equipment = '$eqName'";
-    while ($row = mysqli_fetch_array($result)) {
-        $eqID = $row['id'];
-    };
+    $eqID = $row['id'];
     echo "<ul><li>";
     echo "<a href=\"search.php?type=2&id=$eqID\">$eqName</a>";
     echo "</li></ul>";
-
-};
+}
 
 
                                 echo "
