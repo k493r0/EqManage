@@ -23,9 +23,9 @@ include('serverconnect.php');
 
 </head>
 
-<body>
+<body style="background-color: #eef4f7">
 
-<div class="wrapper ">
+<div class="wrapper">
 
     <div class="main-panel">
         <!-- Navbar -->
@@ -33,11 +33,12 @@ include('serverconnect.php');
         <?php include('adminNavbar.php')?>
         <!-- End Navbar -->
 
-        <div class="content">
-            <h2 class="text-center">Dashboard</h2>
+        <div class="content" style="background-color: #eef4f7;">
+            <div style="background-color: #eef4f7; margin-top:63px">
+            <h2 class="text-center" style="margin-bottom: 50px">Dashboard</h2>
 
 
-            <div class="container-fluid" id="container">
+            <div class="container-fluid" id="container" style="background-color: #eef4f7" >
 
                 <!-- your content here -->
 
@@ -188,7 +189,7 @@ include('serverconnect.php');
         </div>
     </div>
 </div>
-
+</div>
 <?php
 
 include('serverconnect.php');
@@ -541,7 +542,7 @@ where l.returnDate IS NULL");
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks on the button, open the modal
-    btn.onclick = function() {
+    modal.onclick = function() {
         modal.style.display = "block";
     };
 
