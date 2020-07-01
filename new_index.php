@@ -21,27 +21,25 @@ include('header.php')
 </div>
 
 <?php include('navbar.php'); ?>
-
-
+<div style="height: 63px; opacity: 0; padding: 0; margin: 0" ></div>
 
 
 <div class="content">
     <?php if (isset($_GET['sent']) && $_GET['sent'] == 1){
-        echo '<h2>Message</h2><p style="color: red" >Your request is sent</p>';
+        echo '<p style="color: green" >Your request is sent</p>';
     } ?>
     <?php if (isset($_GET['verify']) && $_GET['verify'] == 1){
-        echo '<h2>Message</h2><p style="color: red" >Successfully Verified</p>';
+        echo '<p style="color: green" >Successfully Verified</p>';
     } ?>
     <?php if (isset($_GET['return']) && $_GET['return'] == 1){
-        echo '<h2>Message</h2><p style="color: red" >Successfully Returned</p>';
+        echo '<p style="color: green" >Successfully Returned</p>';
     } ?>
     <?php if (isset($_GET['return']) && $_GET['return'] == 0){
-        echo '<h2>Message</h2><p style="color: red" >Error occurred, please login with the user you borrowed the equipment with</p>';
+        echo '<p style="color: red" >Error occurred, please login with the user you borrowed the equipment with</p>';
     } ?>
     <?php if (isset($_GET['adminonly']) && $_GET['adminonly'] == 1){
-        echo '<h2>Message</h2><p style="color: red" >This page is only accessible by site admin</p>';
+        echo '<p style="color: red" >This page is only accessible by site admin</p>';
     } ?>
-
 </div>
 
 
