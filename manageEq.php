@@ -87,7 +87,7 @@ include('serverconnect.php');
             <thead>
             <tr>
                 <th scope="col">Item</th>
-                <th scope="col">Category ID</th>
+                <th scope="col">Category</th>
                 <th scope="col">Total Qty</th>
                 <th scope="col">Left Qty</th>
                 <th scope="col">Availability</th>
