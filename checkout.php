@@ -1,8 +1,11 @@
 <?php
 session_start();
-if(!isset($_SESSION['loggedin'])) {
+if(!isset($_SESSION['loggedin'])){
     header('Location: login.php');
     exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
 }
 include ('serverconnect.php');
 ?>
@@ -18,11 +21,17 @@ include('header.php');
 <div class="loader"><div></div><div></div><div></div><div></div></div>
 </div>
 
-<?php include('navbar.php'); ?>
+<?php
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminNavbar.php');
+} else{
+    include ('navbar.php');
+} ?>
 
 <div class="content">
-    <div>
-        <h2>Check Out</h2>
+    <div style="height: 63px; opacity: 0; padding: 0; margin: 0" ></div>
+    <div  style="padding-top: 0;">
+        <h2 style="padding-bottom: 10px; margin-bottom: 20px">Check Out</h2>
 
             <?php
 
