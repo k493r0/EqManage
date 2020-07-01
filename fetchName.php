@@ -18,6 +18,16 @@
 //}
 //;
 //};
+
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
+}
+
 include('serverconnect.php');
 $equipmentID = $_POST['id'];
 $result = mysqli_query($db,"Select distinct u.fullname, u.id, l.users_id

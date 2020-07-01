@@ -1,4 +1,12 @@
 <?php
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
+}
 include('serverconnect.php');
 
 $result = mysqli_query($db,"select distinct e.equipment, e.barcodeID, e.id

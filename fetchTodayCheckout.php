@@ -1,4 +1,12 @@
 <?php
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
+}
 include('serverconnect.php');
 $query = mysqli_query($db, "Select * from EqManage.log");
 $query2 = mysqli_query($db, "Select * from EqManage.requests");

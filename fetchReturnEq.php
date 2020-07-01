@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+
 include('serverconnect.php');
 $returnResult = mysqli_query($db,"select distinct e.equipment, e.barcodeID, e.id
 from equipment e
