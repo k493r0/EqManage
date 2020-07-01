@@ -33,10 +33,9 @@ include('header.php')
 <?php include('navbar.php'); ?>
 
 <div class="content">
-    <div>
+    <div style="padding-top: 0; margin-top: 7%">
         <h2>Confirmation</h2>
 
-        <p>
             <?php
 
             include('serverconnect.php');
@@ -46,17 +45,71 @@ include('header.php')
             $referer = $_SERVER["HTTP_REFERER"]; //shows where postverify.php was visited from, can't carry this over two pages so it is stored in a variable
 //            echo $referer;
             $hash = $_GET['hash'];
-            echo $hash;
-            ?>
+//            echo $hash;
 
-        <h3 style="text-align: center"><b>Do you accept or reject the request?</b></h3>
-        <form method="post" action="verify.php">
+
+
+
+
+            ?>
+        <table width="100%" id="table">
+            <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Equipment</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Location</th>
+                <th scope="col">Purpose</th>
+                <th scope="col">Expected Return Date</th>
+            </tr>
+            </thead>
+            <tbody id="cartTable">
+
+                <?php
+
+                $query = mysqli_query($db, "select * from EqManage.requests left join equipment e on requests.equipment_id = e.id left join users u on requests.users_id = u.id where requests.hash= '$hash'");
+                while ($row = mysqli_fetch_array($query)) {
+                    $eqname = $row['equipment'];
+                    $qty = $row['checkoutQty'];
+                    $returnDate = $row['expectedReturnDate'];
+                    $username = $row['fullname'];
+                    $location = $row['location'];
+                    $purpose = $row['purpose'];
+
+                    ?>
+                    <tr>
+                        <td><?php echo $username ?></td>
+                        <td><?php echo $eqname ?></td>
+                        <td><?php echo $qty ?></td>
+                        <td><?php echo $location ?></td>
+                        <td><?php echo $purpose ?></td>
+                        <td><?php echo $returnDate ?></td>
+                    </tr>
+
+
+                    <?php
+                }
+
+
+                ?>
+
+            </tbody>
+        </table>
+
+        <h3 style="text-align: center; margin-top: 40px"><b>Do you accept or reject the request?</b></h3>
+        <form method="post" action="verify.php" style="display:flex">
             <input type="hidden" name="hash" value="<?php echo $hash ?>">
             <input type="hidden" name="referer" value="<?php echo $referer ?>">
 
 
-            <input name="accept" type="submit" value="Accept" style="width: 100%; margin-top: 20px" onclick="">
-            <input name="reject" type="submit" value="Reject" style="width: 100%; margin-top: 20px">
+<!--            <input name="accept" type="submit" value="Accept" style="width: 100%; margin: 20px" onclick="">-->
+<!--            <input name="reject" type="submit" value="Reject" style="width: 100%; margin: 20px">-->
+
+            <button class="btn btn-primary btn-block" name="accept" type="submit" value="Accept" style="margin: 10px;">Accept</button>
+            <button class="btn btn-danger btn-block" name="reject" type="submit" value="Reject" style="margin: 10px">Reject</button>
+
+
+
         </form>
 
     </div>
