@@ -1,14 +1,23 @@
 <?php
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
+}
+
+
 include('serverconnect.php');
 ?>
 
-<!--TODO Complete Dashboard-->
 <!doctype html>
 <html lang="en">
 
 <head>
     <title>Dashboard</title>
-    <?php include('adminHeader.php') ?>
+    <?php include('header.php') ?>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -24,7 +33,7 @@ include('serverconnect.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="bootstrap-iso.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-iso.css">
     <script src="assets/js/select2.min.js"></script>
 
 </head>
