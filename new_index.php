@@ -20,7 +20,13 @@ include('header.php')
 <div class="loader"><div></div><div></div><div></div><div></div></div>
 </div>
 
-<?php include('navbar.php'); ?>
+<?php
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminNavbar.php');
+} else{
+    include ('navbar.php');
+}
+?>
 <div style="height: 63px; opacity: 0; padding: 0; margin: 0" ></div>
 
 
