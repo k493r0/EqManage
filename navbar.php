@@ -18,7 +18,7 @@
                         </div>
                     </li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php" style="color: salmon;">Logout</a></li>
-                </ul><span class="navbar-text actions"> <a href="return.php" class="login">Return</a><a class="btn btn-light action-button" role="button" href="checkout.php">Check Out</a></span></div>
+                </ul><span class="navbar-text actions"> <a href="return.php" id="openReturnModal" class="login">Return</a><a class="btn btn-light action-button" role="button" href="checkout.php">Check Out</a></span></div>
         </div>
 
 
