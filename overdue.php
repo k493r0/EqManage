@@ -1,8 +1,11 @@
 <?php
 session_start();
 if(!isset($_SESSION['loggedin'])){
-    header('Location: index.php');
+    header('Location: login.php');
     exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
 }
 ?>
 
@@ -24,12 +27,9 @@ include('serverconnect.php');
 
 
 <div class="content">
-
-    <div>
-        <h2>Overdues</h2>
-
-        <p>
-
+    <div style="height: 63px; opacity: 0; padding: 0; margin: 0" ></div>
+    <div style="padding-top: 0;">
+        <h2 style="padding-bottom: 10px; margin-bottom: 20px">Overdue</h2>
         <?php $results = mysqli_query($db, "SELECT * FROM EqManage.equipment inner join EqManage.categories on equipment.category = categories.id"); ?>
 
         <table width="100%" id="table">
