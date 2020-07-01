@@ -5,21 +5,12 @@ if(!isset($_SESSION['loggedin'])){
     header('Location: login.php');
     exit();
 }
-
-
-
-?>
-
-<?php
-session_start();
-if(!isset($_SESSION['loggedin'])){
-    header('Location: index.php');
-    exit();
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
 }
 ?>
-
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
 <?php
 include('header.php')
 ?>
@@ -30,7 +21,14 @@ include('header.php')
     <div class="loader"><div></div><div></div><div></div><div></div></div>
 </div>
 
-<?php include('navbar.php'); ?>
+<?php
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminNavbar.php');
+} else{
+    include ('navbar.php');
+}
+
+?>
 
 <div class="content">
     <div style="padding-top: 0; margin-top: 7%">
