@@ -14,7 +14,7 @@
     background-clip: border-box;
     border: 1px solid #eeeeee;
     border-radius: 0.25rem;
-    box-shadow: 0 4px 16px 0 rgba(0,0,0,.06);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 body{
     color:#3C4858
@@ -30,7 +30,6 @@ body{
     padding-bottom: .75rem;
     color: #333;
     border-radius: 0;
-    box-shadow: none;
     border: none;
     margin-bottom: 0;
 }
@@ -69,12 +68,12 @@ body{
 
 .navigation-clean-button .navbar-nav a.active, .navigation-clean-button .navbar-nav > .show > a {
     background: none;
-    box-shadow: none;
+
 }
 
 .navigation-clean-button.navbar-light .navbar-nav a.active, .navigation-clean-button.navbar-light .navbar-nav a.active:focus, .navigation-clean-button.navbar-light .navbar-nav a.active:hover {
     color: #8f8f8f;
-    box-shadow: none;
+
     background: none;
     pointer-events: none;
 }
@@ -122,7 +121,7 @@ body{
     border-radius: 20px;
     font-size: inherit;
     color: #fff;
-    box-shadow: none;
+
     border: none;
     text-shadow: none;
     padding: .5rem 1rem;
@@ -214,7 +213,7 @@ body.loggedin {
     width: 100%;
 
     border: black;
-    box-shadow: none;
+
     background: transparent;
     background-image: none;
 
