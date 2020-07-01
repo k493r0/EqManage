@@ -1,4 +1,13 @@
 <?php
+session_start();
+if(!isset($_SESSION['loggedin'])) {
+    header('Location: login.php');
+    exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
+}
+
 include ('serverconnect.php');
 require 'vendor/autoload.php';
 
@@ -33,11 +42,8 @@ if (file_exists($file)) {
 
 ?>
 <?php
-session_start();
-if(!isset($_SESSION['loggedin'])) {
-    header('Location: login.php');
-    exit();
-}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,8 +59,14 @@ include('header.php')
     <div class="loader"><div></div><div></div><div></div><div></div></div>
 </div>
 
-<?php include('navbar.php'); ?>
-
+<?php
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminNavbar.php');
+} else{
+    include ('navbar.php');
+}
+?>
+<div style="height: 63px; opacity: 0; padding: 0; margin: 0" ></div>
 
 
 
@@ -117,163 +129,6 @@ include('header.php')
         </div>
 
         <script>
-
-            $(document).ready(function(){
-                $("#input").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#box div").filter(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                    });
-                });
-
-                // document.getElementById("add-cart").onclick(function() {
-                //     $(".dropdown-toggle").dropdown("toggle");
-                //     console.log("opened");
-                // });
-                // $('.trigger_button').click(function(e){
-                //     // Kill click event:
-                //     e.stopPropagation();
-                //
-                //     console.log("pressed");
-                //     $('.dropdown-toggle').dropdown('toggle');
-                // });
-
-            });
-
-
-
-
-
-
-
-            /* $(document).ready(function getIndex(){
-                 $("#select-box1").onchange(function getIndex1(){
-                     var e = document.getElementById("select-box1");
-                     var cat = e.options[e.selectedIndex].value;
-                     $.ajax({
-                         url: "fetchindex.php",
-                         type: "POST",
-                         async: false,
-                         data:{
-                             "filterCat":cat
-                         },
-                         success: function(data){
-                             displayFromDatabase();
-                         }
-
-                     });
-                 });
-             });*/
-
-            function getIndex1(){
-                var e = document.getElementById("select-box1");
-                var cat = e.options[e.selectedIndex].value;
-                var e2 = document.getElementById("select-box2");
-                var sortC = e2.options[e2.selectedIndex].value;
-                var e3 = document.getElementById("select-box3");
-                var sortE = e3.options[e3.selectedIndex].value;
-                $.ajax({
-                    url: "fetchIndex.php",
-                    type: "POST",
-                    async: false,
-                    data: {
-                    },
-                    success:function(data){
-
-                        displayFromDatabase(cat,sortC,sortE);
-                    }
-
-                })
-            }
-            function displayFromDatabase(filter,sortC,sortE){
-                $.ajax({
-                    url: "fetchIndex.php",
-                    type: "POST",
-                    async: false,
-                    data: {
-                        "display": 1,
-                        "filterCat": filter,
-                        "sortC":sortC,
-                        "sortE":sortE
-                    },
-                    success:function (data) {
-                        $("#box").html(data);
-                    }
-
-                })
-            }
-
-            function addCart(eqID) {
-                console.log(eqID);
-                var idname = eqID + "_qty";
-                var qty = document.getElementById(idname).value;
-                console.log(qty);
-
-                $.ajax({
-                    url:"navbarCart.php",
-                    type:"POST",
-                    data:{
-                        "eqID":eqID,
-                        "qty":qty
-                    },
-                    success:function (data) {
-                        console.log("added to cart");
-                        $("#cartDiv").html(data);
-                        console.log(data);
-                    }
-                })
-            }
-
-            function clearCart() {
-                $.ajax({
-                    url:"navbarCart.php",
-                    type:"POST",
-                    data:{
-                        "destroy_cart":"1",
-                    },
-                    success:function (data) {
-                        console.log("cleared cart");
-                        $("#cartDiv").html(data);
-                    }
-                })
-            }
-
-            function deleteItem(eqID) {
-                console.log(eqID);
-                $.ajax({
-                    url:"navbarCart.php",
-                    type:"POST",
-                    data:{
-                        "delete":"1",
-                        "eqID":eqID
-                    },
-                    success:function (data) {
-                        console.log("deleted item");
-                        $("#cartDiv").html(data);
-                        console.log(data);
-                    }
-                })
-            }
-
-            function updateQty(eqID, qty) {
-                console.log(qty);
-                console.log(eqID);
-                $.ajax({
-                    url:"navbarCart.php",
-                    type:"POST",
-                    data:{
-                        "update":"1",
-                        "qty":qty,
-                        "eqID":eqID
-                    },
-                    success:function (data) {
-                        $("#cartDiv").html(data);
-                        console.log(data);
-                    }
-                })
-
-            }
-
             function downloadBarcode(id) {
                 console.log(id);
                 var url = "barcode.php?download=1&id="+id;
@@ -281,8 +136,6 @@ include('header.php')
 
 
             }
-
-
         </script>
 
 </body>
