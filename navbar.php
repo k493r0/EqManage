@@ -1,4 +1,10 @@
-<?php ?>
+<?php
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+?>
 
 <div>
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="height: 63px;">

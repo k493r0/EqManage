@@ -1,3 +1,14 @@
+<?php
+session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
+}
+
+?>
 <div id="user_button" class="tab-pane fade in active bootstrap-iso user" style="margin-top: 10px">
     <div style="position: center" align="center" id="searchUser">
         <label for="userSelect" style="margin-top: 20px">Search:</label>

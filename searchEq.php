@@ -1,3 +1,12 @@
+<?php session_start();
+if(!isset($_SESSION['loggedin'])){
+    header('Location: login.php');
+    exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
+}?>
+
 <div id="eq_button" class=" bootstrap-iso eq" style="margin-top: 10px">
     <div style="position: center" align="center" id="searchEq">
         <label for="eqSelect" style="margin-top: 20px">Search:</label>
