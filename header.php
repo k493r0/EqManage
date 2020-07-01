@@ -21,6 +21,7 @@
     <script src="assets/js/select2.min.js"></script>
     <link rel="stylesheet" href="assets/css/select2.min.css"/>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/canvasjs.min.js"></script>
 
     <script>
         $(function () {
