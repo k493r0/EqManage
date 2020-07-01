@@ -82,7 +82,11 @@ if(mysqli_fetch_array($results) != null) {
         echo "<td style='text-align:left'><a href='search.php?type=4&id=", $row['checkoutRequests_id'],"'>", $row['checkoutRequests_id'], "</td>";
         echo "<td style='text-align:left'><a href='search.php?type=2&id=", $row['equipment_id'],"'>",$row['equipment_id'], "</td>";
         echo "<td style='text-align:left'><a href='search.php?type=1&id=", $row['users_id'], "'>", $row['users_id'], "</td>";
-        echo "<td style='text-align:left'>", $row['checkoutDate'], "</td>";
+        echo "<td style='text-align:left'>";
+        if ($row['checkoutDate'] == null) {
+            echo '<dt style="color:red; text-align: left";">Not checked out yet</dt>';
+        } else echo $row['checkoutDate'];
+        echo "</td>";
         echo "<td style='text-align:left'>", $row['expectedReturnDate'], "</td>";
         echo "<td style='text-align:left'>";
 

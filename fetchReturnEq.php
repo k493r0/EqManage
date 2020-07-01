@@ -1,10 +1,12 @@
 <?php
+include('serverconnect.php');
 $returnResult = mysqli_query($db,"select distinct e.equipment, e.barcodeID, e.id
 from equipment e
 inner join log l
 on e.id = l.equipment_id
 where l.returnDate IS NULL AND l.checkoutDate IS NOT NULL");
 
+echo "<select id=\"returnEqSelect\" style=\"width: 100%; text-align: left;margin-bottom: 10px\">";
 while ($row = mysqli_fetch_array($returnResult)){
 
 echo "<option value=\"\">Select equipment</option>";
@@ -17,4 +19,7 @@ echo "<option value='$equipmentID' data-checkoutRequestsID='$equipmentID'>$barco
 
 };
 
+echo "</select>";
+echo "<script src=\"assets/js/select2.min.js\"></script>
+<script src=\"assets/js/adminScript.js\"></script>";
 ?>

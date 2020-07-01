@@ -7,6 +7,7 @@ inner join log l
 on e.id = l.equipment_id
 where l.returnDate IS NULL and l.checkoutDate IS NULL");
 
+echo "<select id=\"eqselect\" style=\"width: 100%; text-align: left;margin-bottom: 10px\" >";
 echo "<option value=\"\">Select equipment</option>";
 
 while ($row = mysqli_fetch_array($result)){
@@ -19,3 +20,8 @@ while ($row = mysqli_fetch_array($result)){
 
 
 };
+
+echo " </select>";
+echo "<script src=\"assets/js/select2.min.js\"></script>
+<script src=\"assets/js/adminScript.js\"></script>";
+?>
