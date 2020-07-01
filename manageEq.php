@@ -1,8 +1,11 @@
 <?php
 session_start();
 if(!isset($_SESSION['loggedin'])){
-    header('Location: index.php');
+    header('Location: login.php');
     exit();
+}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: new_index.php?adminonly=1');
 }
 ?>
 
@@ -18,19 +21,26 @@ include('header.php')
 </div>
 
 <?php
-include('navbar.php');
+
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminNavbar.php');
+} else{
+    include ('navbar.php');
+}
+
 include('serverconnect.php');
 ?>
 
 
 <div class="content">
-    <div id="alert" >Equipment Added</div>
+    <div style="height: 63px; opacity: 0; padding: 0; margin: 0" ></div>
+    <div id="alert" style="color: green;" class="name">Equipment Added</div>
 
-    <div style="padding-top: 0; margin-top: 7%">
-        <h2>Manage Equipment</h2>
+    <div style="padding-top: 0;">
+        <h2 style="padding-bottom: 10px; margin-bottom: 20px">Manage Equipment</h2>
 
             <!-- Trigger/Open The Modal -->
-            <div id="wrapper" style="box-shadow: none; padd"><button id="Btn" class="btn">Add Equipment</button></div>
+            <div id="wrapper" style="box-shadow: none;"><button id="Btn" class="btn">Add Equipment</button></div>
 
 
             <!-- The Modal -->
@@ -190,6 +200,13 @@ include('serverconnect.php');
 
 </div>
 
+<?php
+
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminModal.php');
+}
+
+?>
 <script>
     // Get the modal
     var alert = document.getElementById("alert");
