@@ -156,6 +156,7 @@ body.loggedin {
 .content {
     width: 1200px;
     margin: 0 auto;
+    height: 63px;
 }
 .content h2 {
 

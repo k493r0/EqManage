@@ -20,13 +20,14 @@ include('header.php')
 <?php include('navbar.php'); ?>
 
 <div class="content">
-    <h2>All Requests</h2>
+
     <?php if (isset($_GET['verify']) && $_GET['verify'] == 1){
         echo '<p style="color: red" >Successfully Verified</p>';
     } ?>
 
 
-    <div class="limiter">
+    <div class="limiter" style="padding-top: 0; margin-top: 7%">
+        <h2 style="padding-bottom: 10px; margin-bottom: 20px">All Requests</h2>
         <label for="select-box1" class="label select-box1"><span class="label-desc">Show: </span> </label>
         <input type="checkbox" id="approved" name="approved" value="approved" style="margin-left: 5px" onchange="changeCheckbox();" checked>
         <label for="approved" style="color: green; margin-right: 10px"> Approved</label>
@@ -46,7 +47,8 @@ include('header.php')
                             <th class="column1" style="border-bottom: 1px solid black">Request ID</th>
                             <th class="column2" style="border-bottom: 1px solid black">User ID</th>
                             <th class="column3" style="border-bottom: 1px solid black">Equipment ID</th>
-                            <th class="column4" style="border-bottom: 1px solid black">purpose</th>
+                            <th class="column4" style="border-bottom: 1px solid black">Location</th>
+                            <th class="column4" style="border-bottom: 1px solid black">Purpose</th>
                             <th class="column5" style="border-bottom: 1px solid black">Date Requested</th>
                             <th class="column6" style="border-bottom: 1px solid black">State</th>
                             <th class="column7" style="border-bottom: 1px solid black">Action</th>

@@ -70,7 +70,8 @@ if ($results != null){
        echo "<td style='text-align:left'>",  $row['id'], "</td>";
         echo "<td style='text-align:left'>", $row['users_id'], "</td>";
         echo "<td style='text-align:left'>",$row['equipment_id'], "</td>";
-        echo "<td style='text-align:left'>",$row['note'],  "</td>";
+        echo "<td style='text-align:left'>",$row['location'],  "</td>";
+        echo "<td style='text-align:left'>",$row['purpose'],  "</td>";
         echo "<td style='text-align:left'>",$row['requestDate'],"</td>";
 
         echo "<td>";
