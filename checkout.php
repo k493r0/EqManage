@@ -77,7 +77,11 @@ if ($_SESSION['username'] == 'administrator'){
                                 } elseif ($row['leftQuantity'] == 0) {
                                     $select .= "<option id='optionvalue' disabled value=\"{$row["id"]}\" data-leftQty=\"{$row['leftQuantity']}\">{$row["equipment"]} | {$row['leftQuantity']} Left</option>";
                                 } else {
-                                    $select .= "<option id='optionvalue' value=\"{$row["id"]}\" data-leftQty=\"{$row['leftQuantity']}\">{$row["equipment"]} | {$row['leftQuantity']} Left</option>";
+                                    $select .= "<option id='optionvalue' value=\"{$row["id"]}\" data-leftQty=\"{$row['leftQuantity']}\"";
+                                    if (isset($_GET['select']) && $_GET['select'] == $row['id']){
+                                        $select .= "selected";
+                                    }
+                                    $select .= ">{$row["equipment"]} | {$row['leftQuantity']} Left</option>";
                                 }
 
                             }
