@@ -51,7 +51,7 @@ include('serverconnect.php');
 //
 //    default: $query = "select * from EqManage.requests";
 //};
-$query = "select * from EqManage.requests left join users u on requests.users_id = u.id left join equipment e on requests.equipment_id = e.id ";
+$query = "select requests.id, requests.users_id, u.fullname, e.equipment, requests.equipment_id, requests.location, requests.purpose, requests.requestDate, requests.state, requests.hash from EqManage.requests left join users u on requests.users_id = u.id left join equipment e on requests.equipment_id = e.id ";
 if ($approved == 'true'){
     if ($rejected == 'true'){
         if ($waiting == 'true'){} //true,true,true
@@ -71,7 +71,7 @@ if ($rejected == 'false'){
     echo "No Records";
 }};
 if ($rejected =='false' && $approved == 'false' && $waiting == 'false'){$query = "";};
-
+$query .= " order by EqManage.requests.id asc ";
 $results = mysqli_query($db, $query);
 if ($results != null){
  while ($row = mysqli_fetch_assoc($results)) {
