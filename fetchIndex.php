@@ -192,18 +192,20 @@ while ($row = mysqli_fetch_array($executeResult)) {
 <script>
     $(document).ready(function(){
     $('.trigger_button').click(function(e){
-        
         // Kill click event:
-        
         e.stopPropagation();
         console.log(\"pressed\");
-        $('.dropdown-toggle').dropdown('toggle');
-    });
+        const element = document.querySelector(\"#cart-dropdown\");
+        if (element.classList.contains('show') === true){
+            console.log('class identified');
+        } else {
+            $('.dropdown-toggle').dropdown('toggle');
+        }
+        });   
     $('#cart-dropdown').on('hide.bs.dropdown', function (e) {
     if (e.clickEvent) {
       e.preventDefault();
-    }
-    });    
+    }}); 
     });
 </script> 
 
