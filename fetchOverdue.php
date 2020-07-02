@@ -9,7 +9,7 @@ if ($_SESSION['username'] != 'administrator'){
 }
 
 include('serverconnect.php');
-$query = mysqli_query($db, "Select * from EqManage.log");
+$query = mysqli_query($db, "Select * from EqManage.log where checkoutDate is not null");
 $query2 = mysqli_query($db, "Select * from EqManage.requests");
 $today = date("Y-m-d H:i:s");
 $todayExplode = explode(" ", $today);

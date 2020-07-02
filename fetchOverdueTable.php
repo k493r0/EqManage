@@ -15,7 +15,7 @@ $query = mysqli_query($db, "Select * from EqManage.log
 left join requests r on log.checkoutRequests_id = r.id
 left join users u on log.users_id = u.id
 left join equipment e on e.id = log.equipment_id
-where returnDate is null");
+where returnDate is null and checkoutDate is not null");
 $query2 = mysqli_query($db, "Select * from EqManage.requests");
 $today = date("Y-m-d H:i:s");
 $todayExplode = explode(" ", $today);
@@ -47,7 +47,7 @@ while ($row = mysqli_fetch_array($query)) {
         echo "<td>",$row['expectedReturnDate'] ,"</td>";
         echo "<td>",$row['checkoutRequests_id'] ,"</td>";
         echo "<td><a href=''>Notify</a></td>";
-        echo "<td><a href=''>Return</a></td>";
+        echo "<td><button type='button' class='btn btn-link' style='padding: 0' id='confirmReturnBtn' onclick='confirmReturn(".$row['checkoutRequests_id'].")'>Return</button></td>";
 
         echo "</tr>";
 
