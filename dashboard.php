@@ -75,7 +75,9 @@ if ($_SESSION['username'] != 'administrator'){
                         <div class="card card-stats">
                             <div class="card-header card-header-warning card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">content_copy</i>
+                                    <span class="material-icons">
+                                    watch_later
+                                    </span>
                                 </div>
                                 <p class="card-category">Overdue</p>
                                 <div id="overdue"><?php include('fetchOverdue.php') ?></div>
@@ -92,7 +94,9 @@ if ($_SESSION['username'] != 'administrator'){
                         <div class="card card-stats">
                             <div class="card-header card-header-success card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">store</i>
+                                    <span class="material-icons">
+                                    today
+                                    </span>
                                 </div>
                                 <p class="card-category">Checked Out Today</p>
                                 <div id="todayCheckout"><?php include('fetchTodayCheckout.php') ?></div>
@@ -100,7 +104,7 @@ if ($_SESSION['username'] != 'administrator'){
                             <div class="card-footer">
                                 <div class="stats">
 <!--                                    <i class="material-icons">date_range</i>-->
-                                    <a href="">View log >></a>
+                                    <a href="log.php">View log >></a>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +113,9 @@ if ($_SESSION['username'] != 'administrator'){
                         <div class="card card-stats">
                             <div class="card-header card-header-danger card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">info_outline</i>
+                                    <span class="material-icons">
+                                    pending
+                                    </span>
                                 </div>
                                 <p class="card-category">Pending Requests</p>
                                 <div id="pendingRequest"><?php include('fetchTodayCheckout.php') ?></div>
@@ -117,7 +123,7 @@ if ($_SESSION['username'] != 'administrator'){
                             <div class="card-footer">
                                 <div class="stats">
 <!--                                    <i class="material-icons">local_offer</i> Tracked from Github-->
-                                    <a href="">View all requests >></a>
+                                    <a href="requests.php">View all requests >></a>
                                 </div>
                             </div>
                         </div>
@@ -126,15 +132,17 @@ if ($_SESSION['username'] != 'administrator'){
                         <div class="card card-stats">
                             <div class="card-header card-header-info card-header-icon">
                                 <div class="card-icon">
-                                    <i class="fa fa-twitter"></i>
+                                    <span class="material-icons">
+                                    pending_actions
+                                    </span>
                                 </div>
-                                <p class="card-category">Registered Equipment</p>
-                                <div id="regEq"><?php include('fetchRegisteredEq.php') ?></div>
+                                <p class="card-category">Pending Checkout</p>
+                                <div id="regEq"><?php include('fetchPendingRq.php') ?></div>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
 <!--                                    <i class="material-icons">update</i> Just Updated-->
-                                    <a href="">Manage Equipment >></a>
+                                    <a data-toggle="modal" role="button" href="#checkoutModal" data-backdrop="false" id="checkoutModalBtn">Checkout Equipment >></a>
                                 </div>
                             </div>
                         </div>
