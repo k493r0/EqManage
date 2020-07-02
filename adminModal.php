@@ -1,8 +1,8 @@
 <div id="checkoutModal" class="modal" style="display: none;">
 
     <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close" data-dismiss="modal" onclick="resetCoOption();">×</span>
+    <div class="modal-content" style="width: fit-content">
+        <span class="close" style="margin-bottom: 10px;" data-dismiss="modal" onclick="resetCoOption();">×</span>
 
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
@@ -50,8 +50,8 @@
 <div id="returnModal" class="modal" style="display: none;">
 
     <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close" data-dismiss="modal" onclick="resetReturnOption();">×</span>
+    <div class="modal-content" style="width: fit-content">
+        <span class="close" style="margin-bottom: 10px;" data-dismiss="modal" onclick="resetReturnOption();">×</span>
 
         <div class="select-style" style="width:500px; margin: auto;" align="center">
 
