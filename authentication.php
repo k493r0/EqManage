@@ -12,6 +12,9 @@ if ( !isset($_POST['username'], $_POST['password']) ) {
     // Could not get the data that should have been sent.
     die ('Please fill both the username and password field!');
 }
+
+
+
 if ($stmt = $db->prepare('SELECT id, password FROM users WHERE username = ?')) {
     // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
     $stmt->bind_param('s', $_POST['username']);
@@ -20,6 +23,11 @@ if ($stmt = $db->prepare('SELECT id, password FROM users WHERE username = ?')) {
     $stmt->store_result();
 
 }
+
+
+
+
+
 if ($stmt->num_rows > 0) {
     ob_start();
     $stmt->bind_result($id, $password);
