@@ -1,9 +1,4 @@
 <?php
-session_start();
-if(!isset($_SESSION['loggedin'])){
-    header('Location: login.php');
-    exit();
-}
 ?>
 
 <div>
@@ -12,28 +7,29 @@ if(!isset($_SESSION['loggedin'])){
             <div class="collapse navbar-collapse"
                  id="navcol-1">
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="new_index.php">Status</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="new_index.php">Availability Status</a></li>
 
-                    <li class="dropdown nav-item">
-                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Administrative Tools</a>
-                        <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" role="presentation" href="requests.php">Requests</a>
-                            <a class="dropdown-item" role="presentation" href="manageEq.php">Manage Equipments</a>
-                            <a class="dropdown-item" role="presentation" href="dashboard.php">Dashboard</a>
-                            <a class="dropdown-item" role="presentation" href="log.php">Log</a>
-                        </div>
-                    </li>
+<!--                    <li class="dropdown nav-item" style="display: none" >-->
+<!--                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Administrative Tools</a>-->
+<!--                        <div class="dropdown-menu" role="menu">-->
+<!--                            <a class="dropdown-item" role="presentation" href="requests.php">Requests</a>-->
+<!--                            <a class="dropdown-item" role="presentation" href="manageEq.php">Manage Equipments</a>-->
+<!--                            <a class="dropdown-item" role="presentation" href="dashboard.php">Dashboard</a>-->
+<!--                            <a class="dropdown-item" role="presentation" href="log.php">Log</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php" style="color: salmon;">Logout</a></li>
-                </ul><span class="navbar-text actions"> <a href="return.php" id="openReturnModal" class="login">Return</a><a class="btn btn-light action-button" role="button" href="checkout.php">Check Out</a></span></div>
+                </ul><span class="navbar-text actions"><a class="btn btn-light action-button" role="button" href="checkout.php">Check Out</a></span></div>
         </div>
 
 
-
+<div>
         <div class="dropdown" id="cart-dropdown">
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" id="cartBtn">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" id="cartBtn" onclick="openModal()">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart
             </button>
-            <div class="dropdown-menu" id="cart-dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <div class="dropdown-menu" id="cart-dropdown-menu" role="menu" aria-labelledby="dLabel" >
 
 <!--                <div class="row cart-detail">-->
 <!--                                        <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">-->
@@ -65,6 +61,7 @@ if(!isset($_SESSION['loggedin'])){
 
 
         </div>
+</div>
 
 
     </nav>
@@ -76,7 +73,7 @@ if(!isset($_SESSION['loggedin'])){
         padding-right: 30px;
         position: sticky;
         top: 10px;
-        border-radius: 10px;
+        border-radius: 8px;
     }
     /*.btn{*/
     /*    margin:10px;*/
