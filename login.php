@@ -195,7 +195,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     unset($_SESSION['error']);
 
                                     // Redirect user to welcome page
-                                    header("location: new_index.php");
+
+                                    if ($_SESSION['username'] == 'administrator'){
+                                        header("location: dashboard.php");
+                                    } else{
+                                        header("location: new_index.php");
+                                    }
                                 } else {
                                     // Display an error message if password is not valid
                                     $_SESSION["error"] = "The password you entered was not valid";
