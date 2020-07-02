@@ -45,7 +45,7 @@ require 'assets/src/PHPMailer.php';
 require 'assets/src/SMTP.php';
 
 $user = "";
-$user = $_SESSION['name'];
+$user = $_SESSION['username'];
 $equipment = "";
 $purpose = "";
 $errors = array();
@@ -54,7 +54,7 @@ $hash;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_SESSION['cart'])) {
 
-        $user = $_SESSION['name'];
+        $user = $_SESSION['username'];
         $user_id = $_SESSION['id'];
         $equipment_id = $_POST['equipment'];
         $purpose = $_POST['purpose'];
@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }elseif (isset($_SESSION['cart'])){
         if (isset($_POST['applyAllCheck']) && $_POST['applyAllCheck'] == "1") {
-            $user = $_SESSION['name'];
+            $user = $_SESSION['username'];
             $user_id = $_SESSION['id'];
             $purpose = $_POST['purpose'];
             $hash = md5(rand(0, 1000));
@@ -214,7 +214,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hash = md5(rand(0, 1000)); //Hash placed here because it can't be different for each equipment
 
             foreach ($_SESSION['cart'] as $i){
-                $user = $_SESSION['name'];
+                $user = $_SESSION['username'];
                 $user_id = $_SESSION['id'];
                 $purpose = $_POST["purpose_".$i['id']];
                 $location = $_POST['location_'.$i['id']];
