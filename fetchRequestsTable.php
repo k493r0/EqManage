@@ -51,37 +51,38 @@ include('serverconnect.php');
 //
 //    default: $query = "select * from EqManage.requests";
 //};
-
+$query = "select * from EqManage.requests left join users u on requests.users_id = u.id left join equipment e on requests.equipment_id = e.id ";
 if ($approved == 'true'){
     if ($rejected == 'true'){
-        if ($waiting == 'true'){$query = "select * from EqManage.requests";} //true,true,true
-        else $query = "select * from EqManage.requests where state = 'approved' or state = 'rejected'"; //true,true,false
+        if ($waiting == 'true'){} //true,true,true
+        else $query .= "where state = 'approved' or state = 'rejected'"; //true,true,false
     }
     if ($rejected == 'false'){
-        if ($waiting == 'true'){$query = "select * from EqManage.requests where state = 'approved' or state = 'waiting'";}//true,false,true
-        else $query = "select * from EqManage.requests where state = 'approved'";//true,false,false
+        if ($waiting == 'true'){$query .= "where state = 'approved' or state = 'waiting'";}//true,false,true
+        else $query .= "where state = 'approved'";//true,false,false
     }
 } elseif ($approved == 'false'){
     if ($rejected == 'true'){
-        if ($waiting == 'true'){$query = "select * from EqManage.requests where state = 'rejected' or state = 'waiting'";} //false,true,true
-        else $query = "select * from EqManage.requests where state = 'rejected'"; //false,true,false
+        if ($waiting == 'true'){$query .= "where state = 'rejected' or state = 'waiting'";} //false,true,true
+        else $query .= "where state = 'rejected'"; //false,true,false
     }
 if ($rejected == 'false'){
-    if ($waiting == 'true'){$query = "select * from EqManage.requests where state = 'waiting'";}//false,false,true
-    else echo "No Records";//false,false,false
-}}
+    if ($waiting == 'true'){$query .= "where state = 'waiting'";}//false,false,true
+    echo "No Records";
+}};
+if ($rejected =='false' && $approved == 'false' && $waiting == 'false'){$query = "";};
 
 $results = mysqli_query($db, $query);
 if ($results != null){
  while ($row = mysqli_fetch_assoc($results)) {
 
     echo "<tr>";
-       echo "<td style='text-align:left'>",  $row['id'], "</td>";
-        echo "<td style='text-align:left'>", $row['users_id'], "</td>";
-        echo "<td style='text-align:left'>",$row['equipment_id'], "</td>";
-        echo "<td style='text-align:left'>",$row['location'],  "</td>";
-        echo "<td style='text-align:left'>",$row['purpose'],  "</td>";
-        echo "<td style='text-align:left'>",$row['requestDate'],"</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=3&id=".$row['id']."'>". $row['id']."</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=1&id=".$row['users_id']."'>".$row['fullname']."</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=2&id=".$row['equipment_id']."'>".$row['equipment']. "</td>";
+        echo "<td style='text-align:left'>".$row['location']."</td>";
+        echo "<td style='text-align:left'>".$row['purpose']."</td>";
+        echo "<td style='text-align:left'>".$row['requestDate']."</td>";
 
         echo "<td>";
 
@@ -97,12 +98,12 @@ if ($results != null){
 
         echo "</td>";
         if ($row['state'] == 'waiting'){
-            echo "<td><a href='postverify.php?hash=", $row['hash'], "&redirecturl=",$_SERVER["REQUEST_URI"] ,"'>Verify</a></td>";
-        } else echo "<td></td>"
+            echo "<td><a href='postverify.php?hash=". $row['hash']. "&redirecturl=".$_SERVER["REQUEST_URI"] ."'>Verify</a></td>";
+        } else echo "<td>-</td>"
 ;
 
 
     echo "</tr>";
- }} else ( $results = mysqli_query($db, $query)); if($results != null){echo "No Records";};
+ }} else ($results = mysqli_query($db, $query)); if($results == null && $rejected !='false' && $approved != 'false' && $waiting != 'false'){echo "No Records";}elseif ($results == null){echo "";};
 
 

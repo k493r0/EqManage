@@ -39,19 +39,19 @@ if ($filter == null){
 //If radio = 0 - all time, 1 - today, 2-yesturday, 3-a week ago
 if ($filter == 0){
     switch ($range){
-        case 0 : $query = "Select * from EqManage.log"; break;
-        case 1 : $query = "Select * from EqManage.log where DATE(checkoutDate) = '$todayExplode[0]'"; break;
-        case 2 : $query = "Select * from EqManage.log where DATE(checkoutDate) = '$yesturday'"; break;
-        case 3 : $query = "Select * from EqManage.log where DATE(checkoutDate) >= '$weekago'"; break;
+        case 0 : $query = "Select * from EqManage.log left join users u on log.users_id = u.id"; break;
+        case 1 : $query = "Select * from EqManage.log left join users u on log.users_id = u.id where DATE(checkoutDate) = '$todayExplode[0]'"; break;
+        case 2 : $query = "Select * from EqManage.log left join users u on log.users_id = u.id where DATE(checkoutDate) = '$yesturday'"; break;
+        case 3 : $query = "Select * from EqManage.log left join users u on log.users_id = u.id where DATE(checkoutDate) >= '$weekago'"; break;
         default: $query = null;
     }
 };
 if ($filter == 1){
     switch ($range){
-        case 0 : $query = "Select * from EqManage.log"; break;
-        case 1 : $query = "Select * from EqManage.log where DATE(returnDate) = '$todayExplode[0]'"; break;
-        case 2 : $query = "Select * from EqManage.log where DATE(returnDate) = '$yesturday'"; break;
-        case 3 : $query = "Select * from EqManage.log where DATE(returnDate) >= '$weekago'"; break;
+        case 0 : $query = "Select * from EqManage.log left join users u on log.users_id = u.id"; break;
+        case 1 : $query = "Select * from EqManage.log left join users u on log.users_id = u.id where DATE(returnDate) = '$todayExplode[0]'"; break;
+        case 2 : $query = "Select * from EqManage.log left join users u on log.users_id = u.id where DATE(returnDate) = '$yesturday'"; break;
+        case 3 : $query = "Select * from EqManage.log left join users u on log.users_id = u.id where DATE(returnDate) >= '$weekago'"; break;
         default: $query = null;
     }
 };
@@ -87,16 +87,17 @@ if(mysqli_fetch_array($results) != null) {
     while($row = mysqli_fetch_array($results)) {
 //        echo "test";
         echo "<tr>";
-        echo "<td style='text-align:left'><a href='search.php?type=3&id=",$row['id'],"'>", $row['id'],"</td>";
-        echo "<td style='text-align:left'><a href='search.php?type=4&id=", $row['checkoutRequests_id'],"'>", $row['checkoutRequests_id'], "</td>";
-        echo "<td style='text-align:left'><a href='search.php?type=2&id=", $row['equipment_id'],"'>",$row['equipment_id'], "</td>";
-        echo "<td style='text-align:left'><a href='search.php?type=1&id=", $row['users_id'], "'>", $row['users_id'], "</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=3&id=".$row['id']."'>". $row['id']."</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=1&id=".$row['users_id']."'>".$row['fullname']."</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=4&id=".$row['checkoutRequests_id']."'>". $row['checkoutRequests_id']. "</td>";
+        echo "<td style='text-align:left'><a href='search.php?type=2&id=".$row['equipment_id']."'>".$row['equipment_id']. "</td>";
+
         echo "<td style='text-align:left'>";
         if ($row['checkoutDate'] == null) {
             echo '<dt style="color:red; text-align: left";">Not checked out yet</dt>';
         } else echo $row['checkoutDate'];
         echo "</td>";
-        echo "<td style='text-align:left'>", $row['expectedReturnDate'], "</td>";
+        echo "<td style='text-align:left'>".$row['expectedReturnDate']."</td>";
         echo "<td style='text-align:left'>";
 
         if ($row['returnDate'] == null) {
