@@ -44,7 +44,7 @@ if ($_SESSION['username'] == 'administrator'){
         echo '<p style="color: red" >Error occurred, please login with the user you borrowed the equipment with</p>';
     } ?>
     <?php if (isset($_GET['adminonly']) && $_GET['adminonly'] == 1){
-        echo '<p style="color: red" >This page is only accessible by site admin</p>';
+        echo '<p style="color: red" >This page is only accessible by the admininistrator</p>';
     } ?>
 </div>
 
