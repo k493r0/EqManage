@@ -46,7 +46,7 @@ include('header.php')
             <br>
             <label for="filterUser">Filter by user ID (Enter nothing or 0 to reset): </label>
             <input id="filterUser" type="number" style="width: 50px;">
-            <button id="Btn" class="btn" style="height: 30px; font-size: 13px" onclick="filterClick()">Filter</button>
+            <button class="btn" style="height: 30px; font-size: 13px" onclick="filterClick()">Filter</button>
 
         </div>
         <div class="container-table100">
@@ -56,7 +56,7 @@ include('header.php')
                         <thead>
                         <tr class="table100-head">
                             <th class="column1" style="border-bottom: 1px solid black">Log ID</th>
-                            <th class="column5" style="border-bottom: 1px solid black">User ID</th>
+                            <th class="column5" style="border-bottom: 1px solid black">(User ID) Name</th>
                             <th class="column2" style="border-bottom: 1px solid black">Checkout ID</th>
                             <th class="column4" style="border-bottom: 1px solid black">Equipment ID</th>
                             <th class="column6" style="border-bottom: 1px solid black">Check Out Date</th>
