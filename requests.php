@@ -53,9 +53,9 @@ include('header.php')
                     <table style="width: 100%">
                         <thead>
                         <tr class="table100-head">
-                            <th class="column1" style="border-bottom: 1px solid black">Request ID</th>
-                            <th class="column2" style="border-bottom: 1px solid black">User ID</th>
-                            <th class="column3" style="border-bottom: 1px solid black">Equipment ID</th>
+                            <th class="column1" style="border-bottom: 1px solid black">Rq. ID</th>
+                            <th class="column2" style="border-bottom: 1px solid black">User</th>
+                            <th class="column3" style="border-bottom: 1px solid black">Equipment</th>
                             <th class="column4" style="border-bottom: 1px solid black">Location</th>
                             <th class="column4" style="border-bottom: 1px solid black">Purpose</th>
                             <th class="column5" style="border-bottom: 1px solid black">Date Requested</th>

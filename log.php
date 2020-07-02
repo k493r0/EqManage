@@ -56,11 +56,11 @@ include('header.php')
                         <thead>
                         <tr class="table100-head">
                             <th class="column1" style="border-bottom: 1px solid black">Log ID</th>
-                            <th class="column2" style="border-bottom: 1px solid black">Check Out Request ID</th>
-                            <th class="column4" style="border-bottom: 1px solid black">Equipment ID</th>
                             <th class="column5" style="border-bottom: 1px solid black">User ID</th>
+                            <th class="column2" style="border-bottom: 1px solid black">Checkout ID</th>
+                            <th class="column4" style="border-bottom: 1px solid black">Equipment ID</th>
                             <th class="column6" style="border-bottom: 1px solid black">Check Out Date</th>
-                            <th class="column6" style="border-bottom: 1px solid black">Expected Return Date</th>
+                            <th class="column6" style="border-bottom: 1px solid black">Expd. Return Date</th>
                             <th class="column6" style="border-bottom: 1px solid black">Return Date</th>
 
                         </tr>
