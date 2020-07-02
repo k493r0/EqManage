@@ -51,6 +51,9 @@ btn.onclick = function() {
         placeholder: "Scan Barcode",
         allowClear: true
     } );
+
+
+
     modal.style.display = "block";
 };
 
@@ -89,6 +92,7 @@ returnbtn.onclick = function() {
         placeholder: "Scan Barcode",
         allowClear: true
     } );
+
     returnmodal.style.display = "block";
 };
 
@@ -224,7 +228,14 @@ $(document).ready(function() {
                     $('#checkOutSelect').val(null).trigger('change');
                     document.getElementById("checkout").setAttribute("value", "Check out");
 
-                    $('#table').load('fetchLogTable.php');
+                    var sPath = window.location.pathname;
+//var sPage = sPath.substring(sPath.lastIndexOf('\\') + 1);
+                    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+                    if (sPage === "overdue.php"){
+                        $("#table2").load("fetchOverdueTable.php");
+                    } else if (sPage === "log.php"){
+                        $('#table').load('fetchLogTable.php');
+                    }
 
                     console.log("Checkout reloaded");
 
@@ -336,7 +347,15 @@ $(document).ready(function() {
                     $('#returnSelect').val(null).trigger('change');
                     document.getElementById("return").setAttribute("value", "Return");
 
-                    $('#table').load('fetchLogTable.php');
+                    var sPath = window.location.pathname;
+//var sPage = sPath.substring(sPath.lastIndexOf('\\') + 1);
+                    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+                    if (sPage === "overdue.php"){
+                        $("#table2").load("fetchOverdueTable.php");
+                    } else if (sPage === "log.php"){
+                        $('#table').load('fetchLogTable.php');
+                    }
+
 
                     console.log("reloaded");
                 }, 2000);

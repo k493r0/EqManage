@@ -59,6 +59,27 @@ include('serverconnect.php');
     </div>
 
 </div>
+<div id="returnModal2" class="modal" style="display: none">
+
+    <!-- Modal content -->
+    <div class="modal-content" style="width: fit-content">
+        <div onclick="closeModal()"><span class="close"  data-dismiss="modal" onclick="closeModal()" style="float: left; margin-bottom: 10px">×</span></div>
+
+        <div class="select-style" style="width:80%; margin: auto;" align="center">
+            <div id="overdueReturnDiv">
+                <?php include('overdueReturn.php') ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+<?php
+
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminModal.php');
+}
+
+?>
 
 <script>
 
@@ -70,8 +91,81 @@ include('serverconnect.php');
         loadTable();
     },1500);
 
+    $('#returnEqSelect').val('20');
+    $('#returnStudentSelect').val('2');
+    $('#returnSelect').val('102');
+
+    //
+    //
+    // var returnbtn = document.getElementById("confirmReturnBtn");
+    //
+    // // Get the <span> element that closes the modal
+    var returnspan2 = document.getElementsByClassName("close")[0];
+    var returnmodal2 = document.getElementById("returnModal2");
+    // // When the user clicks on the button, open the modal
+    // returnbtn.onclick = function() {
+    //     returnmodal.style.display = "block";
+    // };
+    returnspan2.onclick = function() {
+        returnmodal2.style.display = "none";
+        console.log('wtf why is this not working')
+
+    }
+    function closeModal() {
+        console.log("test");
+        returnmodal2.style.display = "none";
+    }
+
+    function confirmReturn(id){
+        $.ajax({
+            url: "overdueReturn.php",
+            type: "POST",
+            async: false,
+            data: {
+                "id": id
+            },
+            success:function (data) {
+                $("#overdueReturnDiv").html(data);
+                var returnmodal2 = document.getElementById("returnModal2");
+                returnmodal2.style.display = "block";
+            }
+        })
+    }
+
+    function overdueReturn(id) {
+        var rqID = id;
+
+        document.getElementById("overdueReturn").setAttribute("value", "...");
+
+        $.ajax({
+            url: "adminReturn.php",
+            type: "POST",
+            async: false,
+            data: {
+                "rqID": rqID,
+            },
+            success: function (data) {
+                console.log(data);
 
 
+                setTimeout(() => {
+                    document.getElementById("overdueReturn").setAttribute("value", "Return successful");
+                }, 1000);
+
+
+                setTimeout(() => {
+
+                    $("#table2").load("fetchOverdueTable.php");
+                    var returnmodal2 = document.getElementById("returnModal2");
+                    returnmodal2.style.display = "none";
+                    console.log("reloaded");
+                }, 2000);
+                // pipe(eqID,userID,checkoutID)
+
+            }
+
+        });
+    }
 
 
 </script>
