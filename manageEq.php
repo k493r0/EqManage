@@ -40,15 +40,17 @@ include('serverconnect.php');
         <h2 style="padding-bottom: 10px; margin-bottom: 20px">Manage Equipment</h2>
 
             <!-- Trigger/Open The Modal -->
-            <div id="wrapper" style="box-shadow: none;"><button id="Btn" class="btn">Add Equipment</button></div>
+            <div id="wrapper" style="box-shadow: none;"><button id="addEqBtn" class="btn">Add Equipment</button></div>
 
 
             <!-- The Modal -->
-            <div id="Modal" class="modal">
+            <div id="addEqModal" class="modal">
 
                 <!-- Modal content -->
                 <div class="modal-content" style="width: fit-content">
-                    <span class="close" style="margin-bottom: 10px">&times;</span>
+                    <div onclick="hideEqModal()">
+                    <span class="close" style="margin-bottom: 10px; float: left">&times;</span>
+                    </div>
                     <?php
 
                     $resultset = mysqli_query($db, "select * from EqManage.categories");
@@ -211,28 +213,33 @@ if ($_SESSION['username'] == 'administrator'){
     // Get the modal
     var alert = document.getElementById("alert");
     alert.style.display = "none";
-    var modal = document.getElementById("Modal");
+    var addEqModal = document.getElementById("addEqModal");
 
     // Get the button that opens the modal
-    var btn = document.getElementById("Btn");
+    var addEqBtn = document.getElementById("addEqBtn");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    // var span = document.getElementsByClassName("close")[0];
+    //
+    // // When the user clicks on <span> (x), close the modal
+    // span.onclick = function() {
+    //     addEqModal.style.display = "none";
+    // };
 
     // When the user clicks on the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
+    addEqBtn.onclick = function() {
+        addEqModal.style.display = "block";
     };
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    };
+
+    function hideEqModal(){
+        addEqModal.style.display = "none";
+    }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
-            modal.style.display = "none";
+            addEqModal.style.display = "none";
         }
     };
 
