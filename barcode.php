@@ -139,6 +139,12 @@ if ($_SESSION['username'] == 'administrator'){
         </script>
 
 </body>
+<?php
 
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminModal.php');
+}
+
+?>
 
 
