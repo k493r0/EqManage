@@ -5,7 +5,8 @@
       "ext-mysqli": "*",
         "mpdf/mpdf": "^8.0",
         "knplabs/knp-snappy": "2.0.x-dev",
-        "tecnickcom/tcpdf": "6.3.5"
+        "tecnickcom/tcpdf": "6.3.5",
+      "ext-mysql": "*"
     }
 
 
