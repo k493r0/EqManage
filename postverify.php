@@ -65,7 +65,7 @@ if ($_SESSION['username'] == 'administrator'){
 
                 <?php
 
-                $query = mysqli_query($db, "select * from EqManage.requests left join equipment e on requests.equipment_id = e.id left join users u on requests.users_id = u.id where requests.hash= '$hash'");
+                $query = mysqli_query($db, "select * from EqManage.requests left join equipment e on requests.equipment_id = e.id left join users u on requests.users_id = u.id where requests.hash= '$hash' and state = 'waiting'");
                 while ($row = mysqli_fetch_array($query)) {
                     $eqname = $row['equipment'];
                     $qty = $row['checkoutQty'];
