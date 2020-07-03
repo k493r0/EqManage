@@ -27,7 +27,9 @@ include('serverconnect.php');
 
 
 <div class="content">
+
     <div style="height: 63px; opacity: 0; padding: 0; margin: 0" ></div>
+    <div id="sentAlert" style="color: red;" class="name">Notification & Email sent to the user</div>
     <div style="padding-top: 0;">
         <h2 style="padding-bottom: 10px; margin-bottom: 20px">Overdue</h2>
         <?php $results = mysqli_query($db, "SELECT * FROM EqManage.equipment inner join EqManage.categories on equipment.category = categories.id"); ?>
@@ -62,7 +64,7 @@ include('serverconnect.php');
 <div id="returnModal2" class="modal" style="display: none">
 
     <!-- Modal content -->
-    <div class="modal-content" style="width: fit-content">
+    <div class="modal-content" style="min-width: 600px; width: fit-content">
         <div onclick="closeModal()"><span class="close"  data-dismiss="modal" onclick="closeModal()" style="float: left; margin-bottom: 10px">×</span></div>
 
         <div class="select-style" style="width:80%; margin: auto;" align="center">
@@ -82,6 +84,11 @@ if ($_SESSION['username'] == 'administrator'){
 ?>
 
 <script>
+
+    var waitAlert = document.getElementById("waitAlert");
+    waitAlert.style.display = "none";
+    var sentAlert = document.getElementById("sentAlert");
+    sentAlert.style.display = "none";
 
     function loadTable(){
         $("#table2").load("fetchOverdueTable.php");
@@ -108,8 +115,6 @@ if ($_SESSION['username'] == 'administrator'){
     // };
     returnspan2.onclick = function() {
         returnmodal2.style.display = "none";
-        console.log('wtf why is this not working')
-
     }
     function closeModal() {
         console.log("test");
@@ -166,6 +171,30 @@ if ($_SESSION['username'] == 'administrator'){
 
         });
     }
+
+    function showMessage() {
+        waitAlert.style.display = "block";
+    }
+
+    function notifyOverdue(id) {
+
+        $.ajax({
+            url: "notifyOverdue.php",
+            type: "POST",
+            async: false,
+            data: {
+                "notify": 1,
+                "id":id
+            },
+            success: function (data) {
+                console.log(data);
+                sentAlert.style.display = "block";
+            }
+
+        });
+    }
+
+
 
 
 </script>

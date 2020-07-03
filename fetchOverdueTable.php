@@ -46,7 +46,7 @@ while ($row = mysqli_fetch_array($query)) {
         echo "<td>",$row['checkoutDate'] ,"</td>";
         echo "<td>",$row['expectedReturnDate'] ,"</td>";
         echo "<td>",$row['checkoutRequests_id'] ,"</td>";
-        echo "<td><a href=''>Notify</a></td>";
+        echo "<td><button type='button' class='btn btn-link' style='padding: 0' id='confirmReturnBtn' onclick='notifyOverdue(".$row['checkoutRequests_id'].")'>Notify</button></td>";
         echo "<td><button type='button' class='btn btn-link' style='padding: 0' id='confirmReturnBtn' onclick='confirmReturn(".$row['checkoutRequests_id'].")'>Return</button></td>";
 
         echo "</tr>";
