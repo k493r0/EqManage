@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $quantity = $_POST['quantity'];
         $category = $_POST['category_id'];
         $new_category = $_POST['other'];
+        $imgID = $_POST['img'];
 
 
         $randomNumber = mt_rand(10000000, 99999999);
@@ -22,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //    echo $new_category;
 
         if ($new_category == NULL && $category != NULL) { //If cateogory is selected and no new category is made
-            $query1 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity,barcodeID) values ('$name','$category','$quantity','$quantity','$randomNumber')";
+            $query1 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity,barcodeID,imgID) values ('$name','$category','$quantity','$quantity','$randomNumber', '$imgID')";
             if (mysqli_query($db, $query1)) {
                 echo "Successfully added equipment";
             } else {
@@ -38,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
 
-            $query2 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity,barcodeID) values ('$name','$last_id','$quantity','$quantity','$randomNumber')";
+            $query2 = "insert into EqManage.equipment (equipment,category,totalQuantity,leftQuantity,barcodeID,imgID) values ('$name','$last_id','$quantity','$quantity','$randomNumber','$imgID')";
             if (mysqli_query($db, $query2)) {
                 echo "Successfully added equipment into database";
             } else {

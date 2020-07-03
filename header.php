@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="assets/css/modalstyle.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
-
+    <link rel="stylesheet" href="assets/css/croppie.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
@@ -25,6 +25,7 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/canvasjs.min.js"></script>
     <script src="assets/js/scripts.js" type="text/javascript"></script>
+    <script src="assets/js/croppie.js"></script>
     <script>
         $(function () {
             setTimeout(function () {

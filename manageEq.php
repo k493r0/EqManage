@@ -66,12 +66,39 @@ include('serverconnect.php');
 <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
 <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
 
+                        <div class="panel-body" align="center" id="upload-div">
+                            <strong>Upload equipment image</strong><input type="file" name="upload_image" id="upload_image" />
+                            <br />
+                            <div id="uploaded_image"></div>
+                        </div>
+
                             <input id="add" name="request" type="submit" value="Add Equipment" style="width: 100%;">
                     </div>
 
+
                 </div>
 
-</div>
+            </div>
+
+        <div id="uploadimageModal" class="modal" role="dialog" style="z-index: 10000">
+                <div class="modal-content" style="width:fit-content">
+                        <h4 class="modal-title" style="float: left">Crop Image</h4>
+                        <div class="row">
+                            <div class="col-md-7 text-center">
+                                <div id="image_demo" style="width:350px; margin-top:30px"></div>
+                            </div>
+                            <div class="col-md-4" style="padding-top:30px;">
+                                <br />
+                                <br />
+                                <br/>
+                                <button class="btn btn-success crop_image">Crop & Upload Image</button>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+        </div>
 
 
 
@@ -201,12 +228,14 @@ if ($_SESSION['username'] == 'administrator'){
 
     function hideEqModal(){
         addEqModal.style.display = "none";
+        resetFields();
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target === modal) {
             addEqModal.style.display = "none";
+            resetFields();
         }
     };
 
@@ -226,6 +255,7 @@ if ($_SESSION['username'] == 'administrator'){
             var e = document.getElementById("cat");
             var cat = e.options[e.selectedIndex].value;
             var ncat = document.getElementById("other").value;
+            var img = document.getElementById("eqImg").value;
             $.ajax({
                 url: "addEq.php",
                 type: "POST",
@@ -235,19 +265,18 @@ if ($_SESSION['username'] == 'administrator'){
                     "name":name,
                     "quantity":qty,
                     "category_id":cat,
-                    "other":ncat
+                    "other":ncat,
+                    "img":img
                 },
                 success: function(data){
                     displayFromDatabase();
                     addEqModal.style.display = "none";
-                    document.getElementById("name").value = "";
-                    document.getElementById("qty").value = "";
-                    document.getElementById("cat").value = "";
-                    document.getElementById("other").value ="";
+                    resetFields();
                     var element=document.getElementById('other');
                     element.style.display='none';
                     var addAlert = document.getElementById("addAlert");
                     addAlert.style.display = "block";
+                    console.log(data);
 
                 }
 
@@ -257,6 +286,14 @@ if ($_SESSION['username'] == 'administrator'){
 
     });
 
+
+    function resetFields() {
+        document.getElementById("name").value = "";
+        document.getElementById("qty").value = "1";
+        document.getElementById("cat").value = "";
+        document.getElementById("other").value ="";
+        $("#upload-div").load(" #upload-div");
+    }
 
     function displayFromDatabase(){
         $.ajax({
@@ -319,7 +356,49 @@ if ($_SESSION['username'] == 'administrator'){
 
 
 
+    $image_crop = $('#image_demo').croppie({
+        enableExif: true,
+        viewport: {
+            width:250,
+            height:250,
+            type:'square' //circle
+        },
+        boundary:{
+            width:310,
+            height:310
+        }
+    });
 
+    $('#upload_image').on('change', function(){
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            $image_crop.croppie('bind', {
+                url: event.target.result
+            }).then(function(){
+                console.log('jQuery bind complete');
+            });
+        }
+        reader.readAsDataURL(this.files[0]);
+        $('#uploadimageModal').modal('show');
+    });
+
+    $('.crop_image').click(function(event){
+        $image_crop.croppie('result', {
+            type: 'canvas',
+            size: 'original'
+        }).then(function(response){
+            $.ajax({
+                url:"upload-image.php",
+                type: "POST",
+                data:{"image": response},
+                success:function(data)
+                {
+                    $('#uploadimageModal').modal('hide');
+                    $('#uploaded_image').html(data);
+                }
+            });
+        })
+    });
 
 
 
