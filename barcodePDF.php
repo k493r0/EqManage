@@ -112,7 +112,7 @@ $pdf->lastPage();
 // ---------------------------------------------------------
 
 //Close and output PDF document
-$pdf->Output('example_006.pdf', 'I');
+$pdf->Output('barcodee.pdf', 'I');
 
 //============================================================+
 // END OF FILE
