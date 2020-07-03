@@ -5,7 +5,7 @@ if(isset($_POST['view'])){
     $userID = $_SESSION['id'];
 // $con = mysqli_connect("localhost", "root", "", "notif");
 
-    $query = "SELECT * FROM notification where target = '$userID' and status = 0 ORDER BY id DESC LIMIT 5";
+    $query = "SELECT * FROM notification where target = '$userID' and status = 0 ORDER BY id DESC";
     $result = mysqli_query($db, $query);
     $output = '';
     $output .= "<li><strong>Message</strong></li><hr>";
@@ -14,12 +14,12 @@ if(isset($_POST['view'])){
         while($row = mysqli_fetch_array($result))
         {
             $date = $row['datetime'];
-            $formattedDate = date('M-d i:m',strtotime($date));
+            $formattedDate = date('M-d H:i',strtotime($date));
             $output .= '
   <li>
   <small><strong>'.$formattedDate.'</strong></small>
-  <small><em>'.$row["message"].'</em></small>
-  <hr style="width:50%">
+  <small>'.$row["message"].'</small>
+  <hr style="width:70%">
   </li>
   ';
         }
