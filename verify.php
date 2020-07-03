@@ -11,7 +11,7 @@ if ($_SESSION['username'] != 'administrator'){
 
 $hash = $_POST['hash'];
 $referer = $_POST['referer'];
-
+$today = date("Y-m-d H:i:s");
 if ($result = mysqli_query($db, "Select * from EqManage.requests where hash='$hash'")){
     $numRows = mysqli_num_rows($result);
     if ($numRows > 1){
@@ -36,12 +36,21 @@ if ($result = mysqli_query($db, "Select * from EqManage.requests where hash='$ha
 
             }
 
-        }elseif (isset($_POST['reject'])){
+            $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('Your checkout request was accepted','$userID',0, '$today')";
+            if (mysqli_query($db, $notif_query)) {
+                $last_id = mysqli_insert_id($db);
+                echo "Notification updated. Last inserted ID is: " . $last_id;
+            } else {
+                echo "Error: " . $notif_query . "<br>" . mysqli_error($db);
+            }
 
+        }elseif (isset($_POST['reject'])){
+            $userID = "";
             $query = mysqli_query($db, "select * from EqManage.requests where hash = '$hash'");
             while ($row = mysqli_fetch_array($query)) {
                 $checkoutQty = $row['checkoutQty'];
                 $eqID = $row['equipment_id'];
+                $userID = $row['users_id'];
                 $updateEquipment = "UPDATE EqManage.equipment SET leftQuantity = leftQuantity + '$checkoutQty' where id = '$eqID'"; //Put back the checked out quantity
                 $updateAvailability = "Update EqManage.equipment set availability = 1 where id = '$equipment_id'";
                 mysqli_query($db,$updateAvailability);
@@ -54,6 +63,14 @@ if ($result = mysqli_query($db, "Select * from EqManage.requests where hash='$ha
             echo $hash;
 
             echo "rejected";
+
+            $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('Your checkout request was rejected','$userID',0, '$today')";
+            if (mysqli_query($db, $notif_query)) {
+                $last_id = mysqli_insert_id($db);
+                echo "Notification updated. Last inserted ID is: " . $last_id;
+            } else {
+                echo "Error: " . $notif_query . "<br>" . mysqli_error($db);
+            }
         }
 
     } else{
@@ -76,11 +93,21 @@ if ($result = mysqli_query($db, "Select * from EqManage.requests where hash='$ha
             } else {
                 echo "Error: " . $log_query . "<br>" . mysqli_error($db);
             }
+
+            $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('Your checkout request was accepted','$userID',0, '$today')";
+            if (mysqli_query($db, $notif_query)) {
+                $last_id = mysqli_insert_id($db);
+                echo "Notification updated. Last inserted ID is: " . $last_id;
+            } else {
+                echo "Error: " . $notif_query . "<br>" . mysqli_error($db);
+            }
+
         } elseif (isset($_POST['reject'])){
             $query = mysqli_query($db, "select * from EqManage.requests where hash = '$hash'");
             while ($row = mysqli_fetch_array($query)) {
                 $eqID = $row['equipment_id'];
                 $checkoutQty = $row['checkoutQty'];
+                $userID = $row['users_id'];
             }
             
             $updateRequest = "UPDATE EqManage.requests SET state='rejected' WHERE hash='$hash'";
@@ -91,6 +118,14 @@ if ($result = mysqli_query($db, "Select * from EqManage.requests where hash='$ha
             mysqli_query($db,$updateAvailability);
             echo $hash;
             echo "rejected";
+
+            $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('Your checkout request was rejected','$userID',0, '$today')";
+            if (mysqli_query($db, $notif_query)) {
+                $last_id = mysqli_insert_id($db);
+                echo "Notification updated. Last inserted ID is: " . $last_id;
+            } else {
+                echo "Error: " . $notif_query . "<br>" . mysqli_error($db);
+            }
         }
     }
 }
