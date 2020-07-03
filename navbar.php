@@ -20,7 +20,15 @@
 <!--                    </li>-->
 
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php" style="color: salmon;">Logout</a></li>
+                        <li class="dropdown" style="margin-left:10px" id="notif-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="load_unseen_notification('read')"><span class="badge" style="position: absolute;left: 13px;top: 2px;color: white;background: red;" id="countBadge">0</span>
+                                <span class="material-icons" style="padding-top:20%">notifications</span></a>
+                            <ul class="dropdown-menu-notif dropdown-menu" style="padding: 10px; min-width:300px"></ul>
+                        </li>
                 </ul><span class="navbar-text actions"><a class="btn btn-light action-button" role="button" href="checkout.php">Check Out</a></span></div>
+
+
+
         </div>
 
 
@@ -53,7 +61,7 @@
 <!--                </div>-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 col-12 text-center checkout" align="center">
-                        <button class="btn btn-primary btn-block" style="width: 60%; display: inline-block; margin: 0">Checkout</button>
+                        <button class="btn btn-primary btn-block" style="width: 60%; display: inline-block; margin: 0" onclick="location.href = 'checkout.php'">Checkout</button>
                         <button class="btn btn-danger btn-block" style="width: 30%; margin: 0 ;display: inline-block; height: 50px" onclick="clearCart()">Reset Cart</button>
                     </div>
                 </div>
@@ -83,7 +91,7 @@
         padding:20px;
         top:140% !important;
         width:450px !important;
-        left:-250% !important;
+        left:-350% !important;
         box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
         overflow-y: scroll;
         max-height: 70vh;
