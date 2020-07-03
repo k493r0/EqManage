@@ -127,7 +127,7 @@ if ($_SESSION['username'] == 'administrator'){
                     </table>
 
 
-                    <button type="button" class="btn btn-info btn-group-justified" style="margin: 10px 0px; float: right; font-size: 13px; margin-left: 100%">Add more >></button>
+                    <button type="button" class="btn btn-info btn-group-justified" style="margin: 10px 0px; float: right; font-size: 13px; margin-left: 100%" onclick="window.location.href='new_index.php'">Add more >></button>
                     <div style="text-align: center" >
                     <label style="margin: 0; margin-top: 10px">
                         <input type="checkbox" id="applyAllCheck" name="applyAllCheck" value="1" checked onchange="applyAll()"> Apply to all equipment
