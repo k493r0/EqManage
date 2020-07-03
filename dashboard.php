@@ -406,8 +406,19 @@ if ($_SESSION['username'] == 'administrator'){
                     dataPoints: dps
                 }]
             });
+            chart.destroy();
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: false,
+                exportEnabled: false,
+                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                title:{
 
-
+                },
+                data: [{
+                    type: "bar", //change type to bar, line, area, pie, etc
+                    dataPoints: dps
+                }]
+            });
             chart.render();
 
         });
@@ -431,17 +442,25 @@ if ($_SESSION['username'] == 'administrator'){
                 exportEnabled: false,
                 theme: "light1", // "light1", "light2", "dark1", "dark2"
                 title:{
-
                 },
                 data: [{
                     type: "line", //change type to bar, line, area, pie, etc
                     dataPoints: dps
                 }]
             });
-
-
+            chart.destroy();
+            var chart = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: false,
+                exportEnabled: false,
+                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                title:{
+                },
+                data: [{
+                    type: "line", //change type to bar, line, area, pie, etc
+                    dataPoints: dps
+                }]
+            });
             chart.render();
-
         });
     }
 
@@ -462,7 +481,7 @@ if ($_SESSION['username'] == 'administrator'){
         reloadGraph2();
 
 
-    },1500);
+    },5000);
 
     //
     // function getName(){
