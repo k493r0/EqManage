@@ -92,8 +92,7 @@
 }
 
 .navigation-clean-button .navbar-text .action-button, .navigation-clean-button .navbar-text .action-button:active, .navigation-clean-button .navbar-text .action-button:hover {
-    background: #56c6c6;
-    border-radius: 20px;
+    background: #009688;
     font-size: inherit;
     color: #fff;
     box-shadow: none;
@@ -102,10 +101,11 @@
     padding: .5rem 1rem;
     transition: background-color 0.25s;
     font-size: inherit;
+    border-radius: 8px;
 }
 
 .navigation-clean-button .navbar-text .action-button:hover {
-    background: #66d7d7;
+    background: #009688;
 }
 body {
     height: 100%;
@@ -175,7 +175,7 @@ body.loggedin {
     0 4px 4px rgba(0,0,0,0.12),
     0 8px 8px rgba(0,0,0,0.12),
     0 16px 16px rgba(0,0,0,0.12);;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .content > div p {
@@ -186,7 +186,7 @@ body.loggedin {
     0 4px 4px rgba(0,0,0,0.12),
     0 8px 8px rgba(0,0,0,0.12),
     0 16px 16px rgba(0,0,0,0.12);
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .select-style {
@@ -242,6 +242,7 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
     color: white;
+    margin-top: 20px;
 }
 
 input[type=submit]:hover {
@@ -309,7 +310,7 @@ form {
     padding: 30px;
     background-color: #fff;
     margin-bottom: 30px;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.11),
     0 2px 2px rgba(0,0,0,0.11),
     0 4px 4px rgba(0,0,0,0.11),
