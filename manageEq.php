@@ -34,12 +34,15 @@ include('serverconnect.php');
 
 <div class="content">
     <div style="height: 63px; opacity: 0; padding: 0; margin: 0" ></div>
-    <div id="alert" style="color: green;" class="name">Equipment Added</div>
+    <div id="addAlert" style="color: green;" class="name">Equipment Added</div>
+    <div id="removeAlert" style="color: red;" class="name">Equipment Removed</div>
+    <div id="removeCatAlert" style="color: red;" class="name">Category Removed</div>
 
     <div style="padding-top: 0;">
         <h2 style="padding-bottom: 10px; margin-bottom: 20px">Manage Equipment</h2>
 
             <!-- Trigger/Open The Modal -->
+        <h1 style="font-weight: bold; margin-top: 30px; margin-bottom: 10px; text-align: center"><u>Equipment</u></h1>
             <div id="wrapper" style="box-shadow: none;"><button id="addEqBtn" class="btn">Add Equipment</button></div>
 
 
@@ -57,28 +60,9 @@ include('serverconnect.php');
                     ?>
                     <div class="select-style" style="width:500px; margin: auto;" align="center">
                             <input type="text" name="name" placeholder="Equipment Name" id="name" required/>
-                            Quantity: <input type="number" min="1" max="100" name="quantity" id="qty" style="margin-top: 5px;margin-bottom: 5px"/>
-                            <select id="cat" name="category" class="select-picker" onchange="selectOther(this.value);" style="margin-bottom: 10px">
+                            Quantity: <input type="number" min="1" max="100" name="quantity" value="1" id="qty" style="margin-top: 5px;margin-bottom: 5px" required/>
 
-
-                                <option value="" disabled selected>Select the category</option>
-                                <?php
-
-                                while ($row = mysqli_fetch_array($resultset)){
-
-                                    $category = $row['categoryName'];
-                                    $category_id = $row['id'];
-                                    echo $row[$category_id];
-
-                                    if (isset($_GET['selected']) && $_GET['selected'] == $category_id){
-                                        echo "<option name='category_id' value='$category_id' selected='selected'>$category</option>";
-                                    } else echo "<option name='category_id' value='$category_id' >$category</option>";
-                                }
-                                ?>
-                                <option value="Other">Other...</option>
-                                <input type="text" name="other" id="other" style='display:none;' placeholder="New category name"/>
-
-                            </select>
+                        <div id="categorySelect"></div>
 <!--                            <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;-->
 <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
 
@@ -105,46 +89,24 @@ include('serverconnect.php');
                 <th scope="col">Availability</th>
                 <th scope="col">Last used user ID</th>
                 <th scope="col">Last log ID</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody id="table2">
-
-<!--            --><?php //while ($row = mysqli_fetch_array($results)) {
-//
-//                $catName = $row['categoryName'];
-//                $tqty = $row['totalQuantity'];
-//
-//                ?>
-<!--                <tr>-->
-<!--                    <td>--><?php //echo $row['equipment']; ?><!--</td>-->
-<!--                    <td>--><?php //echo "<a href='#'>$catName</a>";?><!--</td>-->
-<!--                    <td>--><?php //echo $row['totalQuantity']; ?><!--</td>-->
-<!--                    <td>--><?php //echo $row['leftQuantity']; ?><!--</td>-->
-<!--                    <td>-->
-<!--                        --><?php
-//
-//                        if ($row['leftQuantity'] >= 1) {
-//                            echo "Available";
-//                        } elseif ($row['leftQuantity'] <= 0){
-//                            echo "Not Available";
-//                        } else echo "Error";
-//
-//                        ?>
-<!--                    </td>-->
-<!--                    <td>--><?php //echo $row['users_id']; ?><!--</td>-->
-<!--                    <td>--><?php //echo $row['lastLog_id']; ?><!--</td>-->
-<!---->
-<!---->
-<!--                </tr>-->
-<!--            --><?php //} ?>
-
-            <?php include('fetchEquipmentTable.php') ?>
-
-
-
             </tbody>
         </table>
-
+        <h1 style="font-weight: bold; margin-top: 30px;margin-bottom: 10px;text-align: center"><u>Categories</u></h1>
+        <table width="100%" id="table">
+            <thead>
+            <tr>
+                <th scope="col">Category Name</th>
+                <th scope="col">Number of equipment in this cateogry</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody id="cattable">
+            </tbody>
+        </table>
 
 
 
@@ -211,8 +173,13 @@ if ($_SESSION['username'] == 'administrator'){
 ?>
 <script>
     // Get the modal
-    var alert = document.getElementById("alert");
-    alert.style.display = "none";
+
+    var addAlert = document.getElementById("addAlert");
+    addAlert.style.display = "none";
+    var removeAlert = document.getElementById("removeAlert");
+    removeAlert.style.display = "none";
+    var removeCatAlert = document.getElementById("removeCatAlert");
+    removeCatAlert.style.display = "none";
     var addEqModal = document.getElementById("addEqModal");
 
     // Get the button that opens the modal
@@ -238,20 +205,21 @@ if ($_SESSION['username'] == 'administrator'){
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             addEqModal.style.display = "none";
         }
     };
 
     function selectOther(val){
         var element=document.getElementById('other');
-        if(val=='Select the Category'||val=='Other')
+        if(val==='Select the Category'||val==='Other')
             element.style.display='block';
         else
             element.style.display='none';
     }
 
     $(document).ready(function(){
+        displayFromDatabase();
         $("#add").click(function (){
             var name = document.getElementById("name").value;
             var qty = document.getElementById("qty").value;
@@ -263,28 +231,30 @@ if ($_SESSION['username'] == 'administrator'){
                 type: "POST",
                 async: false,
                 data:{
+                    "add":1,
                     "name":name,
                     "quantity":qty,
                     "category_id":cat,
                     "other":ncat
-
-
                 },
                 success: function(data){
                     displayFromDatabase();
-                    modal.style.display = "none";
+                    addEqModal.style.display = "none";
                     document.getElementById("name").value = "";
                     document.getElementById("qty").value = "";
                     document.getElementById("cat").value = "";
                     document.getElementById("other").value ="";
                     var element=document.getElementById('other');
                     element.style.display='none';
-                    var alert = document.getElementById("alert");
-                    alert.style.display = "block";
+                    var addAlert = document.getElementById("addAlert");
+                    addAlert.style.display = "block";
+
                 }
 
             });
         });
+
+
     });
 
 
@@ -301,7 +271,51 @@ if ($_SESSION['username'] == 'administrator'){
             }
 
         })
+        $("#cattable").load("fetchCategoryTable.php");
+        $("#categorySelect").load("fetchCategorySelect.php");
     }
+
+    function removeEq(id) {
+        console.log("Pressed");
+        $.ajax({
+            url: "addEq.php",
+            type: "POST",
+            async: false,
+            data:{
+                "id":id,
+                "remove":1,
+                "type":1
+            },
+            success: function(data){
+                displayFromDatabase();
+                var removeAlert = document.getElementById("removeAlert");
+                removeAlert.style.display = "block";
+                console.log(data);
+            }
+
+        });
+    }
+
+    function removeCat(id) {
+        $.ajax({
+            url: "addEq.php",
+            type: "POST",
+            async: false,
+            data:{
+                "id":id,
+                "remove":1,
+                "type":2
+            },
+            success: function(data){
+                displayFromDatabase();
+                var removeAlert = document.getElementById("removeCatAlert");
+                removeAlert.style.display = "block";
+                console.log(data);
+            }
+
+        });
+    }
+
 
 
 
