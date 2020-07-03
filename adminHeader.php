@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/sourcesanspro-font.css">
     <!-- Main Style Css -->
     <link rel="stylesheet" href="assets/css/loaderstyle.css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">-->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/tablestyle.css">
     <link rel="stylesheet" href="assets/css/modalstyle.css">
