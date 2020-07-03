@@ -137,7 +137,7 @@ if ($_SESSION['username'] != 'administrator'){
                                     </span>
                                 </div>
                                 <p class="card-category">Pending Checkout</p>
-                                <div id="regEq"><?php include('fetchPendingRq.php') ?></div>
+                                <div id="regEq"><?php include('fetchPendingCheckout.php') ?></div>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
@@ -355,7 +355,7 @@ if ($_SESSION['username'] == 'administrator'){
 
     function refreshCOM() {
         xmlhttpCOM = new XMLHttpRequest(); // Checkout Month
-        xmlhttpCOM.open("GET", "fetchRegisteredEq.php",false);
+        xmlhttpCOM.open("GET", "fetchPendingCheckout.php",false);
         xmlhttpCOM.send(null);
         document.getElementById("regEq").innerHTML=xmlhttpCOM.responseText;
     }
