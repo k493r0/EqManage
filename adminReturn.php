@@ -52,6 +52,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $updateAvailability = "Update EqManage.equipment set availability = 1 where id = '$eqID'"; //It will always be available after return
 
+        $getEqName = mysqli_query($db, "select * from EqManage.equipment where id = '$eqID'");
+        while ($row = mysqli_fetch_array($getEqName)) {
+            $eqName = $row['equipment'];
+        }
+
+        $checkNotif = mysqli_query($db, "Select * from notification where message = '$eqName was successfully returned' and target = '$userID'");
+        if(mysqli_num_rows($checkNotif) != null){
+            echo "present";
+            $updateNotif = "Update EqManage.notification set status = 0 where message = '$eqName was successfully returned' and target = '$userID'";
+            if (mysqli_query($db, $updateNotif)) {
+                $last_id = mysqli_insert_id($db);
+                echo "Notification updated. Last inserted ID is: " . $last_id;
+            } else {
+                echo "Error: " . $updateNotif . "<br>" . mysqli_error($db);
+            }
+        } else{
+            echo "empty";
+            $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('$eqName was successfully returned' ,'$userID',0, '$today')";
+            if (mysqli_query($db, $notif_query)) {
+                $last_id = mysqli_insert_id($db);
+                echo "Notification updated. Last inserted ID is: " . $last_id;
+            } else {
+                echo "Error: " . $notif_query . "<br>" . mysqli_error($db);
+            }
+        }
+
+
         //Update Log
         if (mysqli_query($db, $query)) {
             echo "Successfully updated table";
