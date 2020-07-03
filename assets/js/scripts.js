@@ -4,6 +4,7 @@
 function openTab(evt, tabName) {
 
     var i, tabcontent, tablinks;
+    console.log(evt);
 
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -21,4 +22,33 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+load_unseen_notification('yes');
+function load_unseen_notification(view) {
+    var value = '';
+    if ($('#notif-dropdown').hasClass('show')){
+
+        if (view === 'read'){
+            value = 'read';
+        }
+    }
+    $.ajax({
+        url:"fetchNotification.php",
+        method:"POST",
+        data: {
+            view: view,
+            read:value
+        },
+        dataType:"json",
+        success:function(data)
+        {
+            $('.dropdown-menu-notif').html(data.notification);
+            console.log(data.unread_count);
+            $('#countBadge').html(data.unread_count);
+        }
+    })
+};
+//
+setInterval(function(){
+    load_unseen_notification('yes');
+}, 1000);
 
