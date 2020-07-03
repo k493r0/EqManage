@@ -117,8 +117,8 @@ if ($_SESSION['username'] != 'administrator'){
                                     pending
                                     </span>
                                 </div>
-                                <p class="card-category">Pending Requests</p>
-                                <div id="pendingRequest"><?php include('fetchTodayCheckout.php') ?></div>
+                                <p class="card-category">Waiting Approval</p>
+                                <div id="pendingRequest"><?php include('fetchPendingRequest.php') ?></div>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
