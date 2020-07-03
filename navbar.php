@@ -23,7 +23,7 @@
                         <li class="dropdown" style="margin-left:10px" id="notif-dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="load_unseen_notification('read')"><span class="badge" style="position: absolute;left: 13px;top: 2px;color: white;background: red;" id="countBadge">0</span>
                                 <span class="material-icons" style="padding-top:20%">notifications</span></a>
-                            <ul class="dropdown-menu-notif dropdown-menu" style="padding: 10px; min-width:300px"></ul>
+                            <ul class="dropdown-menu-notif dropdown-menu" style="padding: 10px; min-width:300px;max-height: 50vh; height: auto;overflow-y: auto; border-radius: 8px; margin-top:15px" id="notif-drop"></ul>
                         </li>
                 </ul><span class="navbar-text actions"><a class="btn btn-light action-button" role="button" href="checkout.php">Check Out</a></span></div>
 
@@ -96,6 +96,7 @@
         overflow-y: scroll;
         max-height: 70vh;
         height: auto;
+        border-radius:8px;
     }
     .total-header-section{
         border-bottom:2px solid #d2d2d2;
