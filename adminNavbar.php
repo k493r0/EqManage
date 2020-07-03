@@ -16,6 +16,7 @@
                             <a class="dropdown-item" role="presentation" href="overdue.php">Overdue</a>
                             <a class="dropdown-item" role="presentation" href="manageEq.php">Manage Equipments</a>
                             <a class="dropdown-item" role="presentation" href="barcode.php">Barcode</a>
+                            <a class="dropdown-item" role="presentation" href="search.php">Search</a>
                         </div>
                     </li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php" style="color: salmon;">Logout</a></li>
