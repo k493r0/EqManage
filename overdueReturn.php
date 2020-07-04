@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $location = $row['location'];
     }
 
+
     echo "<h5 style=\"font-weight: bolder\">User: </h5>
         <h5>".$username."</h5>
         <h5 style=\"font-weight: bolder\">Equipment: </h5>
