@@ -249,6 +249,7 @@ if ($_SESSION['username'] == 'administrator'){
 
     $(document).ready(function(){
         displayFromDatabase();
+        $("#categorySelect").load("fetchCategorySelect.php");
         $("#add").click(function (){
             var name = document.getElementById("name").value;
             var qty = document.getElementById("qty").value;
