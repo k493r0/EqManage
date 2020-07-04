@@ -85,8 +85,6 @@ if ($_SESSION['username'] == 'administrator'){
 
 <script>
 
-    var waitAlert = document.getElementById("waitAlert");
-    waitAlert.style.display = "none";
     var sentAlert = document.getElementById("sentAlert");
     sentAlert.style.display = "none";
 
