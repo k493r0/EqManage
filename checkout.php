@@ -59,7 +59,7 @@ if ($_SESSION['username'] == 'administrator'){
                     $sql = "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity
                       FROM EqManage.categories C
                       LEFT JOIN EqManage.equipment E ON C.id=E.category
-                      GROUP BY C.id,E.id
+                      GROUP BY C.id,E.id, C.categoryName, E.equipment
                       ORDER BY C.categoryName,E.equipment;";
 
                     if ($result = mysqli_query($db, $sql)) {
@@ -97,7 +97,9 @@ if ($_SESSION['username'] == 'administrator'){
                     }
 
                     ?>
-                    <textarea type="text" id="purpose" name="purpose" placeholder="Purpose/Location/Date to be returned" style="padding: 10px 15px; border: 1px solid #ccc;
+                    <input type="text" name="location" placeholder="Location to be used" id="location" style="
+    border-radius: 4px; margin-top: 20px;margin-bottom: 10px"/>
+                    <textarea type="text" id="purpose" name="purpose" placeholder="Purpose" style="padding: 10px 15px; border: 1px solid #ccc;
   border-radius: 4px; margin-top: 10px;margin-bottom: 10px"></textarea>
 
 
@@ -189,11 +191,7 @@ if ($_SESSION['username'] == 'administrator'){
         if(mm<10){
             mm='0'+mm
         }
-
-
-
         today = yyyy+'-'+mm+'-'+dd;
-
         document.getElementById("datefield").setAttribute("min", today);
         document.getElementById("datefield").setAttribute("value", today);
     });
@@ -217,7 +215,7 @@ if ($_SESSION['username'] == 'administrator'){
         if (checked === false){
             single.style.display='none';
             multi.style.display='block';
-            console.log("Shwoign");
+            console.log("Showing");
         } else {
             single.style.display='block';
             multi.style.display='none';
