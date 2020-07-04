@@ -8,12 +8,20 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     exit;
 }
 include ('serverconnect.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'assets/src/Exception.php';
+require 'assets/src/PHPMailer.php';
+require 'assets/src/SMTP.php';
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = $confirm_password_err = $email_err = $fullname_err = "";
+
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['signup']) && $_POST['signup'] == "signup") {
+        $_SESSION['msg'] = "";
         if (empty(trim($_POST["regUsername"]))) {
             $username_err = "Please enter a username";
             $_SESSION['error'] .= $username_err." | ";
@@ -115,22 +123,55 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) && empty($fullname_err)) {
 
                 // Prepare an insert statement
-                $sql = "INSERT INTO users (fullname, username, password, email) VALUES (?, ?,?,?)";
+                $sql = "INSERT INTO users (fullname, username, password, email, hash, active) VALUES (?,?,?,?,?,?)";
 
                 if ($stmt = mysqli_prepare($db, $sql)) {
                     // Bind variables to the prepared statement as parameters
-                    mysqli_stmt_bind_param($stmt, "ssss",  $param_fullname,$param_username, $param_password, $param_email);
+                    mysqli_stmt_bind_param($stmt, "sssssi",  $param_fullname,$param_username, $param_password, $param_email, $param_hash, $param_active);
 
                     // Set parameters
                     $param_username = $username;
                     $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
                     $param_fullname = $fullname;
                     $param_email = $email;
+                    $param_hash = md5(rand(0,1000));
+                    $param_active = 0;
 
                     // Attempt to execute the prepared statement
                     if (mysqli_stmt_execute($stmt)) {
                         // Redirect to login page
                         unset($_SESSION['error']);
+
+                        $mail = new PHPMailer;
+                        $mail->isSMTP();                            // Set mailer to use SMTP
+                        $mail->Host = '***REMOVED***';             // Specify main and backup SMTP servers
+                        $mail->SMTPAuth = true;                     // Enable SMTP authentication
+                        $mail->Username = '***REMOVED***';          // SMTP username
+                        $mail->Password = '***REMOVED***'; // SMTP password
+                        $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
+                        $mail->Port = ***REMOVED***;                          // TCP port to connect to
+                        // TCP port to connect to
+
+                        $mail->setFrom('***REMOVED***', 'Notification System');
+                        $mail->addAddress($email);   // Add a recipient
+
+                        $mail->isHTML(true);  // Set email format to HTML
+
+                        $bodyContent = '<p>Welcome '.$param_fullname.'! <br>Please click this link to verify your email
+                        http://localhost/EqManage/accountVerify.php?hash='.$param_hash.'</p>';
+
+                        $mail->Subject = 'Account Verification';
+                        $mail->Body = $bodyContent;
+
+                        if (!$mail->send()) {
+                            echo 'Message could not be sent.';
+                            echo 'Mailer Error: ' . $mail->ErrorInfo;
+                        } else {
+                            echo 'Message has been sent';
+                        }
+
+                        $_SESSION['msg'] = "Account has been created. Check your email and verify your account to activate it";
+
                         header("location: login.php?tab=1");
                     } else {
                         $_SESSION['error'] = "Something went wrong. Please try again later";
@@ -148,6 +189,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         if (isset($_POST['signin']) && $_POST['signin'] == "signin") { //Sign in
+            $_SESSION['msg'] = "";
             // Check if username is empty
             if (empty(trim(mysqli_real_escape_string($db, $_POST['logUsername'])))) {
                 $username_err = "Please enter username";
@@ -193,7 +235,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $_SESSION["id"] = $id;
                                     $_SESSION["username"] = $username;
                                     unset($_SESSION['error']);
-
                                     // Redirect user to welcome page
 
                                     if ($_SESSION['username'] == 'administrator'){
@@ -204,7 +245,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 } else {
                                     // Display an error message if password is not valid
                                     $_SESSION["error"] = "The password you entered was not valid";
-                                    header("location: login.php?tab=1");
+                                    header("location: login.php?tab=1&create=1");
                                 }
                             }
                         } else {
@@ -333,6 +374,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             if (isset($_SESSION['error'])){
                                 echo $_SESSION["error"];
                             }
+                            if (isset($_SESSION['msg'])){
+                                echo $_SESSION['msg'];
+                            }
                             ;?></span>
                 </div>
             </form>
@@ -363,6 +407,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <span class="help-block"><?php
                         if (isset($_SESSION['error'])){
                             echo $_SESSION["error"];
+                        }
+                        if (isset($_SESSION['msg'])){
+                            echo $_SESSION['msg'];
                         }
                         ;?></span>
                 </div>
