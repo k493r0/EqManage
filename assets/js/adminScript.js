@@ -52,7 +52,9 @@ btn.onclick = function() {
         allowClear: true
     } );
 
-
+    $('#eqselect').val(null).trigger('change');
+    $('#studentselect').val(null).trigger('change');
+    $('#checkOutSelect').val(null).trigger('change');
 
     modal.style.display = "block";
 };
@@ -92,6 +94,10 @@ returnbtn.onclick = function() {
         placeholder: "Scan Barcode",
         allowClear: true
     } );
+
+    $('#returnEqSelect').val(null).trigger('change');
+    $('#returnStudentSelect').val(null).trigger('change');
+    $('#returnSelect').val(null).trigger('change');
 
     returnmodal.style.display = "block";
 };
@@ -153,7 +159,7 @@ $(document).ready(function() {
                     var name = response[i]['name'];
                     var eqID = response[i]['eqID'];
 
-                    $("#studentselect").append("<option value=''>Student Name</option><option value='" + id + "' data-eqID='" + eqID + "'>" + name + "" + eqID + "</option>");
+                    $("#studentselect").append("<option value=''>Student Name</option><option value='" + id + "' data-eqID='" + eqID + "'>" + name + "</option>");
 
                 }
             }
@@ -182,7 +188,7 @@ $(document).ready(function() {
                     var requestOnlyDate = requestDate.split(" ", 1);
                     var returnOnlyDate = returnDate.split(" ", 1);
 
-                    $("#checkOutSelect").append("<option value=''></option><option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + " " + id + "</option>");
+                    $("#checkOutSelect").append("<option value=''></option><option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + "</option>");
 
                 }
             }
@@ -272,7 +278,7 @@ $(document).ready(function() {
                     var name = response[i]['name'];
                     var eqID = response[i]['eqID'];
 
-                    $("#returnStudentSelect").append("<option value=''>Student Name</option><option value='" + id + "' data-eqID='" + eqID + "'>" + name + "" + eqID + "</option>");
+                    $("#returnStudentSelect").append("<option value=''>Student Name</option><option value='" + id + "' data-eqID='" + eqID + "'>" + name + "</option>");
 
                 }
             }
@@ -301,7 +307,7 @@ $(document).ready(function() {
                     var requestOnlyDate = requestDate.split(" ", 1);
                     var returnOnlyDate = returnDate.split(" ", 1);
 
-                    $("#returnSelect").append("<option value=''></option><option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + " " + id + "</option>");
+                    $("#returnSelect").append("<option value=''></option><option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + "</option>");
 
                 }
             }
