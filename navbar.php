@@ -7,19 +7,17 @@
             <div class="collapse navbar-collapse"
                  id="navcol-1">
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="new_index.php">Availability Status</a></li>
+                    <li class="nav-item" role="presentation" style="padding:0 10px;margin-right: 10px ; border-right: 1px solid rgba(0, 0, 0, .1);border-left: 1px solid rgba(0, 0, 0, .1)"><a class="nav-link" href="new_index.php">Availability Status</a></li>
 
-<!--                    <li class="dropdown nav-item" style="display: none" >-->
-<!--                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Administrative Tools</a>-->
-<!--                        <div class="dropdown-menu" role="menu">-->
-<!--                            <a class="dropdown-item" role="presentation" href="requests.php">Requests</a>-->
-<!--                            <a class="dropdown-item" role="presentation" href="manageEq.php">Manage Equipments</a>-->
-<!--                            <a class="dropdown-item" role="presentation" href="dashboard.php">Dashboard</a>-->
-<!--                            <a class="dropdown-item" role="presentation" href="log.php">Log</a>-->
-<!--                        </div>-->
-<!--                    </li>-->
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Account</a>
+                        <div class="dropdown-menu" role="menu" style="border-radius: 8px; margin-top:15px; margin-left: -80px">
+                            <a class="dropdown-item" role="presentation" href="resetPassword.php">Reset Password</a>
+                            <a class="dropdown-item" href="logout.php" style="color: salmon;">Logout</a>
+                        </div>
+                    </li>
 
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php" style="color: salmon;">Logout</a></li>
+<!--                    <li class="nav-item" role="presentation"><a class="nav-link" href="logout.php" style="color: salmon;">Logout</a></li>-->
                         <li class="dropdown" style="margin-left:10px" id="notif-dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="load_unseen_notification('read')"><span class="badge" style="position: absolute;left: 13px;top: 2px;color: white;background: red;" id="countBadge">0</span>
                                 <span class="material-icons" style="padding-top:20%">notifications</span></a>
