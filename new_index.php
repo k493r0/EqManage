@@ -45,6 +45,8 @@ if ($_SESSION['username'] == 'administrator'){
     } ?>
     <?php if (isset($_GET['adminonly']) && $_GET['adminonly'] == 1){
         echo '<p style="color: red" >This page is only accessible by the admininistrator</p>';
+    } ?><?php if (isset($_GET['reset']) && $_GET['reset'] == 1){
+        echo '<p style="color: green" >Password successfully reset</p>';
     } ?>
 </div>
 
