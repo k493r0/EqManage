@@ -19,8 +19,8 @@ $sortC = $_POST['sortC'];
 $results = mysqli_query($db, "SELECT * FROM equipment");
 
 $default = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
-      FROM EqManage.categories C
-      LEFT JOIN EqManage.equipment E ON C.id=E.category
+      FROM EqManage.equipment E
+      LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName,E.equipment");
 
@@ -28,38 +28,38 @@ $default = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQu
 
 
 $noFilterCAscEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
-      FROM EqManage.categories C
-      LEFT JOIN EqManage.equipment E ON C.id=E.category
+      FROM EqManage.equipment E
+      LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName asc,E.equipment asc");
 
 $noFilterCDescEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
-      FROM EqManage.categories C
-      LEFT JOIN EqManage.equipment E ON C.id=E.category
+      FROM EqManage.equipment E
+      LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName desc,E.equipment asc");
 
 $noFilterCDescEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
-      FROM EqManage.categories C
-      LEFT JOIN EqManage.equipment E ON C.id=E.category
+      FROM EqManage.equipment E
+      LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName desc,E.equipment desc");
 
 $noFilterCAscEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
-      FROM EqManage.categories C
-      LEFT JOIN EqManage.equipment E ON C.id=E.category
+      FROM EqManage.equipment E
+      LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName asc,E.equipment desc");
 
 $filterEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
-      FROM EqManage.categories C
-      LEFT JOIN EqManage.equipment E ON C.id=E.category WHERE C.id='$filterCategory'
+      FROM EqManage.equipment E
+      LEFT JOIN EqManage.categories C ON C.id=E.category WHERE C.id='$filterCategory'
       GROUP BY C.id,E.id, C.categoryName, E.equipment 
       ORDER BY E.equipment asc");
 
 $filterEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
-      FROM EqManage.categories C
-      LEFT JOIN EqManage.equipment E ON C.id=E.category WHERE C.id='$filterCategory'
+      FROM EqManage.equipment E
+      LEFT JOIN EqManage.categories C ON C.id=E.category WHERE C.id='$filterCategory'
       GROUP BY C.id,E.id, C.categoryName, E.equipment 
       ORDER BY E.equipment desc");
 ?>
