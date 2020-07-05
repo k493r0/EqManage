@@ -52,6 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (isset($_POST['remove']) && $_POST['remove'] == 1 && $_POST['type'] == 1){
         $eqID = $_POST['id'];
+        $getImgID = mysqli_query($db, "Select imgID from EqManage.equipment where id = '$eqID'");
+        while ($row = mysqli_fetch_array($getImgID)) {
+            $imgID = $row['imgID'];
+        }
+        $directory = $_SERVER['DOCUMENT_ROOT']."/EqManage/assets/images/".$imgID. '.png';
+        echo $directory;
+        unlink($directory);
+
         $query2 = "Delete from EqManage.equipment where id="."$eqID";
         echo $query2;
         if (mysqli_query($db, $query2)) {
