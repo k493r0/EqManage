@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['display']) && $_POST['display'] == 1) {
 
 
-        $results = mysqli_query($db, "SELECT equipment.id, equipment, totalQuantity, leftQuantity, users_id, lastLog_id, categoryName FROM EqManage.equipment inner join EqManage.categories on equipment.category = categories.id");
+        $results = mysqli_query($db, "SELECT equipment.id, equipment, equipment.totalQuantity, equipment.leftQuantity, equipment.users_id, equipment.lastLog_id, categories.categoryName, categories.id as catID FROM EqManage.equipment inner join EqManage.categories on equipment.category = categories.id");
         while ($row = mysqli_fetch_array($results)) {
 
             $catName = $row['categoryName'];
@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
             <tr>
                 <td><?php echo $row['equipment']; ?></td>
-                <td><?php echo "<a href='#'>$catName</a>";?></td>
+                <td><?php echo "<a href='search.php?type=5&id=".$row['catID']."'>$catName</a>";?></td>
                 <td><?php echo $row['totalQuantity']; ?></td>
                 <td><?php echo $row['leftQuantity']; ?></td>
                 <td>
@@ -108,8 +108,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     ?>
                 </td>
-                <td><?php echo $row['users_id']; ?></td>
-                <td><?php echo $row['lastLog_id']; ?></td>
+                <td><?php if ($row['users_id'] != null){
+                    echo "<a href='search.php?type=1&id=".$row['users_id']."'>".$row['users_id']."</a>";
+                } else echo "-";
+
+                    ?></td>
+                <td><?php if ($row['users_id'] != null){
+                        echo "<a href='search.php?type=3&id=".$row['lastLog_id']."'>".$row['lastLog_id']."</a>";
+                    } else echo "-"; ?></td>
                 <td><button type='button' class='btn btn-link' id="removeEq" style="padding: 0; margin: 0" onclick="removeEq(this.value)" value="<?php echo $row['id']; ?>">Remove</button></td>
 
             </tr>
