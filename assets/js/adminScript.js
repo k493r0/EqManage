@@ -241,6 +241,9 @@ $(document).ready(function() {
                         $("#table2").load("fetchOverdueTable.php");
                     } else if (sPage === "log.php"){
                         $('#table').load('fetchLogTable.php');
+                    }else if (spage === "manageEq.php"){
+                        displayFromDatabase();
+                        $("#cattable").load("fetchCategoryTable.php");
                     }
 
                     console.log("Checkout reloaded");
@@ -360,6 +363,9 @@ $(document).ready(function() {
                         $("#table2").load("fetchOverdueTable.php");
                     } else if (sPage === "log.php"){
                         $('#table').load('fetchLogTable.php');
+                    } else if (spage === "manageEq.php"){
+                        displayFromDatabase();
+                        $("#cattable").load("fetchCategoryTable.php");
                     }
 
 
