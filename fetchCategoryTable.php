@@ -3,7 +3,7 @@ include('serverconnect.php');
 $results = mysqli_query($db, "SELECT * FROM EqManage.categories");
 while ($row = mysqli_fetch_array($results)) {
     $total = 0;
-    $results2 = mysqli_query($db, "SELECT categories.id, categoryName FROM EqManage.categories left join equipment e on categories.id = e.category where categories.id =".$row['id']);
+    $results2 = mysqli_query($db, "SELECT categories.id, categoryName FROM EqManage.categories left join equipment e on categories.id = e.category where categories.id =".$row['id']." and equipment is not null");
     while ($row2 = mysqli_fetch_array($results2)) {
         $total++;
     };
