@@ -273,6 +273,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
     }
+    $today = date('Y-m-d H:i:s');
+    $message = "Request was sent by the student. See details at requests page";
+
+    $checkNotif = mysqli_query($db, "Select * from notification where message = '$message' and target = '1'");
+    if(mysqli_num_rows($checkNotif) != null){
+        echo "present";
+        $updateNotif = "Update EqManage.notification set status = 0 where message = '$message' and target = '1'";
+        if (mysqli_query($db, $updateNotif)) {
+            $last_id = mysqli_insert_id($db);
+            echo "Notification updated. Last inserted ID is: " . $last_id;
+        } else {
+            echo "Error: " . $updateNotif . "<br>" . mysqli_error($db);
+        }
+    } else{
+        echo "empty";
+        $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('$message' ,1,0, '$today')";
+        if (mysqli_query($db, $notif_query)) {
+            $last_id = mysqli_insert_id($db);
+            echo "Notification updated. Last inserted ID is: " . $last_id;
+        } else {
+            echo "Error: " . $notif_query . "<br>" . mysqli_error($db);
+        }
+    }
+
 
     $mail = new PHPMailer;
 
@@ -303,7 +327,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo 'Message has been sent';
     }
 
-    header("Location: new_index.php?sent=1");
+//    header("Location: new_index.php?sent=1");
 
 }
 
