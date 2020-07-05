@@ -173,12 +173,13 @@ while ($row = mysqli_fetch_array($executeResult)) {
     <?php if ($row['availability'] == 1) {
         echo "<a href=\"checkout.php?select=".$row['id']."\" class=\"learn-more\">Borrow This Equipment »</a><br>";
     } elseif ($row['availability'] == 0){
-        $query = "select expectedReturnDate from EqManage.log where log.equipment_id =".$row['id']." order by expectedReturnDate asc";
+        $query = "select expectedReturnDate from EqManage.log where log.equipment_id =".$row['id']." and returnDate is null order by expectedReturnDate asc";
         if ($results = mysqli_query($db, $query)){
             mysqli_data_seek($results, 0);
             $row = mysqli_fetch_row($results);
             $date = date('M-d H:i', strtotime($row[0]));
-            echo "<p class=\"description\" style='color: red'>Expected to be available at: ".$date;
+            if ($row[0] != null){echo "<p class=\"description\" style='color: red'>Expected to be available at: ".$date;} else echo "<p class=\"description\" style='color: red'>Availability date not determined yet";
+
 
         }
     } else echo "Error"; ?>
