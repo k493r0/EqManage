@@ -229,14 +229,14 @@ if ($mode == '1') {
 
 
 
-//$headerRefer = substr($referer,strrpos($referer,'/') + 1);
-//echo $headerRefer;
-//
-//if ($referer != null){
-//    header("Location: $headerRefer?verify=1" );
-//} elseif ($referer == null){
-//    header('Location: new_index.php?verify=1');
-//} else header('Location: new_index.php');
+$headerRefer = substr($referer,strrpos($referer,'/') + 1);
+echo $headerRefer;
+
+if ($referer != null){
+    header("Location: $headerRefer?verify=1" );
+} elseif ($referer == null){
+    header('Location: new_index.php?verify=1');
+} else header('Location: new_index.php');
 
 
 
