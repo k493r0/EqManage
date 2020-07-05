@@ -250,7 +250,7 @@ if ($_SESSION['username'] == 'administrator'){
     $(document).ready(function(){
         displayFromDatabase();
         $("#categorySelect").load("fetchCategorySelect.php");
-        $("#add").click(function (){
+        $("#add").click(function (e){
             var name = document.getElementById("name").value;
             var qty = document.getElementById("qty").value;
             var e = document.getElementById("cat");
@@ -280,8 +280,9 @@ if ($_SESSION['username'] == 'administrator'){
                     console.log(data);
 
                 }
-
             });
+            e.stopImmediatePropagation();
+            return false;
         });
 
 
