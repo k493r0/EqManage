@@ -14,7 +14,7 @@ $catID = $_GET['id'];
 $query = "
 Select * from EqManage.categories c
 left join equipment e on c.id = e.category
-where c.id = '$catID'
+where c.id = '$catID' and equipment is not null
 ";
 
 $total = 0;

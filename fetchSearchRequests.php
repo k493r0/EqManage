@@ -12,6 +12,8 @@ $rqID = $_GET['id'];
 //echo $rqID;
 $query = "
 Select * from EqManage.requests r
+left join equipment e on r.equipment_id = e.id
+left join users u on r.users_id = u.id
 where r.id = '$rqID'
 ";
 
@@ -21,17 +23,23 @@ $checkoutRequestDate = "";
 $expectedReturnDate = "";
 $checkoutDate = "";
 $returnDate = "";
-$note = "";
+$purpose = "";
 $checkoutQty = 0;
 $state = "";
+$eqName = "";
+$username = "";
+
 $result = mysqli_query($db, $query);
 while ($row = mysqli_fetch_array($result)) {
 
     $checkoutQty = $row['checkoutQty'];
     $eqID = $row['equipment_id'];
     $userID = $row['users_id'];
-    $note = $row['note'];
+    $purpose = $row['purpose'];
+    $location = $row['location'];
     $state = $row['state'];
+    $username = $row['fullname'];
+    $eqName = $row['equipment'];
 
 
     $requestDate = explode(" ",$row['requestDate']);
@@ -47,10 +55,13 @@ if ($eqID == null){
     $expectedReturnDate = "-";
     $checkoutDate = "-";
     $returnDate = "-";
-    $note = "-";
+    $purpose = "-";
     $requestDate = "-";
     $state = "-";
     $checkoutQty = "-";
+    $eqName = "-";
+    $username = "-";
+    $location = "-";
 
 };
 if ($returnDate[0] == null){
@@ -74,7 +85,7 @@ echo "
             <div class=\"card card-stats\">
                 <div class=\"card-header card-header-warning card-header-icon\">
                     <h3 class=\"card-category\">Borrowing User ID</h3>
-                    <div id=\"overdue\"><h4 class=\"card-title\">$userID</h4></div>
+                    <div id=\"overdue\"><h4 class=\"card-title\">$userID ($username)</h4></div>
                 </div>
                 <div class=\"card-footer\">
                     <div class=\"stats\">
@@ -89,7 +100,7 @@ echo "
             <div class=\"card card-stats\">
                 <div class=\"card-header card-header-warning card-header-icon\">
                     <h3 class=\"card-category\">Equipment ID</h3>
-                    <div id=\"overdue\"><h4 class=\"card-title\">$eqID</h4></div>
+                    <div id=\"overdue\"><h4 class=\"card-title\">$eqID ($eqName)</h4></div>
                 </div>
                 <div class=\"card-footer\">
                     <div class=\"stats\">
@@ -140,8 +151,25 @@ echo "
                         <div class=\"ct-chart\" id=\"websiteViewsChart\"> </div>
                     </div>
                     <div class=\"card-body\">
-                        <h3 class=\"card-title\">Note</h3>
-                        <h4 class=\"card-category\">$note</h4>
+                        <h3 class=\"card-title\">Location</h3>
+                        <h4 class=\"card-category\">$location</h4>
+                    </div>
+                    <div id=\"chartContainer2\"></div>
+                    <div class=\"card-footer\">
+                        <div class=\"stats\">
+                            <a href=\"requests.php\">View all Requests >></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=\"col-md-4\">
+                <div class=\"card card-chart\">
+                    <div class=\"card-header card-header-danger\">
+                        <div class=\"ct-chart\" id=\"websiteViewsChart\"> </div>
+                    </div>
+                    <div class=\"card-body\">
+                        <h3 class=\"card-title\">Purpose</h3>
+                        <h4 class=\"card-category\">$purpose</h4>
                     </div>
                     <div id=\"chartContainer2\"></div>
                     <div class=\"card-footer\">

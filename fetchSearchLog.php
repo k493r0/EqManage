@@ -13,6 +13,8 @@ $logID = $_GET['id'];
 
 $query = "
 Select * from EqManage.log l
+left join equipment e on l.equipment_id = e.id
+left join users u on l.users_id = u.id
 where l.id = '$logID'
 ";
 
@@ -23,6 +25,8 @@ $checkoutRequestDate = "";
 $expectedReturnDate = "";
 $checkoutDate = "";
 $returnDate = "";
+$eqName = "";
+$username = "";
 
 $result = mysqli_query($db, $query);
 while ($row = mysqli_fetch_array($result)) {
@@ -30,6 +34,8 @@ while ($row = mysqli_fetch_array($result)) {
     $rqID = $row['checkoutRequests_id'];
     $eqID = $row['equipment_id'];
     $userID = $row['users_id'];
+    $username = $row['fullname'];
+    $eqName = $row['equipment'];
 
     $checkoutRequestDate = explode(" ",$row['checkoutRequestDate']);
     $expectedReturnDate = explode(" ",$row['expectedReturnDate']);
@@ -76,7 +82,7 @@ echo "
             <div class=\"card card-stats\">
                 <div class=\"card-header card-header-warning card-header-icon\">
                     <h3 class=\"card-category\">Equipment ID</h3>
-                    <div id=\"overdue\"><h4 class=\"card-title\">$eqID</h4></div>
+                    <div id=\"overdue\"><h4 class=\"card-title\">$eqID ($eqName)</h4></div>
                 </div>
                 <div class=\"card-footer\">
                     <div class=\"stats\">
@@ -91,7 +97,7 @@ echo "
             <div class=\"card card-stats\">
                 <div class=\"card-header card-header-warning card-header-icon\">
                     <h3 class=\"card-category\">Borrowing User ID</h3>
-                    <div id=\"overdue\"><h4 class=\"card-title\">$userID</h4></div>
+                    <div id=\"overdue\"><h4 class=\"card-title\">$userID ($username)</h4></div>
                 </div>
                 <div class=\"card-footer\">
                     <div class=\"stats\">
