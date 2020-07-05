@@ -67,7 +67,7 @@ include('serverconnect.php');
 <!--  border-radius: 4px; margin-top: 10px"></textarea>-->
 
                         <div class="panel-body" align="center" id="upload-div">
-                            <strong>Upload equipment image</strong><input type="file" name="upload_image" id="upload_image" />
+                            <strong>Upload equipment image</strong><input type="file" name="upload_image" id="upload_image" onchange="imageCrop(this)" />
                             <br />
                             <div id="uploaded_image"></div>
                         </div>
@@ -376,7 +376,21 @@ if ($_SESSION['username'] == 'administrator'){
         }
     });
 
-    $('#upload_image').on('change', function(){
+    // $('#upload_image').on('change', function(){
+    //     var reader = new FileReader();
+    //     reader.onload = function (event) {
+    //         $image_crop.croppie('bind', {
+    //             url: event.target.result
+    //         }).then(function(){
+    //             console.log('jQuery bind complete');
+    //         });
+    //     }
+    //     reader.readAsDataURL(this.files[0]);
+    //     $('#uploadimageModal').modal('show');
+    // });
+
+
+    function imageCrop(image){
         var reader = new FileReader();
         reader.onload = function (event) {
             $image_crop.croppie('bind', {
@@ -384,10 +398,11 @@ if ($_SESSION['username'] == 'administrator'){
             }).then(function(){
                 console.log('jQuery bind complete');
             });
-        }
-        reader.readAsDataURL(this.files[0]);
+        };
+        reader.readAsDataURL(image.files[0]);
         $('#uploadimageModal').modal('show');
-    });
+    }
+
 
     $('.crop_image').click(function(event){
         $image_crop.croppie('result', {
