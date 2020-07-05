@@ -60,7 +60,7 @@ include('header.php')
                             <th class="column4" style="border-bottom: 1px solid black">Purpose</th>
                             <th class="column5" style="border-bottom: 1px solid black">Date Requested</th>
                             <th class="column6" style="border-bottom: 1px solid black">State</th>
-                            <th class="column7" style="border-bottom: 1px solid black">Action</th>
+                            <th class="column7" style="border-bottom: 1px solid black">Action <br>(<a href='postverify.php?mode=0&redirecturl=<?php echo $_SERVER["REQUEST_URI"]?>' style="font-weight: normal"><u>Verify All</u></a>)</th>
 
                         </tr>
                         </thead>
