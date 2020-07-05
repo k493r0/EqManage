@@ -18,7 +18,7 @@ $sortC = $_POST['sortC'];
 
 $results = mysqli_query($db, "SELECT * FROM equipment");
 
-$default = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$default = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, E.imgID
       FROM EqManage.equipment E
       LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
@@ -27,37 +27,37 @@ $default = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQu
 
 
 
-$noFilterCAscEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$noFilterCAscEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, E.imgID
       FROM EqManage.equipment E
       LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName asc,E.equipment asc");
 
-$noFilterCDescEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$noFilterCDescEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, E.imgID
       FROM EqManage.equipment E
       LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName desc,E.equipment asc");
 
-$noFilterCDescEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$noFilterCDescEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, E.imgID
       FROM EqManage.equipment E
       LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName desc,E.equipment desc");
 
-$noFilterCAscEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$noFilterCAscEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, E.imgID
       FROM EqManage.equipment E
       LEFT JOIN EqManage.categories C ON C.id=E.category
       GROUP BY C.id,E.id, C.categoryName, E.equipment
       ORDER BY C.categoryName asc,E.equipment desc");
 
-$filterEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$filterEAsc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, E.imgID
       FROM EqManage.equipment E
       LEFT JOIN EqManage.categories C ON C.id=E.category WHERE C.id='$filterCategory'
       GROUP BY C.id,E.id, C.categoryName, E.equipment 
       ORDER BY E.equipment asc");
 
-$filterEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability
+$filterEDesc = mysqli_query($db, "SELECT C.categoryName, E.id, E.equipment, E.leftQuantity, E.availability, E.imgID
       FROM EqManage.equipment E
       LEFT JOIN EqManage.categories C ON C.id=E.category WHERE C.id='$filterCategory'
       GROUP BY C.id,E.id, C.categoryName, E.equipment 
@@ -139,7 +139,7 @@ while ($row = mysqli_fetch_array($executeResult)) {
 
 
     <?php if ($row['availability'] == 1) {
-        echo "<div class=\"box\" id='box2'><img src=\"assets/images/icon1.jpeg\" style='width: 100px;height:100px'><br>";
+        echo "<div class=\"box\" id='box2'><img src=\"assets/images/".$row['imgID'].".png\" style='width: 100px;height:100px'><br>";
     } elseif ($row['availability'] == 0){
         echo "<div class=\"box\" id='box2'>";
     } else echo "Error"; ?>
