@@ -57,10 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $eqName = $row['equipment'];
         }
 
-        $checkNotif = mysqli_query($db, "Select * from notification where message = '$eqName was successfully returned' and target = '$userID'");
+        $message = $eqName.' was successfully returned';
+        $checkNotif = mysqli_query($db, "Select * from notification where message = '$message' and target = '$userID'");
         if(mysqli_num_rows($checkNotif) != null){
             echo "present";
-            $updateNotif = "Update EqManage.notification set status = 0 where message = '$eqName was successfully returned' and target = '$userID'";
+            $updateNotif = "Update EqManage.notification set status = 0 where message = '$message' and target = '$userID'";
             if (mysqli_query($db, $updateNotif)) {
                 $last_id = mysqli_insert_id($db);
                 echo "Notification updated. Last inserted ID is: " . $last_id;
@@ -69,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else{
             echo "empty";
-            $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('$eqName was successfully returned' ,'$userID',0, '$today')";
+            $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('$message' ,'$userID',0, '$today')";
             if (mysqli_query($db, $notif_query)) {
                 $last_id = mysqli_insert_id($db);
                 echo "Notification updated. Last inserted ID is: " . $last_id;
