@@ -44,7 +44,9 @@ if ($_SESSION['username'] != 'administrator'){
 
 </style>
 <body style="background-color: #eef4f7">
-
+<div id="loader">
+    <div class="loader"><div></div><div></div><div></div><div></div></div>
+</div>
 <div class="wrapper">
 
     <div class="main-panel">
