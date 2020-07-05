@@ -11,8 +11,8 @@ if(isset($_POST["image"]))
     $imageName = "assets/images/".time() . '.png';
     $time = time();
     $directory = $_SERVER['DOCUMENT_ROOT']."/EqManage/assets/images/".$time. '.png';
-    echo $imageName;
-    echo $directory;
+//    echo $imageName;
+//    echo $directory;
     file_put_contents($directory, $data);
 
     echo '<input type="hidden" value="' . $time . '" id="eqImg"/>';

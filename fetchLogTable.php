@@ -114,6 +114,6 @@ if(mysqli_fetch_array($results) != null) {
     }
 
 
-} else echo "No records".$query;
+} else echo "No records";
 ?>
 
