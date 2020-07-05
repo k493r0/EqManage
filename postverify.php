@@ -48,7 +48,6 @@ if ($_SESSION['username'] == 'administrator'){
 
 
 
-
             ?>
         <table width="100%" id="table">
             <thead>
@@ -64,8 +63,9 @@ if ($_SESSION['username'] == 'administrator'){
             <tbody id="cartTable">
 
                 <?php
-
-                $query = mysqli_query($db, "select * from EqManage.requests left join equipment e on requests.equipment_id = e.id left join users u on requests.users_id = u.id where requests.hash= '$hash' and state = 'waiting'");
+                if (isset($_GET['mode']) && $_GET['mode'] == '0'){
+                    $query = mysqli_query($db, "select * from EqManage.requests left join equipment e on requests.equipment_id = e.id left join users u on requests.users_id = u.id where requests.state = 'waiting'");
+                } else {$query = mysqli_query($db, "select * from EqManage.requests left join equipment e on requests.equipment_id = e.id left join users u on requests.users_id = u.id where requests.hash= '$hash' and requests.state = 'waiting'");}
                 while ($row = mysqli_fetch_array($query)) {
                     $eqname = $row['equipment'];
                     $qty = $row['checkoutQty'];
@@ -96,6 +96,7 @@ if ($_SESSION['username'] == 'administrator'){
 
         <h3 style="text-align: center; margin-top: 40px"><b>Do you accept or reject the request?</b></h3>
         <form method="post" action="verify.php" style="display:flex">
+            <input type="hidden" name="mode" value="<?php echo $_GET['mode']; ?>"
             <input type="hidden" name="hash" value="<?php echo $hash ?>">
             <input type="hidden" name="referer" value="<?php echo $referer ?>">
 
@@ -103,8 +104,8 @@ if ($_SESSION['username'] == 'administrator'){
 <!--            <input name="accept" type="submit" value="Accept" style="width: 100%; margin: 20px" onclick="">-->
 <!--            <input name="reject" type="submit" value="Reject" style="width: 100%; margin: 20px">-->
 
-            <button class="btn btn-primary btn-block" name="accept" type="submit" value="Accept" style="margin: 10px;">Accept</button>
-            <button class="btn btn-danger btn-block" name="reject" type="submit" value="Reject" style="margin: 10px">Reject</button>
+            <button class="btn btn-primary btn-block" name="accept" type="submit" value="accept" style="margin: 10px;">Accept</button>
+            <button class="btn btn-danger btn-block" name="reject" type="submit" value="jeject" style="margin: 10px">Reject</button>
 
 
 
