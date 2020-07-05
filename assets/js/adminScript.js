@@ -195,7 +195,8 @@ $(document).ready(function() {
         });
     });
 
-    $("#checkout").click(function () {
+    $("#checkout").click(function (e) {
+        console.log("checkout CLiekd");
         var eq = document.getElementById("eqselect");
         var eqID = eq.options[eq.selectedIndex].value;
 
@@ -205,7 +206,7 @@ $(document).ready(function() {
         var checkout = document.getElementById("checkOutSelect");
         var checkoutID = checkout.options[checkout.selectedIndex].value;
 
-        document.getElementById("checkout").setAttribute("value", "...");
+        document.getElementById(    "checkout").setAttribute("value", "...");
 
         $.ajax({
             url: "adminCheckout.php",
@@ -217,8 +218,7 @@ $(document).ready(function() {
                 "checkoutID": checkoutID,
             },
             success: function (data) {
-
-
+                console.log(data);
                 document.getElementById("checkout").setAttribute("value", "...");
 
                 setTimeout(() => {
@@ -248,11 +248,11 @@ $(document).ready(function() {
                 }, 2000);
                 // pipe(eqID,userID,checkoutID);
 
-
             }
 
         });
-
+        e.stopImmediatePropagation();
+        return false;
     });});
 //-------------------------------------------------------------------------------------------------------
 
@@ -285,7 +285,7 @@ $(document).ready(function() {
         });
     });
 
-    $("#returnStudentSelect").change(function () {
+    $("#returnStudentSelect").change(function (e) {
         var id = $(this).val();
         var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');
         $.ajax({
@@ -314,7 +314,7 @@ $(document).ready(function() {
         });
     });
 
-    $("#return").click(function () {
+    $("#return").click(function (e) {
         var eq = document.getElementById("returnEqSelect");
         var eqID = eq.options[eq.selectedIndex].value;
 
@@ -371,7 +371,8 @@ $(document).ready(function() {
             }
 
         });
-
+        e.stopImmediatePropagation();
+        return false;
 
     });});
 
