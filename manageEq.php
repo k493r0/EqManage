@@ -82,20 +82,14 @@ include('serverconnect.php');
 
         <div id="uploadimageModal" class="modal" role="dialog" style="z-index: 10000">
                 <div class="modal-content" style="width:fit-content">
-                        <h4 class="modal-title" style="float: left">Crop Image</h4>
+                        <h4 class="modal-title" style="float: left"></h4>
                         <div class="row">
                             <div class="col-md-7 text-center">
                                 <div id="image_demo" style="width:350px; margin-top:30px"></div>
                             </div>
-                            <div class="col-md-4" style="padding-top:30px;">
-                                <br />
-                                <br />
-                                <br/>
-                                <button class="btn btn-success crop_image">Crop & Upload Image</button>
-                            </div>
                         </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-info crop_image">Crop & Upload Image</button>
                     </div>
                 </div>
         </div>
@@ -277,12 +271,14 @@ if ($_SESSION['username'] == 'administrator'){
                     element.style.display='none';
                     var addAlert = document.getElementById("addAlert");
                     addAlert.style.display = "block";
+                    var removeAlert = document.getElementById("removeAlert");
+                    removeAlert.style.display = "none";
+                    var removeCatAlert = document.getElementById("removeCatAlert");
+                    removeCatAlert.style.display = "none";
                     console.log(data);
 
                 }
             });
-            e.stopImmediatePropagation();
-            return false;
         });
 
 
@@ -329,6 +325,11 @@ if ($_SESSION['username'] == 'administrator'){
                 displayFromDatabase();
                 var removeAlert = document.getElementById("removeAlert");
                 removeAlert.style.display = "block";
+                var addAlert = document.getElementById("addAlert");
+                addAlert.style.display = "none";
+                var removeCatAlert = document.getElementById("removeCatAlert");
+                removeCatAlert.style.display = "none";
+
                 console.log(data);
             }
 
@@ -349,6 +350,10 @@ if ($_SESSION['username'] == 'administrator'){
                 displayFromDatabase();
                 var removeAlert = document.getElementById("removeCatAlert");
                 removeAlert.style.display = "block";
+                var addAlert = document.getElementById("addAlert");
+                addAlert.style.display = "none";
+                var removeAlert = document.getElementById("removeAlert");
+                removeAlert.style.display = "none";
                 console.log(data);
             }
 
