@@ -3,7 +3,7 @@ include('serverconnect.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $rqID = $_POST['id'];
-    $query = mysqli_query($db, "select * from EqManage.requests left join EqManage.equipment on requests.equipment_id = equipment.id left join users u on requests.users_id = u.id where requests.id = 102");
+    $query = mysqli_query($db, "select * from EqManage.requests left join EqManage.equipment on requests.equipment_id = equipment.id left join users u on requests.users_id = u.id where requests.id = '$rqID'");
     while ($row = mysqli_fetch_array($query)) {
         $eqname = $row['equipment'];
         $username = $row['fullname'];
