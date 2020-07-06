@@ -5,7 +5,7 @@ if(!isset($_SESSION['loggedin'])){
     exit();
 }
 if ($_SESSION['username'] != 'administrator'){
-    header('Location: new_index.php?adminonly=1');
+    header('Location: index.php?adminonly=1');
 }
 
 include('serverconnect.php');
@@ -51,7 +51,7 @@ include('serverconnect.php');
 //
 //    default: $query = "select * from EqManage.requests";
 //};
-$query = "select requests.id, requests.users_id, u.fullname, e.equipment, requests.equipment_id, requests.location, requests.purpose, requests.requestDate, requests.state, requests.hash from EqManage.requests left join users u on requests.users_id = u.id left join equipment e on requests.equipment_id = e.id ";
+$query = "select requests.id, requests.users_id, u.fullname, e.equipment, requests.equipment_id, requests.location, requests.purpose, requests.requestDate, requests.state, requests.hash, requests.checkoutQty from EqManage.requests left join users u on requests.users_id = u.id left join equipment e on requests.equipment_id = e.id ";
 if ($approved == 'true'){
     if ($rejected == 'true'){
         if ($waiting == 'true'){} //true,true,true
@@ -82,6 +82,7 @@ if ($results != null){
         echo "<td style='text-align:left'><a href='search.php?type=2&id=".$row['equipment_id']."'>".$row['equipment']. "</td>";
         echo "<td style='text-align:left'>".$row['location']."</td>";
         echo "<td style='text-align:left'>".$row['purpose']."</td>";
+        echo "<td style='text-align:left'>".$row['checkoutQty']."</td>";
         echo "<td style='text-align:left'>".$row['requestDate']."</td>";
 
         echo "<td>";

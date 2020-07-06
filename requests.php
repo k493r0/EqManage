@@ -5,7 +5,7 @@ if(!isset($_SESSION['loggedin'])){
     exit();
 }
 if ($_SESSION['username'] != 'administrator'){
-    header('Location: new_index.php?adminonly=1');
+    header('Location: index.php?adminonly=1');
 }
 
 include ('serverconnect.php');
@@ -58,6 +58,7 @@ include('header.php')
                             <th class="column3" style="border-bottom: 1px solid black">Equipment</th>
                             <th class="column4" style="border-bottom: 1px solid black">Location</th>
                             <th class="column4" style="border-bottom: 1px solid black">Purpose</th>
+                            <th class="column4" style="border-bottom: 1px solid black">Qty</th>
                             <th class="column5" style="border-bottom: 1px solid black">Date Requested</th>
                             <th class="column6" style="border-bottom: 1px solid black">State</th>
                             <th class="column7" style="border-bottom: 1px solid black">Action <br>(<a href='postverify.php?mode=0&redirecturl=<?php echo $_SERVER["REQUEST_URI"]?>' style="font-weight: normal"><u>Verify All</u></a>)</th>
