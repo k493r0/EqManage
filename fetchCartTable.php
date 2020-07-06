@@ -17,6 +17,7 @@ foreach ($_SESSION['cart'] as $i){
     while ($row = mysqli_fetch_array($result)) {
         $eqName = $row['equipment'];
         $leftQty = $row['leftQuantity'];
+        $imgID = $row['imgID'];
     }
 //    echo $i['id'];
     ?>
