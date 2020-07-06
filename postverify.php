@@ -6,7 +6,7 @@ if(!isset($_SESSION['loggedin'])){
     exit();
 }
 if ($_SESSION['username'] != 'administrator'){
-    header('Location: new_index.php?adminonly=1');
+    header('Location: index.php?adminonly=1');
 }
 ?>
 <!DOCTYPE html>
@@ -44,7 +44,7 @@ if ($_SESSION['username'] == 'administrator'){
 //            echo $referer;
             $hash = $_GET['hash'];
 //            echo $hash;
-
+//            echo $hash;
 
 
 
@@ -96,9 +96,9 @@ if ($_SESSION['username'] == 'administrator'){
 
         <h3 style="text-align: center; margin-top: 40px"><b>Do you accept or reject the request?</b></h3>
         <form method="post" action="verify.php" style="display:flex">
-            <input type="hidden" name="mode" value="<?php echo $_GET['mode']; ?>"
-            <input type="hidden" name="hash" value="<?php echo $hash ?>">
-            <input type="hidden" name="referer" value="<?php echo $referer ?>">
+            <input type="hidden" name="mode" value="<?php echo $_GET['mode']; ?>">
+            <input type="hidden" name="hash" value="<?php echo $hash; ?>">
+            <input type="hidden" name="referer" value="<?php echo $referer; ?>">
 
 
 <!--            <input name="accept" type="submit" value="Accept" style="width: 100%; margin: 20px" onclick="">-->
@@ -174,4 +174,4 @@ if ($_SESSION['username'] == 'administrator'){
 //        mysqli_query($db,$updateEq_query);
 
 
-//        header('Location: new_index.php?check-out=1');
+//        header('Location: index.php?check-out=1');
