@@ -55,7 +55,7 @@ if (isset($_POST['eqID']) && isset($_POST['qty']) && empty($_POST['destroy_cart'
     if (isset($_SESSION['cart'])){ //Cart already exists
         $index = 0;
         $oldQty = 0;
-        $exists = false;
+        $exists = 0;
         $leftQty = 0;
 
         $prequery = "SELECT * FROM EqManage.equipment where id = '$addEqID'";
@@ -66,20 +66,26 @@ if (isset($_POST['eqID']) && isset($_POST['qty']) && empty($_POST['destroy_cart'
 
         foreach ($_SESSION['cart'] as $i){
             if ($i['id'] == $addEqID){
+//                echo "match";
+                $exists = 1;
                 $oldQty = $i['qty'];
                 $addQty += $oldQty;
                 if ($addQty > $leftQty){
                     $addQty = $leftQty; //Anything bigger than leftQty will be reduced down to the maximum borrowable number
                 }
                 $_SESSION['cart'][$index]['qty'] = $addQty;
-                $exists = true;
-            } else{$exists = false;};
+                if ($exists == 1){
+                    break;
+                }
+            } elseif ($i['id'] == $addEqID){
+                $exists = 0;
+            };
             $index++;
         };
 
 //        print_r($_SESSION['cart']);
-
-        if ($exists == false) {
+//        echo $exists;
+        if ($exists == 0) {
             array_push($_SESSION['cart'], array("id" => "$addEqID", "qty" => "$addQty")); //if cart already exists, add more equipment in the array
         }
 
@@ -160,7 +166,7 @@ foreach ($_SESSION['cart'] as $i) {
         echo "<div class='row cart-detail'>";
 
         echo "<div class='col-lg-4 col-sm-4 col-4 cart-detail-img' id='imgContainer'>";
-        echo "<img src=\"assets/images/icon1.jpeg\">";
+        echo "<img src=\"assets/images/".$row['imgID'].".png\">";
         echo "</div>";
         echo "<div class='col-lg-8 col-sm-8 col-8 cart-detail-product'>";
 
