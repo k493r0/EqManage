@@ -296,7 +296,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $notif_query . "<br>" . mysqli_error($db);
         }
     }
-
+    $fullname = $_SESSION['fullname'];
 
     $mail = new PHPMailer;
 
@@ -314,7 +314,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $mail->isHTML(true);  // Set email format to HTML
 
-    $bodyContent = '<p>'.$user.' has requested to borrow an equipment:<br>'.$mailEquipmentContent.'<br>Please click this link to approve this check out:
+    $bodyContent = '<p>'.$fullname.' has requested to borrow an equipment:<br>'.$mailEquipmentContent.'<br>Please click this link to approve this check out:
         http://localhost/EqManage/postverify.php?hash='.$hash.'</p>';
 
     $mail->Subject = 'Equipment Approval';
@@ -327,7 +327,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo 'Message has been sent';
     }
 
-//    header("Location: new_index.php?sent=1");
+    header("Location: index.php?sent=1");
 
 }
 
