@@ -57,7 +57,7 @@ if ($stmt->num_rows > 0) {
         $_SESSION['username'] = $fullusername;
         echo $_SESSION['name'];
         $_SESSION['id'] = $id;
-        header('Location: new_index.php');
+        header('Location: index.php');
     } else {
         ob_start(); //Without it, it lead to no redirection
         echo 'Incorrect password!';
