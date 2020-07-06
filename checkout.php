@@ -108,7 +108,7 @@ if ($_SESSION['username'] == 'administrator'){
                     Date of Return: <input id="datefield" name="date" type='date' min='1899-01-01' max='2000-13-13' width="100%" style="margin-bottom: 15px">
                     <div></div>
                     Time of Return: <input id="timefield" name="time" type="time" value="15:30">
-                    <input name="request" type="submit" value="Check Out" style="width: 100%;">
+                    <input name="request" type="submit" value="Send Request" style="width: 100%;">
 
                 <?php
                 } elseif (isset($_SESSION['cart'])){
@@ -129,7 +129,7 @@ if ($_SESSION['username'] == 'administrator'){
                     </table>
 
 
-                    <button type="button" class="btn btn-info btn-group-justified" style="margin: 10px 0px; float: right; font-size: 13px; margin-left: 100%" onclick="window.location.href='new_index.php'">Add more >></button>
+                    <button type="button" class="btn btn-info btn-group-justified" style="margin: 10px 0px; float: right; font-size: 13px; margin-left: 100%" onclick="window.location.href='index.php'">Add more >></button>
                     <div style="text-align: center" >
                     <label style="margin: 0; margin-top: 10px">
                         <input type="checkbox" id="applyAllCheck" name="applyAllCheck" value="1" checked onchange="applyAll()"> Apply to all equipment
@@ -144,7 +144,7 @@ if ($_SESSION['username'] == 'administrator'){
                     Time of Return: <input id="timefield" name="time" type="time" value="15:30">
                     <div></div>
                     <hr style="margin: 30px">
-                    <input name="request" type="submit" value="Check Out" style="width: 100%;">
+                    <input name="request" type="submit" value="Send Request" style="width: 100%;">
                     </div>
 
                     <div id="multi">
@@ -165,7 +165,7 @@ if ($_SESSION['username'] == 'administrator'){
                         <hr style="margin: 30px">
 
                     <?php } ?>
-                        <button name="request" type="submit" class="btn btn-info" value="Check Out" style="width: 100%;">Send Request</button>
+                        <button name="request" type="submit" class="btn btn-info" value="Send Request" style="width: 100%;">Send Request</button>
                     </div>
                 <?php } ?>
 
