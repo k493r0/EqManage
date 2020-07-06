@@ -5,7 +5,7 @@ if(!isset($_SESSION['loggedin'])){
     exit();
 }
 if ($_SESSION['username'] != 'administrator'){
-    header('Location: new_index.php?adminonly=1');
+    header('Location: index.php?adminonly=1');
 }
 
 
@@ -56,6 +56,13 @@ include('serverconnect.php');
     </div>
 
 </div>
+
+<?php
+if ($_SESSION['username'] == 'administrator'){
+    include ('adminModal.php');
+}
+
+?>
 
 </body>
 

@@ -5,7 +5,7 @@ if(!isset($_SESSION['loggedin'])){
     exit();
 }
 if ($_SESSION['username'] != 'administrator'){
-    header('Location: new_index.php?adminonly=1');
+    header('Location: index.php?adminonly=1');
 }
 // Include the main TCPDF library (search for installation path).
 require __DIR__ . '/vendor/autoload.php';
@@ -112,7 +112,7 @@ $pdf->lastPage();
 // ---------------------------------------------------------
 
 //Close and output PDF document
-$pdf->Output('barcodee.pdf', 'I');
+$pdf->Output('barcode.pdf', 'I');
 
 //============================================================+
 // END OF FILE

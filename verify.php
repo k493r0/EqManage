@@ -6,13 +6,14 @@ if(!isset($_SESSION['loggedin'])){
     exit();
 }
 if ($_SESSION['username'] != 'administrator'){
-    header('Location: new_index.php?adminonly=1');
+    header('Location: index.php?adminonly=1');
 }
 
 $hash = $_POST['hash'];
 $referer = $_POST['referer'];
 $mode = $_POST['mode'];
 $today = date("Y-m-d H:i:s");
+echo $hash;
 echo $mode;
 if ($mode == '1') {
     if ($result = mysqli_query($db, "Select * from EqManage.requests where hash='$hash'")) {
@@ -235,8 +236,8 @@ echo $headerRefer;
 if ($referer != null){
     header("Location: $headerRefer?verify=1" );
 } elseif ($referer == null){
-    header('Location: new_index.php?verify=1');
-} else header('Location: new_index.php');
+    header('Location: index.php?verify=1');
+} else header('Location: index.php');
 
 
 
