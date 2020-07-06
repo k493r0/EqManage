@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $bodyContent = '<p>You have an equipment overdue<br>Please return '.$eqname.' as soon as possible</p>';
 
-        $mail->Subject = 'Equipment Approval';
+        $mail->Subject = 'Equipment Overdue';
         $mail->Body = $bodyContent;
 
         if (!$mail->send()) {
