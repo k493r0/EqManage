@@ -3,11 +3,11 @@
 
 <div>
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" style="height: 63px;">
-        <div class="container"><a class="navbar-brand" href="new_index.php">Media Team System</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand" href="index.php">EqManage System</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse"
                  id="navcol-1">
                 <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item" role="presentation" style="padding:0 10px;margin-right: 10px ; border-right: 1px solid rgba(0, 0, 0, .1);border-left: 1px solid rgba(0, 0, 0, .1)"><a class="nav-link" href="new_index.php">Availability Status</a></li>
+                    <li class="nav-item" role="presentation" style="padding:0 10px;margin-right: 10px ; border-right: 1px solid rgba(0, 0, 0, .1);border-left: 1px solid rgba(0, 0, 0, .1)"><a class="nav-link" href="index.php">Availability Status</a></li>
 
                     <li class="dropdown nav-item">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Account</a>
@@ -23,7 +23,7 @@
                                 <span class="material-icons" style="padding-top:20%">notifications</span></a>
                             <ul class="dropdown-menu-notif dropdown-menu" style="padding: 10px; min-width:300px;max-height: 50vh; height: auto;overflow-y: auto; border-radius: 8px; margin-top:15px" id="notif-drop"></ul>
                         </li>
-                </ul><span class="navbar-text actions"><a class="btn btn-light action-button" role="button" href="checkout.php">Check Out</a></span></div>
+                </ul><span class="navbar-text actions"><a class="btn btn-light action-button" role="button" href="checkout.php">Send Request</a></span></div>
 
 
 
@@ -59,7 +59,7 @@
 <!--                </div>-->
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 col-12 text-center checkout" align="center">
-                        <button class="btn btn-primary btn-block" style="width: 60%; display: inline-block; margin: 0" onclick="location.href = 'checkout.php'">Checkout</button>
+                        <button class="btn btn-primary btn-block" style="width: 60%; display: inline-block; margin: 0" onclick="location.href = 'checkout.php'">Send Request</button>
                         <button class="btn btn-danger btn-block" style="width: 30%; margin: 0 ;display: inline-block; height: 50px" onclick="clearCart()">Reset Cart</button>
                     </div>
                 </div>
