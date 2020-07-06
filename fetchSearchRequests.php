@@ -5,13 +5,13 @@ if(!isset($_SESSION['loggedin'])){
     exit();
 }
 if ($_SESSION['username'] != 'administrator'){
-    header('Location: new_index.php?adminonly=1');
+    header('Location: index.php?adminonly=1');
 }
 include('serverconnect.php');
 $rqID = $_GET['id'];
 //echo $rqID;
 $query = "
-Select * from EqManage.requests r
+Select r.users_id, r.purpose, r.location, r.equipment_id, e.equipment, u.fullname, r.state,r.requestDate, r.expectedReturnDate, r.checkoutQty from EqManage.requests r
 left join equipment e on r.equipment_id = e.id
 left join users u on r.users_id = u.id
 where r.id = '$rqID'
@@ -40,7 +40,6 @@ while ($row = mysqli_fetch_array($result)) {
     $state = $row['state'];
     $username = $row['fullname'];
     $eqName = $row['equipment'];
-
 
     $requestDate = explode(" ",$row['requestDate']);
     $expectedReturnDate = explode(" ",$row['expectedReturnDate']);
