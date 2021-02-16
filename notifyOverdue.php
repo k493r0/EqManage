@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result = mysqli_stmt_get_result($stmt);
                 while ($row = mysqli_fetch_assoc($result)){
                     $email = $row['email'];
-                    echo "helo";
+                    echo "Test";
                 }
 
             } else {
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmt);
         }
 
-        echo "e".$email;
+        echo $email;
 
 
         $mail = new PHPMailer;

@@ -122,7 +122,6 @@ if ($mode == '1') {
                 mysqli_query($db, $updateAvailability);
                 echo $hash;
                 echo "rejected";
-
                 $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('Your checkout request was rejected','$userID',0, '$today')";
                 if (mysqli_query($db, $notif_query)) {
                     $last_id = mysqli_insert_id($db);
@@ -135,9 +134,6 @@ if ($mode == '1') {
     }
 } elseif ($mode == '0'){
     if (isset($_POST['accept'])) {
-        echo "mode 0 accpete";
-
-
         $query = mysqli_query($db, "select * from EqManage.requests where state = 'waiting'");
         while ($row = mysqli_fetch_array($query)) {
             $eqID = $row['equipment_id'];
@@ -152,8 +148,6 @@ if ($mode == '1') {
             } else {
                 echo "Error: " . $log_query . "<br>" . mysqli_error($db);
             }
-
-
             $message = 'Your checkout request was accepted';
             $checkNotif = mysqli_query($db, "Select * from notification where message = '$message' and target = '$userID'");
             if(mysqli_num_rows($checkNotif) != null){
@@ -219,15 +213,10 @@ if ($mode == '1') {
         }
         $updateRequest = "UPDATE EqManage.requests SET state='rejected' WHERE state = 'waiting'";
         mysqli_query($db, $updateRequest);
-
         echo $hash;
-
         echo "rejected";
     }
 }
-
-
-
 
 
 $headerRefer = substr($referer,strrpos($referer,'/') + 1);

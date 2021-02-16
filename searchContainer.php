@@ -19,10 +19,7 @@ $rqQuery = "select * from EqManage.requests";
 $catQuery = "select * from EqManage.categories";
 
 $finalQuery = "";
-//1=user, 2=eq,3=log,4=rq,5=cat
-
-
-
+//1=user, 2=equiment,3 =log, 4=request, 5=category
 
 switch ($type) {
     case 1 : $finalQuery = $userQuery; break;
@@ -33,16 +30,12 @@ switch ($type) {
     default : $finalQuery = $userQuery;
 };
 
-//echo $type;
 echo "<label for=\"select\" style=\"margin-top: 20px; margin-right: 5px\">Search: </label>";
 echo "<select id=\"select\" style=\"width: 20%; text-align: left;margin-bottom: 10px\" >";
 $query = mysqli_query($db,$finalQuery);
 while ($row = mysqli_fetch_array($query)){
-    echo "test";
-
     echo "<option value=\"\">Type/Select ID</option>";
     $ID = $row['id'];
-
     switch ($type){
         case 1 : $name = "Name: ".$row['fullname']; break;
         case 2 : $name = "Name: ".$row['equipment']; break;

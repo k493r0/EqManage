@@ -5,12 +5,11 @@ if(!isset($_SESSION['loggedin'])){
     header('Location: login.php');
     exit();
 }
-if ($_SESSION['username'] != 'administrator'){
-    header('Location: index.php?adminonly=1');
-}
+//if ($_SESSION['username'] != 'administrator'){
+//    header('Location: index.php?adminonly=1');
+//}
 ?>
 
-<!--TODO Complete Dashboard-->
 <!doctype html>
 <html lang="en">
 
@@ -86,7 +85,6 @@ if ($_SESSION['username'] != 'administrator'){
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-<!--                                    <i class="material-icons text-danger">warning</i>-->
                                     <a href="overdue.php">View overdue >></a>
                                 </div>
                             </div>
@@ -189,7 +187,6 @@ if ($_SESSION['username'] != 'administrator'){
                             <div id="chartContainer2" style="height: 150px; width: 100%;"></div>
                             <div class="card-footer">
                                 <div class="stats">
-<!--                                    <i class="material-icons">access_time</i> campaign sent 2 days ago-->
                                     <a href="">View log</a>
                                 </div>
                             </div>
@@ -205,20 +202,15 @@ if ($_SESSION['username'] != 'administrator'){
                                 <h4 class="card-title">Most Popular</h4>
                                 <p class="card-category">Most frequently checked out equipment</p>
                             </div>
-<!--                            <div id="popGraph">--><?php
-//                                include('popularEqGraph.php');
-//                                ?><!--</div>-->
-
                             <div id="chartContainer" style="height: 200px; width: 100%;"></div>
                             <div class="card-footer">
                                 <div class="stats">
-<!--                                    <i class="material-icons">access_time</i> campaign sent 2 days ago-->
                                     <a href="">Manage Equipment</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> <!-- Graph template -->
+                </div>
 
 
             </div>
@@ -230,12 +222,6 @@ if ($_SESSION['username'] != 'administrator'){
 
 include('serverconnect.php');
 
-$result = mysqli_query($db,"select distinct e.equipment, e.barcodeID, e.id
-from equipment e
-inner join log l
-on e.id = l.equipment_id
-where l.returnDate IS NULL");
-
 ?>
 
 </body>
@@ -244,7 +230,6 @@ where l.returnDate IS NULL");
 if ($_SESSION['username'] == 'administrator'){
     include ('adminModal.php');
 }
-
 ?>
 <script>
 
@@ -269,47 +254,37 @@ if ($_SESSION['username'] == 'administrator'){
         //     chart.render();
         // });
         window.onload = function () {
-            $.getJSON("popularEqGraph.php", function(result){
+            $.getJSON("popularEqGraph.php", function(result){//Get JSON encoded array from the PHP file
                 var dps= [];
-
-//Insert Array Assignment function here
+                //Array assignments
                 for(var i=0; i<result.length;i++) {
                     dps = result;
                     console.log(dps);
-                    console.log("hello")
                 }
 
-//Insert Chart-making function here
+                //Making chart
                 var chart = new CanvasJS.Chart("chartContainer", {
                     animationEnabled: true,
                     exportEnabled: false,
                     theme: "light1", // "light1", "light2", "dark1", "dark2"
                     title:{
-
                     },
                     data: [{
-                        type: "bar", //change type to bar, line, area, pie, etc
+                        type: "bar", //bar, line, area, pie, etc
                         dataPoints: dps
                     }]
                 });
-
-
                 chart.render();
-
             });
-
 
             $.getJSON("weeklyCoGraph.php", function(result){
                 var dps= [];
-
-//Insert Array Assignment function here
+                //Array assignments
                 for(var i=0; i<result.length;i++) {
                     dps = result;
                     console.log(dps);
-                    console.log("hello")
                 }
-
-//Insert Chart-making function here
+                //Making chart
                 var chart = new CanvasJS.Chart("chartContainer2", {
                     animationEnabled: true,
                     exportEnabled: false,
@@ -318,16 +293,12 @@ if ($_SESSION['username'] == 'administrator'){
 
                     },
                     data: [{
-                        type: "line", //change type to bar, line, area, pie, etc
+                        type: "line", //bar, line, area, pie, etc
                         dataPoints: dps
                     }]
                 });
-
-
                 chart.render();
-
             });
-
         }
         
         
@@ -336,42 +307,37 @@ if ($_SESSION['username'] == 'administrator'){
 </script>
 
 <script>
-
-
-    function refreshOverdue() {
+    function refreshOverdue() { //Refresh 'Overdue' Count
         xmlhttpOverdue=new XMLHttpRequest();
-
         xmlhttpOverdue.open("GET","fetchOverdue.php", false);
-
         xmlhttpOverdue.send(null);
-
         document.getElementById("overdue").innerHTML=xmlhttpOverdue.responseText;
 
     }
-    function refreshPR() {
+    function refreshPR() { //Refresh 'Pending Requests' count
         xmlhttpPR = new XMLHttpRequest();
         xmlhttpPR.open("GET", "fetchPendingRequest.php",false);
         xmlhttpPR.send(null);
         document.getElementById("pendingRequest").innerHTML=xmlhttpPR.responseText;
     }
 
-    function refreshCOM() {
-        xmlhttpCOM = new XMLHttpRequest(); // Checkout Month
+    function refreshCOM() { //Refresh 'Pending Checkout' count
+        xmlhttpCOM = new XMLHttpRequest();
         xmlhttpCOM.open("GET", "fetchPendingCheckout.php",false);
         xmlhttpCOM.send(null);
         document.getElementById("regEq").innerHTML=xmlhttpCOM.responseText;
     }
 
 
-    function refreshCOT() {
-        xmlhttpCOT = new XMLHttpRequest(); // Checkout today
+    function refreshCOT() { //Refresh 'Checked out Today' count
+        xmlhttpCOT = new XMLHttpRequest();
         xmlhttpCOT.open("GET", "fetchTodayCheckout.php", false);
         xmlhttpCOT.send(null);
         document.getElementById("todayCheckout").innerHTML=xmlhttpCOT.responseText;
     }
 
-    function refreshCurrentCO() {
-        xmlhttp = new XMLHttpRequest(); // Checkout today
+    function refreshCurrentCO() {//Refresh 'Currently checked out' count
+        xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", "fetchCurrentCheckoutEq.php", false);
         xmlhttp.send(null);
         document.getElementById("currentCO").innerHTML=xmlhttp.responseText;
@@ -387,24 +353,19 @@ if ($_SESSION['username'] == 'administrator'){
     function reloadGraph() {
         $.getJSON("popularEqGraph.php", function(result){
             var dps= [];
-
-//Insert Array Assignment function here
             for(var i=0; i<result.length;i++) {
                 dps = result;
                 console.log(dps);
-                console.log("hello")
             }
-
-//Insert Chart-making function here
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: false,
                 exportEnabled: false,
-                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                theme: "light1",
                 title:{
 
                 },
                 data: [{
-                    type: "bar", //change type to bar, line, area, pie, etc
+                    type: "bar",
                     dataPoints: dps
                 }]
             });
@@ -412,17 +373,16 @@ if ($_SESSION['username'] == 'administrator'){
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: false,
                 exportEnabled: false,
-                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                theme: "light1",
                 title:{
 
                 },
                 data: [{
-                    type: "bar", //change type to bar, line, area, pie, etc
+                    type: "bar",
                     dataPoints: dps
                 }]
             });
             chart.render();
-
         });
     }
 
@@ -430,23 +390,18 @@ if ($_SESSION['username'] == 'administrator'){
     function reloadGraph2() {
         $.getJSON("weeklyCoGraph.php", function(result){
             var dps= [];
-
-//Insert Array Assignment function here
             for(var i=0; i<result.length;i++) {
                 dps = result;
                 console.log(dps);
-                console.log("hello")
             }
-
-//Insert Chart-making function here
             var chart = new CanvasJS.Chart("chartContainer2", {
                 animationEnabled: false,
                 exportEnabled: false,
-                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                theme: "light1",
                 title:{
                 },
                 data: [{
-                    type: "line", //change type to bar, line, area, pie, etc
+                    type: "line",
                     dataPoints: dps
                 }]
             });
@@ -454,11 +409,11 @@ if ($_SESSION['username'] == 'administrator'){
             var chart = new CanvasJS.Chart("chartContainer2", {
                 animationEnabled: false,
                 exportEnabled: false,
-                theme: "light1", // "light1", "light2", "dark1", "dark2"
+                theme: "light1",
                 title:{
                 },
                 data: [{
-                    type: "line", //change type to bar, line, area, pie, etc
+                    type: "line",
                     dataPoints: dps
                 }]
             });
@@ -481,8 +436,6 @@ if ($_SESSION['username'] == 'administrator'){
         refreshCurrentCO();
         reloadGraph();
         reloadGraph2();
-
-
     },5000);
 
     //

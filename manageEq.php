@@ -85,7 +85,7 @@ include('serverconnect.php');
                         <h4 class="modal-title" style="float: left"></h4>
                         <div class="row">
                             <div class="col-md-7 text-center">
-                                <div id="image_demo" style="width:350px; margin-top:30px"></div>
+                                <div id="image" style="width:350px; margin-top:30px"></div>
                             </div>
                         </div>
                     <div class="modal-footer">
@@ -252,7 +252,7 @@ if ($_SESSION['username'] == 'administrator'){
             var ncat = document.getElementById("other").value;
             var img = document.getElementById("eqImg").value;
             $.ajax({
-                url: "addEq.php",
+                url: "editEq.php",
                 type: "POST",
                 async: false,
                 data:{
@@ -295,7 +295,7 @@ if ($_SESSION['username'] == 'administrator'){
 
     function displayFromDatabase(){
         $.ajax({
-            url: "addEq.php",
+            url: "editEq.php",
             type: "POST",
             async: false,
             data: {
@@ -313,7 +313,7 @@ if ($_SESSION['username'] == 'administrator'){
     function removeEq(id) {
         console.log("Pressed");
         $.ajax({
-            url: "addEq.php",
+            url: "editEq.php",
             type: "POST",
             async: false,
             data:{
@@ -338,7 +338,7 @@ if ($_SESSION['username'] == 'administrator'){
 
     function removeCat(id) {
         $.ajax({
-            url: "addEq.php",
+            url: "editEq.php",
             type: "POST",
             async: false,
             data:{
@@ -361,9 +361,8 @@ if ($_SESSION['username'] == 'administrator'){
     }
 
 
-
-
-    $image_crop = $('#image_demo').croppie({
+    $image_crop = $('#image').croppie({ //Calling croppie api on image div to set parameters
+        //parameter setting
         enableExif: true,
         viewport: {
             width:250,
@@ -376,39 +375,25 @@ if ($_SESSION['username'] == 'administrator'){
         }
     });
 
-    // $('#upload_image').on('change', function(){
-    //     var reader = new FileReader();
-    //     reader.onload = function (event) {
-    //         $image_crop.croppie('bind', {
-    //             url: event.target.result
-    //         }).then(function(){
-    //             console.log('jQuery bind complete');
-    //         });
-    //     }
-    //     reader.readAsDataURL(this.files[0]);
-    //     $('#uploadimageModal').modal('show');
-    // });
-
-
-    function imageCrop(image){
+    function imageCrop(image){ //Called when image uploaded with input
         var reader = new FileReader();
         reader.onload = function (event) {
-            $image_crop.croppie('bind', {
+            $image_crop.croppie('bind', {//Binding jQuery
                 url: event.target.result
             }).then(function(){
                 console.log('jQuery bind complete');
             });
         };
-        reader.readAsDataURL(image.files[0]);
+        reader.readAsDataURL(image.files[0]);//Display the image as a preview
         $('#uploadimageModal').modal('show');
     }
 
 
-    $('.crop_image').click(function(event){
-        $image_crop.croppie('result', {
+    $('.crop_image').click(function(event){ //When crop & upload image button pressed
+        $image_crop.croppie('result', { //Set croppie parameters
             type: 'canvas',
             size: 'original'
-        }).then(function(response){
+        }).then(function(response){ //Send the cropped image to upload-image.php via ajax
             $.ajax({
                 url:"upload-image.php",
                 type: "POST",
@@ -416,7 +401,8 @@ if ($_SESSION['username'] == 'administrator'){
                 success:function(data)
                 {
                     $('#uploadimageModal').modal('hide');
-                    $('#uploaded_image').html(data);
+                    $('#uploaded_image').html(data); //Hide modal and display processed & uploaded image
+                    //after processing done in upload-image.php
                 }
             });
         })

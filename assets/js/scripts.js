@@ -22,33 +22,32 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
-load_unseen_notification('yes');
-function load_unseen_notification(view) {
-    var value = '';
-    if ($('#notif-dropdown').hasClass('show')){
+loadNotification('yes');
 
-        if (view === 'read'){
+function loadNotification(view) {
+    //view = 'read' means it has been opened by user, view = 'yes' means it is fetched in the background
+    var value = '';
+    if ($('#notif-dropdown').hasClass('show')){//If dropdown is already showing
+        if (view === 'read'){ //If it is closed by the user (clicked whilst it's opened)
             value = 'read';
         }
     }
-    $.ajax({
+    $.ajax({ //It will not do anything if the notification dropdown is just opened, because value = ''
         url:"fetchNotification.php",
         method:"POST",
         data: {
-            view: view,
-            read:value
+            view:view,
+            read:value //read = 'read' means that the notification is being closed, thus needs to bee marked as 'read'
         },
         dataType:"json",
-        success:function(data)
-        {
-            $('.dropdown-menu-notif').html(data.notification);
+        success:function(data) {
+            $('.dropdown-menu-notif').html(data.notification);//load notification into dropdown
             console.log(data.unread_count);
-            $('#countBadge').html(data.unread_count);
+            $('#countBadge').html(data.unread_count);//update the unread count
         }
     })
 };
-//
 setInterval(function(){
-    load_unseen_notification('yes');
+    loadNotification('yes');
 }, 1000);
 

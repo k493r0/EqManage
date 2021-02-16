@@ -140,75 +140,73 @@ function resetCoOption(){
 
 $(document).ready(function() {
 
-    $("#eqselect").change(function () {
+    $("#eqselect").change(function () {//When equipment selection changed
         var id = $(this).val();
         console.log("Working");
-
-        $.ajax({
+        $.ajax({ //Fetch data for the next 'select' element (student name)
             url: 'fetchName.php',
             type: 'post',
             data: {id: id},
             dataType: 'json',
             success: function (response) {
-
                 var len = response.length;
-
-                $("#studentselect").empty();
-                for (var i = 0; i < len; i++) {
+                $("#studentselect").empty();//Clear existing options if any
+                for (var i = 0; i < len; i++) {//For each JSON_encoded array
                     var id = response[i]['id'];
                     var name = response[i]['name'];
                     var eqID = response[i]['eqID'];
-
-                    $("#studentselect").append("<option value=''>Student Name</option><option value='" + id + "' data-eqID='" + eqID + "'>" + name + "</option>");
+                    $("#studentselect").append("<option value=''>Student Name</option>
+                    <option value='" + id + "' data-eqID='" + eqID + "'>" + name + "</option>");
+                    //Option with user's ID and custom attribute to store eqID
 
                 }
             }
         });
     });
 
-    $("#studentselect").change(function () {
+    $("#studentselect").change(function () {//When student selection changed
         var id = $(this).val();
-        var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');
-        $.ajax({
-            url: 'fetchAllCheckout.php',
+        var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');//Get value from custom attribute
+        $.ajax({//Fetch all the request made by that student selected
+            url: 'fetchAllRq.php',
             type: 'post',
             data: {id: id, eqID: eqID},
             dataType: 'json',
             success: function (response) {
-
                 var len = response.length;
-
-                $("#checkOutSelect").empty();
+                $("#checkOutSelect").empty(); //Clear existing options if any
                 $("#checkOutSelect").append("<option value=''></option><option value='0'>All</option>");
-
+                //Option to checkout all the requests at once
                 for (var i = 0; i < len; i++) {
-                    var id = response[i]['id'];
-                    var requestDate = response[i]['requestDate'];
-                    var returnDate = response[i]['returnDate'];
-                    var requestOnlyDate = requestDate.split(" ", 1);
+                    var id = response[i]['id']; //Get the request ID from the returned JSON array
+                    var requestDate = response[i]['requestDate']; //Get the request date from the returned JSON array
+                    var returnDate = response[i]['returnDate'];//Get the return date from the returned JSON array
+                    var requestOnlyDate = requestDate.split(" ", 1); //Split the date to a more readable/shoter format
                     var returnOnlyDate = returnDate.split(" ", 1);
 
-                    $("#checkOutSelect").append("<option value=''></option><option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + "</option>");
-
+                    $("#checkOutSelect").append("<option value=''></option>
+                    <option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + "</option>");
+                    //Filling the options
                 }
             }
         });
     });
 
-    $("#checkout").click(function (e) {
+    $("#checkout").click(function (e) {//When checkout button is pressed
         console.log("checkout CLiekd");
         var eq = document.getElementById("eqselect");
-        var eqID = eq.options[eq.selectedIndex].value;
+        var eqID = eq.options[eq.selectedIndex].value; //Get value of the selected equipment
 
         var user = document.getElementById("studentselect");
-        var userID = user.options[user.selectedIndex].value;
+        var userID = user.options[user.selectedIndex].value; //Get value of the selected student
 
         var checkout = document.getElementById("checkOutSelect");
-        var checkoutID = checkout.options[checkout.selectedIndex].value;
+        var checkoutID = checkout.options[checkout.selectedIndex].value; //Get ID of the selected request ID
 
-        document.getElementById(    "checkout").setAttribute("value", "...");
+        document.getElementById("checkout").setAttribute("value", "...");
+        //Placeholder on the checkout button while processing
 
-        $.ajax({
+        $.ajax({//Sending all data for checkout processing
             url: "adminCheckout.php",
             type: "POST",
             async: false,
@@ -220,23 +218,19 @@ $(document).ready(function() {
             success: function (data) {
                 console.log(data);
                 document.getElementById("checkout").setAttribute("value", "...");
-
                 setTimeout(() => {
                     document.getElementById("checkout").setAttribute("value", "Checked out successful");
+                    //Display message to the button to indicate success of checkout
                 }, 1000);
-
-
-                setTimeout(() => {
-
+                setTimeout(() => {//After displaying message, hide modals and reset everything to the original state
                     $('#checkoutModal').modal('hide');
                     $('#eqselect').val(null).trigger('change');
                     $('#studentselect').val(null).trigger('change');
                     $('#checkOutSelect').val(null).trigger('change');
                     document.getElementById("checkout").setAttribute("value", "Check out");
 
-                    var sPath = window.location.pathname;
-//var sPage = sPath.substring(sPath.lastIndexOf('\\') + 1);
-                    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+                    var sPath = window.location.pathname; //Get the current URL
+                    var sPage = sPath.substring(sPath.lastIndexOf('/') + 1); //the php file name
                     if (sPage === "overdue.php"){
                         $("#table2").load("fetchOverdueTable.php");
                     } else if (sPage === "log.php"){
@@ -244,13 +238,9 @@ $(document).ready(function() {
                     }else if (spage === "manageEq.php"){
                         displayFromDatabase();
                         $("#cattable").load("fetchCategoryTable.php");
-                    }
-
+                    } //Updating/reloading the approrpuate tables depending on which page this modal was called
                     console.log("Checkout reloaded");
-
                 }, 2000);
-                // pipe(eqID,userID,checkoutID);
-
             }
 
         });
@@ -292,7 +282,7 @@ $(document).ready(function() {
         var id = $(this).val();
         var eqID = this.options[this.selectedIndex].getAttribute('data-eqID');
         $.ajax({
-            url: 'fetchReturnAllCheckout.php',
+            url: 'fetchReturnAllRq.php',
             type: 'post',
             data: {id: id, eqID: eqID},
             dataType: 'json',
