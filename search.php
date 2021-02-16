@@ -90,21 +90,17 @@ if ($_SESSION['username'] == 'administrator'){
         })
     });
 
-    function displayRadioValue() {
+    function displayRadioValue() {//Check which radio button is being selected
         var ele = document.getElementsByName('type');
         var id;
-
-        for(i = 0; i < ele.length; i++) {
-            if(ele[i].checked)
+        for(var i = 0; i < ele.length; i++) {
+            if(ele[i].checked){
                 id = ele[i].value;
-            console.log(id);
+            }
             var url = 'searchContent.php?' + 'type=' + id;
-            console.log(url);
-
+            //Add the selected id to the url so this data can be retrieved via GET by php
         }
-        console.log(url);
-        $("#content").load(url);
-        console.log('done');
+        $("#content").load(url);//Load the url into content div (reloads the searchContent.php with type of search selected)
     }
 
     <?php
@@ -118,7 +114,6 @@ if ($_SESSION['username'] == 'administrator'){
         case 4 : $target = "requestSelect"; break;
         case 5 : $target = "categorySelect";
     }
-
     if ($id != null){
         echo "$('#$target').val('$id');
     $('#$target').trigger('change');";

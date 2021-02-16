@@ -15,7 +15,7 @@ $result = mysqli_query($db, "Select u.fullname, u.id, l.users_id, l.checkoutRequ
 from users u
 left join log l on u.id = l.users_id
 left join equipment e on l.equipment_id = e.id
-where e.id = '$equipmentID' and l.returnDate IS NULL and l.users_id = '$userPOSTID' and l.checkoutDate IS NOT NULL");
+where e.id = '$equipmentID' and l.returnDate IS NULL and l.users_id = '$userPOSTID' and l.checkoutDate IS NOT NULL"); //Checked out but not returned
 
 $users_arr = array();
 while ($row = mysqli_fetch_array($result)) {

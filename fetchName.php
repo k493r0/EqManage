@@ -37,17 +37,16 @@ left join equipment e on l.equipment_id = e.id
 where e.id = '$equipmentID' and l.returnDate IS NULL and l.checkoutDate IS NULL");
 
 $users_arr = array();
-    while ($row = mysqli_fetch_array($result)) {
-        $equipmentName = $row['equipment'];
-        $barcodeID = $row['barcodeID'];
-        $fullname = $row['fullname'];
-        $returnDate = $row['expectedReturnDate'];
-        $fullname = $row['fullname'];
-        $userID = $row['users_id'];
-        $returnDate = $row['expectedReturnDate'];
-        $users_arr[] = array("id" => $userID, "name" => $fullname, "returnDate" => $returnDate, "eqID" => $equipmentID);
-    }
-
-    echo json_encode($users_arr);
+while ($row = mysqli_fetch_array($result)) {
+    $equipmentName = $row['equipment'];
+    $barcodeID = $row['barcodeID'];
+    $fullname = $row['fullname'];
+    $returnDate = $row['expectedReturnDate'];
+    $fullname = $row['fullname'];
+    $userID = $row['users_id'];
+    $returnDate = $row['expectedReturnDate'];
+    $users_arr[] = array("id" => $userID, "name" => $fullname, "returnDate" => $returnDate, "eqID" => $equipmentID);
+}
+echo json_encode($users_arr);
 
 

@@ -1,4 +1,4 @@
-<?php
+x<?php
 // Initialize the session
 session_start();
 
@@ -34,18 +34,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             // Prepare a select statement
             $sql = "SELECT id FROM users WHERE username = ?";
-
             if ($stmt = mysqli_prepare($db, $sql)) {
-                // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "s", $param_username);
 
-                // Set parameters
-                $param_username = trim($_POST["regUsername"]);
+                mysqli_stmt_bind_param($stmt, "s", $param_username);// Bind variables to the prepared statement as parameters
 
+                $param_username = trim(mysqli_real_escape_string($db, $_POST["regUsername"]));// Set parameters, real escape string to prevent SQL injection attack
                 // Attempt to execute the prepared statement
                 if (mysqli_stmt_execute($stmt)) {
-                    /* store result */
-                    mysqli_stmt_store_result($stmt);
+
+                    mysqli_stmt_store_result($stmt);//Store results
 
                     if (mysqli_stmt_num_rows($stmt) == 1) {
                         $username_err = "This username is already taken";
@@ -54,24 +51,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         $fullname = trim($_POST["regFullname"]);
                     }
                 } else {
-                    echo "Oops! Something went wrong. Please try again later";
+                    die("Something went wrong. Please try again later");
                 }
-
-
                 $sql = "SELECT id FROM users WHERE email = ?";
-
                 if ($stmt = mysqli_prepare($db, $sql)) {
-                    // Bind variables to the prepared statement as parameters
-                    mysqli_stmt_bind_param($stmt, "s", $param_fullname);
-
-                    // Set parameters
-                    $param_email = trim($_POST["regEmail"]);
-
+                    mysqli_stmt_bind_param($stmt, "s", $param_fullname); // Bind variables to the prepared statement as parameters
+                    $param_email = trim($_POST["regEmail"]); // Set parameters
                     // Attempt to execute the prepared statement
                     if (mysqli_stmt_execute($stmt)) {
-                        /* store result */
-                        mysqli_stmt_store_result($stmt);
-
+                        mysqli_stmt_store_result($stmt); //Store results
                         if (mysqli_stmt_num_rows($stmt) == 1) {
                             $email_err = "This email is already in use";
                         } else {
@@ -85,9 +73,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             };
                         }
                     } else {
-                        echo "Oops! Something went wrong. Please try again later";
+                        die("Something went wrong. Please try again later");
                     }
-
                     // Close statement
                     mysqli_stmt_close($stmt);
                 }
@@ -107,7 +94,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $password = trim(mysqli_real_escape_string($db, $_POST["regPassword_1"]));
             }
 
-            // Validate confirm password
+            // Validate 'confirm password'
             if (empty(trim(mysqli_real_escape_string($db, $_POST["regPassword_2"])))) {
                 $confirm_password_err = "Please confirm password";
                 $_SESSION['error'] .= $confirm_password_err." | ";
@@ -208,14 +195,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($username_err) && empty($password_err)) {
                 // Prepare a select statement
                 $sql = "SELECT id, username, password, fullname FROM users WHERE username = ?";
-
                 if ($stmt = mysqli_prepare($db, $sql)) {
                     // Bind variables to the prepared statement as parameters
                     mysqli_stmt_bind_param($stmt, "s", $param_username);
-
                     // Set parameters
                     $param_username = $username;
-
                     // Attempt to execute the prepared statement
                     if (mysqli_stmt_execute($stmt)) {
                         // Store result
@@ -228,7 +212,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 if (password_verify($password, $hashed_password)) {
                                     // Password is correct, so start a new session
                                     session_start();
-
                                     // Store data in session variables
                                     $_SESSION["loggedin"] = true;
                                     $_SESSION["id"] = $id;
@@ -236,7 +219,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $_SESSION["fullname"] = $fullname;
                                     unset($_SESSION['error']);
                                     // Redirect user to welcome page
-
                                     if ($_SESSION['username'] == 'administrator'){
                                         header("location: dashboard.php");
                                     } else{
@@ -257,7 +239,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         $_SESSION["error"] = "Something went wrong. Please try again";
                         header("location: login.php?tab=1");
                     }
-
                     // Close statement
                     mysqli_stmt_close($stmt);
                 }

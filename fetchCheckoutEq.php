@@ -19,16 +19,11 @@ echo "<select id=\"eqselect\" style=\"width: 100%; text-align: left;margin-botto
 echo "<option value=\"\">Select equipment</option>";
 
 while ($row = mysqli_fetch_array($result)){
-
-    echo $row['equipment_id'];
     $equipmentName = $row['equipment'];
     $equipmentID = $row['id'];
     $barcodeID = $row['barcodeID'];
     echo "<option value='$equipmentID' data-checkoutRequestsID='$equipmentID'>$barcodeID | $equipmentName </option>";
-
-
 };
-
 echo " </select>";
 echo "<script src=\"assets/js/select2.min.js\"></script>
 <script src=\"assets/js/adminScript.js\"></script>";

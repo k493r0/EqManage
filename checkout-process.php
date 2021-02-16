@@ -36,10 +36,8 @@ if(!isset($_SESSION['loggedin'])){
     exit();
 }
 
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
 require 'assets/src/Exception.php';
 require 'assets/src/PHPMailer.php';
 require 'assets/src/SMTP.php';
@@ -69,7 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Quantity: ", $checkoutQty;
         $location = $_POST['location'];
 
-
         $eqname = "";
         echo "Return date: ", $returndate;
         echo "Request date", $requestdate;
@@ -84,7 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else
             echo "$requestdate is older than $returndate";
 
-
         $getEqName = mysqli_query($db, "select * from EqManage.equipment where id = '$equipment_id'");
         while ($row = mysqli_fetch_array($getEqName)) {
             $eqname = $row['equipment'];
@@ -96,7 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $user_id;
         echo $equipment_id;
 
-        $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$location','$purpose','$checkoutQty','$hash','waiting','$requestdate','$combinedDT')";
+        $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) 
+                    VALUES ('$user_id','$equipment_id','$location','$purpose','$checkoutQty','$hash','waiting','$requestdate','$combinedDT')";
 
         mysqli_query($db, $query);
 
@@ -109,7 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $newLeftQty = $leftQty - $checkoutQty;
         if ($newLeftQty <= 0) {
             $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'";
-        } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
+        } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'";
+        //Temporarily Subtract the Quantity to prevent double booking during request pending period
 
         if (mysqli_query($db, $updateEq_query)) {
             echo "Successfully updated table";
@@ -117,38 +115,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $query . "<br>" . mysqli_error($db);
         }
 
-
         $mailEquipmentContent .= '----------------------------------------------------------<br>
                                     Equipment: ' . $eqname . ' <br>
                                     Quantity: ' . $checkoutQty . '<br>
                                     Purpose: ' . $purpose . '<br>
                                     Date of Return: ' . $combinedDT . '<br>
                                     ----------------------------------------------------------<br>';
-
-
-
-        /*    $to = '***REMOVED***'; // Send email to our user
-            $subject = 'Signup | Verification'; // Give the email a subject
-            $message = '
-
-        Thanks for signing up!
-        Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
-
-        ------------------------
-        Username: ' . $user . '
-        Password: ' . $notes . '
-        ------------------------
-
-        Please click this link to activate your account:
-        http://www.yourwebsite.com/verify.php?hash=' . $hash . '
-
-        '; // Our message above including the link
-
-            $headers = 'From:***REMOVED***' . "\r\n"; // Set from headers
-            mail($to, $subject, $message, $headers); // Send our email*/
-
-
-
 
     }elseif (isset($_SESSION['cart'])){
         if (isset($_POST['applyAllCheck']) && $_POST['applyAllCheck'] == "1") {
@@ -174,7 +146,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo $eqname;
                 }
                 //Insert Request for Each equipment
-                $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$location','$purpose','$quantity','$hash','waiting','$requestdate','$combinedDT')";
+                $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) 
+                        VALUES ('$user_id','$equipment_id','$location','$purpose','$quantity','$hash','waiting','$requestdate','$combinedDT')";
                 if (mysqli_query($db, $query)) {
                     echo "Successfully updated table";
                 } else {
@@ -188,8 +161,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $leftQty = $checkQtyArray['leftQuantity'];
                 $newLeftQty = $leftQty - $quantity;
                 if ($newLeftQty <= 0) {
-                    $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'";
-                } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
+                    $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' 
+                                        WHERE id='$equipment_id'";
+                } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' 
+                                        WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
 
                 if (mysqli_query($db, $updateEq_query)) {
                     echo "Successfully updated table";
@@ -200,8 +175,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $mailEquipmentContent2 .= '
                                         Equipment: ' . $eqname . ' <br>
                                         Quantity: ' . $quantity . '<br><br>';
-
-
             }
             $mailEquipmentContent3 = '
                                         Purpose: ' . $purpose . '<br>
@@ -236,14 +209,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo $eqname;
                 }
 
-                $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) VALUES ('$user_id','$equipment_id','$location','$purpose','$quantity','$hash','waiting','$requestdate','$combinedDT')";
+                $query = "INSERT INTO requests (users_id,equipment_id,location,purpose,checkoutQty,hash,state,requestDate,expectedReturnDate) 
+                            VALUES ('$user_id','$equipment_id','$location','$purpose','$quantity','$hash','waiting','$requestdate','$combinedDT')";
                 if (mysqli_query($db, $query)) {
                     echo "Successfully updated table";
                 } else {
                     echo mysqli_error($db);
                 }
 
-                //Updating Equipmenet
+                //Updating Equipment
 
                 $checkQty = "Select * from EqManage.equipment where id = '$equipment_id'";
                 $result = mysqli_query($db, $checkQty);
@@ -252,8 +226,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $leftQty = $checkQtyArray['leftQuantity'];
                 $newLeftQty = $leftQty - $quantity;
                 if ($newLeftQty <= 0) {
-                    $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'";
-                } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
+                    $updateEq_query = "UPDATE EqManage.equipment SET availability=0, users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' 
+                                        WHERE id='$equipment_id'";
+                } else $updateEq_query = "UPDATE EqManage.equipment SET users_id=null, lastLog_id=null, leftQuantity='$newLeftQty' 
+                            WHERE id='$equipment_id'"; //Temporarily Subtract the Quantity to prevent double booking during request pending period
 
                 if (mysqli_query($db, $updateEq_query)) {
                     echo "Successfully updated table";
@@ -276,9 +252,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $today = date('Y-m-d H:i:s');
     $message = "Request was sent by the student. See details at requests page";
 
+    //Setting notifications
     $checkNotif = mysqli_query($db, "Select * from notification where message = '$message' and target = '1'");
-    if(mysqli_num_rows($checkNotif) != null){
-        echo "present";
+    if(mysqli_num_rows($checkNotif) != null){//If notification used before, reuse the notification
         $updateNotif = "Update EqManage.notification set status = 0 where message = '$message' and target = '1'";
         if (mysqli_query($db, $updateNotif)) {
             $last_id = mysqli_insert_id($db);
@@ -286,8 +262,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Error: " . $updateNotif . "<br>" . mysqli_error($db);
         }
-    } else{
-        echo "empty";
+    } else{//Insert notification to database if notification was not sent previously
         $notif_query = "INSERT into EqManage.notification (message,target,status,datetime) values ('$message' ,1,0, '$today')";
         if (mysqli_query($db, $notif_query)) {
             $last_id = mysqli_insert_id($db);
@@ -304,7 +279,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail->Host = '***REMOVED***';             // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                     // Enable SMTP authentication
     $mail->Username = '***REMOVED***';          // SMTP username
-    $mail->Password = '***REMOVED***'; // SMTP password
+    $mail->Password = 'STMP Password'; // SMTP password
     $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
     $mail->Port = ***REMOVED***;                          // TCP port to connect to
     // TCP port to connect to

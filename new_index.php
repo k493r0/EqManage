@@ -74,17 +74,10 @@ if ($_SESSION['username'] == 'administrator'){
                     <label for="select-box1" class="label select-box1"><span class="label-desc">Filter By Category</span> </label>
                     <select id="select-box1" class="select" name="filtercat" onchange="getIndex1()">
                         <option value="0" selected>--All--</option>
-
                         <?php while ($row = mysqli_fetch_array($getCategory)) { ?>
-
-
                         <?php echo "<option value=\"".$row['id']."\" name=\"filterCat\">".$row['categoryName']."</option>"; ?>
-
-
-
                         <?php } ?>
                     </select>
-
                 </div>
 
             </form>
@@ -95,12 +88,8 @@ if ($_SESSION['username'] == 'administrator'){
 
                     <label for="select-box2" class="label select-box1"><span class="label-desc">Sort By Category Name: </span> </label>
                     <select id="select-box2" class="select" onchange="getIndex1()">
-
                         <option value="1" selected>Category Name Ascending</option>
                         <option value="2" >Category Name Descending</option>
-
-
-
                     </select>
 
                 </div>
@@ -113,12 +102,8 @@ if ($_SESSION['username'] == 'administrator'){
 
                     <label for="select-box3" class="label select-box1"><span class="label-desc">Sort By Equipment Name: </span> </label>
                     <select id="select-box3" class="select" onchange="getIndex1()">
-
                         <option value="1" >Equipment Name Ascending</option>
                         <option value="2" >Equipment Name Descending</option>
-
-
-
                     </select>
 
                 </div>
@@ -213,19 +198,6 @@ if ($_SESSION['username'] == 'administrator'){
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-
-        // document.getElementById("add-cart").onclick(function() {
-        //     $(".dropdown-toggle").dropdown("toggle");
-        //     console.log("opened");
-        // });
-        // $('.trigger_button').click(function(e){
-        //     // Kill click event:
-        //     e.stopPropagation();
-        //
-        //     console.log("pressed");
-        //     $('.dropdown-toggle').dropdown('toggle');
-        // });
-
     });
 
 
@@ -260,18 +232,8 @@ if ($_SESSION['username'] == 'administrator'){
         var sortC = e2.options[e2.selectedIndex].value;
         var e3 = document.getElementById("select-box3");
         var sortE = e3.options[e3.selectedIndex].value;
-        $.ajax({
-            url: "fetchIndex.php",
-            type: "POST",
-            async: false,
-            data: {
-            },
-            success:function(data){
 
-                displayFromDatabase(cat,sortC,sortE);
-            }
-
-        })
+        displayFromDatabase(cat,sortC,sortE);
     }
     function displayFromDatabase(filter,sortC,sortE){
         $.ajax({
@@ -291,54 +253,52 @@ if ($_SESSION['username'] == 'administrator'){
         })
     }
 
-    function addCart(eqID) {
-        console.log(eqID);
+    function addCart(eqID) { //Function to add item to cart
+        //Since the id of input is eqID_qty and each button has their equipment ID,
+        //We concatenate eqID to string _qty to get the actual id of the quantity input for the right equipment
         var idname = eqID + "_qty";
         var qty = document.getElementById(idname).value;
-        console.log(qty);
-
         $.ajax({
-            url:"navbarCart.php",
-            type:"POST",
-            data:{
+            url:"navbarCart.php", //Target PHP file (Where the processing is done)
+            type:"POST", //Post method
+            data:{ //POST data
                 "eqID":eqID,
                 "qty":qty
             },
             success:function (data) {
-                console.log("added to cart");
-                $("#cartDiv").html(data);
-                console.log(data);
+                console.log("Added to cart");
+                $("#cartDiv").html(data);//Load the returned data (In this case, echo in PHP) into cart's Div without
+                //Reloading the whole page
             }
         })
     }
 
-    function clearCart() {
+    function clearCart() {//Function to clear cart items
         $.ajax({
             url:"navbarCart.php",
             type:"POST",
-            data:{
+            data:{ //POST data to indicate the action
                 "destroy_cart":"1",
             },
             success:function (data) {
-                console.log("cleared cart");
-                $("#cartDiv").html(data);
+                console.log("Cleared cart");
+                $("#cartDiv").html(data); //Update the cart list
             }
         })
     }
 
-    function deleteItem(eqID) {
+    function deleteItem(eqID) {//Function to delete one item from cart
         console.log(eqID);
         $.ajax({
             url:"navbarCart.php",
             type:"POST",
             data:{
-                "delete":"1",
-                "eqID":eqID
+                "delete":"1",//Action
+                "eqID":eqID //Target Equipment ID
             },
             success:function (data) {
-                console.log("deleted item");
-                $("#cartDiv").html(data);
-                console.log(data);
+                console.log("Deleted Item item");
+                $("#cartDiv").html(data); //Update the cart list
             }
         })
     }
@@ -359,7 +319,6 @@ if ($_SESSION['username'] == 'administrator'){
                 console.log(data);
             }
         })
-
     }
 
 

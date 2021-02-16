@@ -1,4 +1,4 @@
-<?php
+    <?php
 include('serverconnect.php');
 session_start();
 if(!isset($_SESSION['loggedin'])){
@@ -79,7 +79,6 @@ if ($_SESSION['username'] != 'administrator'){
                 if ($selected == 3){include('searchLog.php');};
                 if ($selected == 4){include('searchRequests.php');};
                 if ($selected == 5){include('searchCategory.php');};
-
                 ?>
             </div>
 

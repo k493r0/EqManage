@@ -136,28 +136,20 @@ if ($_SESSION['username'] == 'administrator'){
     }
 
     function overdueReturn(id) {
-        var rqID = id;
-
         document.getElementById("overdueReturn").setAttribute("value", "...");
-
         $.ajax({
             url: "adminReturn.php",
             type: "POST",
             async: false,
             data: {
-                "rqID": rqID,
+                "rqID": id,
             },
             success: function (data) {
                 console.log(data);
-
-
                 setTimeout(() => {
                     document.getElementById("overdueReturn").setAttribute("value", "Return successful");
                 }, 1000);
-
-
                 setTimeout(() => {
-
                     $("#table2").load("fetchOverdueTable.php");
                     var returnmodal2 = document.getElementById("returnModal2");
                     returnmodal2.style.display = "none";

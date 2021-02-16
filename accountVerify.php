@@ -2,7 +2,6 @@
 include('serverconnect.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
 require 'assets/src/Exception.php';
 require 'assets/src/PHPMailer.php';
 require 'assets/src/SMTP.php';
@@ -12,12 +11,12 @@ if (isset($_GET['hash'])){
     $hash = mysqli_real_escape_string($db, $_GET['hash']);
     $query = "Update users set active = '1' where hash = '$hash' and active = '0'";
     if ($result = mysqli_query($db, $query)){
-        if (mysqli_affected_rows($db) == 0){
-            $_SESSION['msg'] = "Account is already activated, please login with your credentials";
+        if (mysqli_affected_rows($db) == 0){ //Meaning active is already = 1, and the account is activated already
+            $_SESSION['msg'] = "Account is already activated, please login with your credentials"; //Set notification
         } else{
-            $_SESSION['msg'] = "Account is activated, you may now login";
+            $_SESSION['msg'] = "Account is activated, you may now login"; //Set notification
 
-            $sql = "SELECT email FROM EqManage.users WHERE hash = ?";
+            $sql = "SELECT email FROM EqManage.users WHERE hash = ?"; //Prepared statement used as it handles with user database
             if ($stmt = mysqli_prepare($db, $sql)) {
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param($stmt, "i", $param_hash);
@@ -29,30 +28,29 @@ if (isset($_GET['hash'])){
                 if (mysqli_stmt_execute($stmt)) {
                     $result = mysqli_stmt_get_result($stmt);
                     while ($row = mysqli_fetch_assoc($result)){
-                        $email = $row['email'];
+                        $email = $row['email']; //If email was found with specified hash, set that as an email address
                     }
 
                 } else {
-                    echo "Oops! Something went wrong. Please try again later";
+                    echo "Oops! Something went wrong. Please try again later"; //Error Message
                 }
                 mysqli_stmt_close($stmt);
             }
 
 
             $mail = new PHPMailer;
-            $mail->isSMTP();                            // Set mailer to use SMTP
-            $mail->Host = '***REMOVED***';             // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                     // Enable SMTP authentication
-            $mail->Username = '***REMOVED***';          // SMTP username
-            $mail->Password = '***REMOVED***'; // SMTP password
-            $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = ***REMOVED***;                          // TCP port to connect to
-            // TCP port to connect to
+            $mail->isSMTP();
+            $mail->Host = '***REMOVED***';
+            $mail->SMTPAuth = true;// Enable SMTP authentication
+            $mail->Username = '***REMOVED***'; // SMTP username
+            $mail->Password = 'password'; // SMTP password
+            $mail->SMTPSecure = 'tls';  // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = ***REMOVED***; //TCP Port
 
             $mail->setFrom('***REMOVED***', 'Notification System');
-            $mail->addAddress($email);   // Add a recipient
+            $mail->addAddress($email);   //Recipient
 
-            $mail->isHTML(true);  // Set email format to HTML
+            $mail->isHTML(true);  //Set email format to HTML
 
             $bodyContent = '<p>You have successfully activated your account</p>';
 
@@ -65,9 +63,6 @@ if (isset($_GET['hash'])){
             } else {
                 echo 'Message has been sent';
             }
-
-
-
         };
         header("Location: login.php?tab=1");
     } else{
