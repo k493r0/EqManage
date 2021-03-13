@@ -149,16 +149,16 @@ $(document).ready(function() {
             data: {id: id},
             dataType: 'json',
             success: function (response) {
+
                 var len = response.length;
                 $("#studentselect").empty();//Clear existing options if any
                 for (var i = 0; i < len; i++) {//For each JSON_encoded array
                     var id = response[i]['id'];
                     var name = response[i]['name'];
                     var eqID = response[i]['eqID'];
-                    $("#studentselect").append("<option value=''>Student Name</option>
-                    <option value='" + id + "' data-eqID='" + eqID + "'>" + name + "</option>");
-                    //Option with user's ID and custom attribute to store eqID
 
+                    $("#studentselect").append("<option value=''>Student Name</option><option value='" + id + "' data-eqID='" + eqID + "'>" + name + "</option>");
+                    //Option with user's ID and custom attribute to store eqID
                 }
             }
         });
@@ -173,6 +173,7 @@ $(document).ready(function() {
             data: {id: id, eqID: eqID},
             dataType: 'json',
             success: function (response) {
+
                 var len = response.length;
                 $("#checkOutSelect").empty(); //Clear existing options if any
                 $("#checkOutSelect").append("<option value=''></option><option value='0'>All</option>");
@@ -183,9 +184,7 @@ $(document).ready(function() {
                     var returnDate = response[i]['returnDate'];//Get the return date from the returned JSON array
                     var requestOnlyDate = requestDate.split(" ", 1); //Split the date to a more readable/shoter format
                     var returnOnlyDate = returnDate.split(" ", 1);
-
-                    $("#checkOutSelect").append("<option value=''></option>
-                    <option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + "</option>");
+                    $("#checkOutSelect").append("<option value=''></option><option value='" + id + "'>Requested " + requestOnlyDate + " | Returning " + returnOnlyDate + "</option>");
                     //Filling the options
                 }
             }
@@ -347,7 +346,7 @@ $(document).ready(function() {
                     document.getElementById("return").setAttribute("value", "Return");
 
                     var sPath = window.location.pathname;
-//var sPage = sPath.substring(sPath.lastIndexOf('\\') + 1);
+                    //var sPage = sPath.substring(sPath.lastIndexOf('\\') + 1);
                     var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
                     if (sPage === "overdue.php"){
                         $("#table2").load("fetchOverdueTable.php");
@@ -372,22 +371,3 @@ $(document).ready(function() {
 
     });});
 
-//-------------------------------------------------------------------------------------------------------
-
-// function pipe(eqID,userID,checkoutID){
-//     $.ajax({
-//         url: "adminCheckout.php",
-//         type: "POST",
-//         async: false,
-//         data: {
-//             "display": 1,
-//             "eqID":eqID,
-//             "userID":userID,
-//             "checkoutID":checkoutID
-//         },
-//         success:function (data) {
-//             console.log(data)
-//         }
-//
-//     })
-// }

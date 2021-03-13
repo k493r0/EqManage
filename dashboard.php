@@ -5,9 +5,9 @@ if(!isset($_SESSION['loggedin'])){
     header('Location: login.php');
     exit();
 }
-//if ($_SESSION['username'] != 'administrator'){
-//    header('Location: index.php?adminonly=1');
-//}
+if ($_SESSION['username'] != 'administrator'){
+    header('Location: index.php?adminonly=1');
+}
 ?>
 
 <!doctype html>
@@ -15,7 +15,7 @@ if(!isset($_SESSION['loggedin'])){
 
 <head>
     <title>Dashboard</title>
-    <?php include('header.php') ?>
+    <?php include('adminheader.php') ?>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
