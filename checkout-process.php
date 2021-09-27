@@ -276,16 +276,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail = new PHPMailer;
 
     $mail->isSMTP();                            // Set mailer to use SMTP
-    $mail->Host = '***REMOVED***';             // Specify main and backup SMTP servers
+    $mail->Host = '';             // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                     // Enable SMTP authentication
-    $mail->Username = '***REMOVED***';          // SMTP username
-    $mail->Password = 'STMP Password'; // SMTP password
+    $mail->Username = '';          // SMTP username
+    $mail->Password = ''; // SMTP password
     $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
-    $mail->Port = ***REMOVED***;                          // TCP port to connect to
+    $mail->Port = ;                          // TCP port to connect to
     // TCP port to connect to
 
-    $mail->setFrom('***REMOVED***', 'Notification System');
-    $mail->addAddress('***REMOVED***');   // Add a recipient
+    $mail->setFrom('noreply@example.com', 'Notification System');
+    $mail->addAddress('admin@example.com');   // Add a recipient
 
     $mail->isHTML(true);  // Set email format to HTML
 

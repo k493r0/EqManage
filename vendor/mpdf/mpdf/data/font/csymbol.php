@@ -15,6 +15,6 @@ $cw = array(
 	chr(242) => 274, chr(243) => 686, chr(244) => 686, chr(245) => 686, chr(246) => 384, chr(247) => 384, chr(248) => 384, chr(249) => 384, chr(250) => 384, chr(251) => 384, chr(252) => 494, chr(253) => 494, chr(254) => 494, chr(255) => 0);
 
 //$desc=array('FontBBox'=>'[-180 -293 1090 1010]');
-$desc = array('Flags' => 4, 'FontBBox' => '[-180 -293 1090 1010]', 'ItalicAngle' => 0, 'Ascent' => 1010, 'Descent' => -293, 'Leading' => 0, 'CapHeight' => 1010, 'StemV' => 85, 'StemH' => 92, 'AvgWidth' => ***REMOVED***, 'MaxWidth' => 1042, 'MissingWidth' => ***REMOVED***);
+$desc = array('Flags' => 4, 'FontBBox' => '[-180 -293 1090 1010]', 'ItalicAngle' => 0, 'Ascent' => 1010, 'Descent' => -293, 'Leading' => 0, 'CapHeight' => 1010, 'StemV' => 85, 'StemH' => 92, 'AvgWidth' => 587, 'MaxWidth' => 1042, 'MissingWidth' => 587);
 $up = -100;
 $ut = 50;

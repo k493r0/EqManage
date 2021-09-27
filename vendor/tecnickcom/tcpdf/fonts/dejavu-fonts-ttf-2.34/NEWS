@@ -312,7 +312,7 @@ Changes from 2.25 to 2.26
   Mono (by Gee Fung Sit) 
 - added locl rules for S/T cedilla for Romanian and Moldavian so they get
   rendered as S/T with comma accent (see Redhat bug #455981) (by Ben Laenen) 
-- removed ligature rule from Armenian U+0***REMOVED*** bug:16113 (by Gee Fung Sit)
+- removed ligature rule from Armenian U+0587 bug:16113 (by Gee Fung Sit)
 
 Changes from 2.24 to 2.25
 
@@ -1061,7 +1061,7 @@ Changes from 2.2 to 2.3:
 - added Greek variant letterforms, archaic letters and symbols to Mono:
   U+03D0-U+03E1, U+03F0-U+03FF (by Ben Laenen)
 - added Armenian block and Armenian ligatures to Sans (U+0531 - U+0556,
-  U+0559 - U+055F, U+0561 - U+0***REMOVED***, U+0589 - U+058A, U+FB13 - U+FB17) (by Ben
+  U+0559 - U+055F, U+0561 - U+0587, U+0589 - U+058A, U+FB13 - U+FB17) (by Ben
   Laenen)
 - redid some Greek characters in Sans and Mono to make them look better
   and to correct some errors (by Ben Laenen)

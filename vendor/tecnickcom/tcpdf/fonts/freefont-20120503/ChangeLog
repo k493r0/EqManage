@@ -4188,7 +4188,7 @@
 	* FreeMono.sfd: Combining Diacritical Marks:
 	  completed range
 
-2010-10-12 21:50 +0000 [r1***REMOVED***]  Stevan_White:
+2010-10-12 21:50 +0000 [r1587]  Stevan_White:
 
 	* FreeMono.sfd: Miscellaneous Symbols: drew a
 	  few more.
@@ -7931,7 +7931,7 @@
 
 	* FreeSansBold.sfd: Added Armenian ligatures
 	  FB13-FB17 with lookups Also made a historical ligature ('hlig')
-	  table for u+0***REMOVED***. Toward bug #15183: missing characters from
+	  table for u+0587. Toward bug #15183: missing characters from
 	  Armenian range (FreeSans, Bold)
 	  https://savannah.gnu.org/bugs/index.php?15183
 
@@ -7944,7 +7944,7 @@
 
 	* FreeSans.sfd: Added 5 Armenian ligatures to
 	  U+FB13 â FB17, and made corresponding 'liga' lookup. Found
-	  there one ligature u+0***REMOVED*** that according to
+	  there one ligature u+0587 that according to
 	  http://en.wikipedia.org/wiki/Armenian_alphabet "in new
 	  orthography the Ö character is not a typographical ligature
 	  anymore, and must never be treated as such. It is a distinct
@@ -10984,7 +10984,7 @@
 	* FreeSansBold.sfd,
 	  FreeSansOblique.sfd: added TfTables
 
-2008-03-14 23:08 +0000 [r***REMOVED***]  Stevan_White:
+2008-03-14 23:08 +0000 [r587]  Stevan_White:
 
 	* FreeSansBold.sfd: clean-up of path problems
 	  extrema self-intersecting ordered PS blue values
@@ -12745,7 +12745,7 @@
 	  FreeSansBold.sfd - replaced glyphs with references in the
 	  Cyrillic area. Removed U+04A8, U+04A9. Added U+04C5, U+04C6,
 	  U+04C9, U+04CA, U+04CD, U+04CE, U+0535, U+053F, U+0546, U+0565,
-	  U+0584, U+0***REMOVED***, U+0589.
+	  U+0584, U+0587, U+0589.
 
 2005-11-10 22:11 +0000 [r356]  peterlin:
 

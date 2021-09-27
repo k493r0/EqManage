@@ -45,7 +45,7 @@ if (isset($_GET['hash'])){
             $mail->Username = '***REMOVED***'; // SMTP username
             $mail->Password = 'password'; // SMTP password
             $mail->SMTPSecure = 'tls';  // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = ***REMOVED***; //TCP Port
+            $mail->Port = 587; //TCP Port
 
             $mail->setFrom('***REMOVED***', 'Notification System');
             $mail->addAddress($email);   //Recipient

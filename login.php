@@ -149,7 +149,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         $mail->Username = '***REMOVED***';          // SMTP username
                         $mail->Password = '***REMOVED***'; // SMTP password
                         $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
-                        $mail->Port = ***REMOVED***;                          // TCP port to connect to
+                        $mail->Port = 587;                          // TCP port to connect to
                         // TCP port to connect to
 
                         $mail->setFrom('***REMOVED***', 'Notification System');

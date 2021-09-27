@@ -2,7 +2,7 @@ Austria;Vienna;83859;8075
 Belgium;Brussels;30518;10192
 Denmark;Copenhagen;43094;5295
 Finland;Helsinki;304529;5147
-France;Paris;543965;***REMOVED***28
+France;Paris;543965;58728
 Germany;Berlin;357022;82057
 Greece;Athens;131625;10511
 Ireland;Dublin;70723;3694

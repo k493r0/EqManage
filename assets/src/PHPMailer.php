@@ -245,7 +245,7 @@ class PHPMailer
      * for each host by using this format: [hostname:port]
      * (e.g. "smtp1.example.com:25;smtp2.example.com").
      * You can also specify encryption type, for example:
-     * (e.g. "tls://smtp1.example.com:***REMOVED***;ssl://smtp2.example.com:465").
+     * (e.g. "tls://smtp1.example.com:587;ssl://smtp2.example.com:465").
      * Hosts will be tried in order.
      *
      * @var string

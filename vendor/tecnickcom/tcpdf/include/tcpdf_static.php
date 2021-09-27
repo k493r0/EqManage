@@ -2266,8 +2266,8 @@ class TCPDF_STATIC {
 		'COMPACT'                => array(  306.000,   486.000), // = (  108 x 171  ) mm  = (  4.25 x 6.75  ) in
 		'ORGANIZERJ'             => array(  198.000,   360.000), // = (   70 x 127  ) mm  = (  2.75 x 5.00  ) in
 		// Canadian standard CAN 2-9.60M
-		'P1'                     => array( 1***REMOVED***.402,  2437.795), // = (  560 x 860  ) mm  = ( 22.05 x 33.86 ) in
-		'P2'                     => array( 1218.898,  1***REMOVED***.402), // = (  430 x 560  ) mm  = ( 16.93 x 22.05 ) in
+		'P1'                     => array( 1587.402,  2437.795), // = (  560 x 860  ) mm  = ( 22.05 x 33.86 ) in
+		'P2'                     => array( 1218.898,  1587.402), // = (  430 x 560  ) mm  = ( 16.93 x 22.05 ) in
 		'P3'                     => array(  793.701,  1218.898), // = (  280 x 430  ) mm  = ( 11.02 x 16.93 ) in
 		'P4'                     => array(  609.449,   793.701), // = (  215 x 280  ) mm  = (  8.46 x 11.02 ) in
 		'P5'                     => array(  396.850,   609.449), // = (  140 x 215  ) mm  = (  5.51 x 8.46  ) in
@@ -2328,8 +2328,8 @@ class TCPDF_STATIC {
 		'JIS_B12'                => array(   45.354,    62.362), // = (   16 x 22   ) mm  = (  0.63 x 0.87  ) in
 		// PA Series
 		'PA0'                    => array( 2381.102,  3174.803), // = (  840 x 1120 ) mm  = ( 33.07 x 44.09 ) in
-		'PA1'                    => array( 1***REMOVED***.402,  2381.102), // = (  560 x 840  ) mm  = ( 22.05 x 33.07 ) in
-		'PA2'                    => array( 1190.551,  1***REMOVED***.402), // = (  420 x 560  ) mm  = ( 16.54 x 22.05 ) in
+		'PA1'                    => array( 1587.402,  2381.102), // = (  560 x 840  ) mm  = ( 22.05 x 33.07 ) in
+		'PA2'                    => array( 1190.551,  1587.402), // = (  420 x 560  ) mm  = ( 16.54 x 22.05 ) in
 		'PA3'                    => array(  793.701,  1190.551), // = (  280 x 420  ) mm  = ( 11.02 x 16.54 ) in
 		'PA4'                    => array(  595.276,   793.701), // = (  210 x 280  ) mm  = (  8.27 x 11.02 ) in
 		'PA5'                    => array(  396.850,   595.276), // = (  140 x 210  ) mm  = (  5.51 x 8.27  ) in
@@ -2439,7 +2439,7 @@ class TCPDF_STATIC {
 		'BE_RAISIN'              => array( 1417.323,  1842.520), // = (  500 x 650  ) mm  = ( 19.69 x 25.59 ) in
 		'BE_GRAND_MEDIAN'        => array( 1303.937,  1714.961), // = (  460 x 605  ) mm  = ( 18.11 x 23.82 ) in
 		'BE_DOUBLE_POSTE'        => array( 1233.071,  1601.575), // = (  435 x 565  ) mm  = ( 17.13 x 22.24 ) in
-		'BE_COQUILLE'            => array( 1218.898,  1***REMOVED***.402), // = (  430 x 560  ) mm  = ( 16.93 x 22.05 ) in
+		'BE_COQUILLE'            => array( 1218.898,  1587.402), // = (  430 x 560  ) mm  = ( 16.93 x 22.05 ) in
 		'BE_PETIT_MEDIAN'        => array( 1176.378,  1502.362), // = (  415 x 530  ) mm  = ( 16.34 x 20.87 ) in
 		'BE_RUCHE'               => array( 1020.472,  1303.937), // = (  360 x 460  ) mm  = ( 14.17 x 18.11 ) in
 		'BE_PROPATRIA'           => array(  977.953,  1218.898), // = (  345 x 430  ) mm  = ( 13.58 x 16.93 ) in
@@ -2460,14 +2460,14 @@ class TCPDF_STATIC {
 		'FR_DOUBLE_CAVALIER'     => array( 1757.480,  2607.874), // = (  620 x 920  ) mm  = ( 24.41 x 36.22 ) in
 		'FR_CLOCHE'              => array( 1700.787,  2267.717), // = (  600 x 800  ) mm  = ( 23.62 x 31.50 ) in
 		'FR_SOLEIL'              => array( 1700.787,  2267.717), // = (  600 x 800  ) mm  = ( 23.62 x 31.50 ) in
-		'FR_DOUBLE_CARRE'        => array( 1***REMOVED***.402,  2551.181), // = (  560 x 900  ) mm  = ( 22.05 x 35.43 ) in
-		'FR_DOUBLE_COQUILLE'     => array( 1***REMOVED***.402,  2494.488), // = (  560 x 880  ) mm  = ( 22.05 x 34.65 ) in
-		'FR_JESUS'               => array( 1***REMOVED***.402,  2154.331), // = (  560 x 760  ) mm  = ( 22.05 x 29.92 ) in
+		'FR_DOUBLE_CARRE'        => array( 1587.402,  2551.181), // = (  560 x 900  ) mm  = ( 22.05 x 35.43 ) in
+		'FR_DOUBLE_COQUILLE'     => array( 1587.402,  2494.488), // = (  560 x 880  ) mm  = ( 22.05 x 34.65 ) in
+		'FR_JESUS'               => array( 1587.402,  2154.331), // = (  560 x 760  ) mm  = ( 22.05 x 29.92 ) in
 		'FR_RAISIN'              => array( 1417.323,  1842.520), // = (  500 x 650  ) mm  = ( 19.69 x 25.59 ) in
 		'FR_CAVALIER'            => array( 1303.937,  1757.480), // = (  460 x 620  ) mm  = ( 18.11 x 24.41 ) in
 		'FR_DOUBLE_COURONNE'     => array( 1303.937,  2040.945), // = (  460 x 720  ) mm  = ( 18.11 x 28.35 ) in
-		'FR_CARRE'               => array( 1275.591,  1***REMOVED***.402), // = (  450 x 560  ) mm  = ( 17.72 x 22.05 ) in
-		'FR_COQUILLE'            => array( 1247.244,  1***REMOVED***.402), // = (  440 x 560  ) mm  = ( 17.32 x 22.05 ) in
+		'FR_CARRE'               => array( 1275.591,  1587.402), // = (  450 x 560  ) mm  = ( 17.72 x 22.05 ) in
+		'FR_COQUILLE'            => array( 1247.244,  1587.402), // = (  440 x 560  ) mm  = ( 17.32 x 22.05 ) in
 		'FR_DOUBLE_TELLIERE'     => array( 1247.244,  1927.559), // = (  440 x 680  ) mm  = ( 17.32 x 26.77 ) in
 		'FR_DOUBLE_CLOCHE'       => array( 1133.858,  1700.787), // = (  400 x 600  ) mm  = ( 15.75 x 23.62 ) in
 		'FR_DOUBLE_POT'          => array( 1133.858,  1757.480), // = (  400 x 620  ) mm  = ( 15.75 x 24.41 ) in
