@@ -2,6 +2,8 @@
 
 Equipment Management System Built with PHP.
 
+**Reinstall all libraries in /Vendor as some files are altered accidentally when removing credentials**
+
 ## Features:
 ### Signup/Login/Authentication
 - Secure authentication - using prepared statement, password_verify/hash, real_escape_string

@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Port = ;                          // TCP port to connect to
         // TCP port to connect to
 
-        $mail->setFrom('***REMOVED***', 'Notification System');
+        $mail->setFrom('noreply@remocademy.com', 'Notification System');
         $mail->addAddress("$email");   // Add a recipient
 
         $mail->isHTML(true);  // Set email format to HTML

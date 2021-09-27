@@ -40,14 +40,14 @@ if (isset($_GET['hash'])){
 
             $mail = new PHPMailer;
             $mail->isSMTP();
-            $mail->Host = '***REMOVED***';
+            $mail->Host = 'smtp-relay.sendinblue.com';
             $mail->SMTPAuth = true;// Enable SMTP authentication
-            $mail->Username = '***REMOVED***'; // SMTP username
+            $mail->Username = 'noreply@remocademy.com'; // SMTP username
             $mail->Password = 'password'; // SMTP password
             $mail->SMTPSecure = 'tls';  // Enable TLS encryption, `ssl` also accepted
             $mail->Port = 587; //TCP Port
 
-            $mail->setFrom('***REMOVED***', 'Notification System');
+            $mail->setFrom('noreply@remocademy.com', 'Notification System');
             $mail->addAddress($email);   //Recipient
 
             $mail->isHTML(true);  //Set email format to HTML

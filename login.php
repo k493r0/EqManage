@@ -144,15 +144,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         $mail = new PHPMailer;
                         $mail->isSMTP();                            // Set mailer to use SMTP
-                        $mail->Host = '***REMOVED***';             // Specify main and backup SMTP servers
+                        $mail->Host = 'smtp-relay.sendinblue.com';             // Specify main and backup SMTP servers
                         $mail->SMTPAuth = true;                     // Enable SMTP authentication
-                        $mail->Username = '***REMOVED***';          // SMTP username
-                        $mail->Password = '***REMOVED***'; // SMTP password
+                        $mail->Username = 'noreply@remocademy.com';          // SMTP username
+                        $mail->Password = 't4XRdhqg1EC5j0Dm'; // SMTP password
                         $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
                         $mail->Port = 587;                          // TCP port to connect to
                         // TCP port to connect to
 
-                        $mail->setFrom('***REMOVED***', 'Notification System');
+                        $mail->setFrom('noreply@remocademy.com', 'Notification System');
                         $mail->addAddress($email);   // Add a recipient
 
                         $mail->isHTML(true);  // Set email format to HTML
