@@ -31,3 +31,9 @@ Equipment Management System Built with PHP.
 - Displaying checkout/return modal for every admin page - using PHP include, SESSION
 ### Search
 - Update/display without refreshing entire page - using PHP load, GET, switch case conditions, .trigger
+
+## Gallary:
+
+
+![](demoImage/1.png)
+![](demoImage/2.png)![](demoImage/3.png)![](demoImage/4.png)![](demoImage/5.png)![](demoImage/6.png)![](demoImage/7.png)![](demoImage/8.png)![](demoImage/9.png)![](demoImage/10.png)![](demoImage/11.png)![](demoImage/12.png)![](demoImage/db.png)
