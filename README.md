@@ -1,13 +1,15 @@
 # EqManage
 
-Equipment Management System Built with PHP.
+Equipment Management System Built with PHP
+
+**Never use this in production it's very insecure**
 
 **Reinstall all libraries in /Vendor as some files are altered accidentally when removing credentials**
 
-## Features:
+## Features (PHP/SQL Techniques):
 ### Signup/Login/Authentication
-- Secure authentication - using prepared statement, password_verify/hash, real_escape_string
-- User session and redirection - using PHP SESSION, header
+- ~~Secure~~ authentication - using prepared statement, password_verify/hash, real_escape_string
+- User session and redirection - using PHP SESSION, header (Not secure at all)
 ### Cart & Checkout Request
 - Live update cart - using Ajax, jQuery .html, calling function onchange/click + .value 
 - Storing data - using nested IF statement, POST, SESSION, loops, 2d/3d array, array_push, PHP unset
